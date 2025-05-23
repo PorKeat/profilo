@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ReadmeCraft - GitHub Profile README Builder",
+  title: "Profilo - GitHub Profile README Builder",
   description: "Craft beautiful GitHub profile READMEs without login, backend, or paid APIs.",
 };
 

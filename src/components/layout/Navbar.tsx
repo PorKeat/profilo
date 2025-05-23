@@ -30,11 +30,17 @@ export function Navbar() {
       <div className="container flex h-14 items-center px-4 md:px-8 max-w-7xl mx-auto">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <div className="bg-primary text-primary-foreground p-1 rounded-md">
+            <img src="/logo.png" alt="Profilo Logo" className="w-8 h-8 rounded-md" onError={(e) => {
+              // Fallback to the icon if image not found
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              e.currentTarget.nextElementSibling?.classList.add('flex');
+            }} />
+            <div className="bg-primary text-primary-foreground p-1 rounded-md hidden">
               <FileText className="h-5 w-5" />
             </div>
             <span className="hidden font-bold sm:inline-block">
-              ReadmeCraft
+              Profilo
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">

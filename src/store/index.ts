@@ -10,7 +10,7 @@ export const store = configureStore({
 if (typeof window !== 'undefined') {
   store.subscribe(() => {
     const state = store.getState();
-    localStorage.setItem('readmecraft-state', JSON.stringify(state.builder));
+    localStorage.setItem('profilo-state', JSON.stringify(state.builder));
   });
 }
 

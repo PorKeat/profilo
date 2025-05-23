@@ -16,17 +16,20 @@ export default function ContactPage() {
 
       <div className="grid gap-6">
         <Card className="bg-muted/20 border-muted-foreground/20">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Github className="w-5 h-5 text-primary" />
-              Open Source Community
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground mb-6">
-              ReadmeCraft is built in the open. The best way to report bugs, request features, 
-              or contribute code is through our GitHub repository.
-            </p>
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-primary/10 p-3 rounded-full">
+                  <Github className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">GitHub Issues</h3>
+                  <p className="text-sm text-muted-foreground">For bugs and feature requests</p>
+                </div>
+              </div>
+              <p className="text-muted-foreground mb-4">
+              Profilo is built in the open. The best way to report bugs, request features, 
+                or contribute is through our GitHub repository.
+              </p>
             <Link href="https://github.com" target="_blank">
               <Button variant="outline">
                 <Github className="w-4 h-4 mr-2" />
@@ -47,10 +50,10 @@ export default function ContactPage() {
             <p className="text-muted-foreground mb-6">
               For any other inquiries, you can reach out via email.
             </p>
-            <a href="mailto:hello@readmecraft.example">
+            <a href="mailto:hello@profilo.example">
               <Button>
                 <MessageSquare className="w-4 h-4 mr-2" />
-                hello@readmecraft.example
+                hello@profilo.example
               </Button>
             </a>
           </CardContent>

@@ -8,7 +8,7 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto py-20 px-4">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-extrabold tracking-tight mb-4">About ReadmeCraft</h1>
+        <h1 className="text-4xl font-extrabold tracking-tight mb-4">About Profilo</h1>
         <p className="text-xl text-muted-foreground">
           Built for the open-source community to make great profiles accessible to everyone.
         </p>
@@ -16,7 +16,7 @@ export default function AboutPage() {
 
       <div className="space-y-12">
         <section className="prose prose-slate dark:prose-invert max-w-none">
-          <h2>Why ReadmeCraft?</h2>
+          <h2>Why Profilo?</h2>
           <p>
             Your GitHub profile README is your developer portfolio. It's often the first thing 
             recruiters, collaborators, and open-source maintainers see. However, crafting a 
@@ -24,7 +24,7 @@ export default function AboutPage() {
             can be tedious.
           </p>
           <p>
-            ReadmeCraft was built to solve this. It's a completely free, browser-based tool 
+            Profilo was built to solve this. It's a completely free, browser-based tool 
             that lets you visually build your README.
           </p>
         </section>

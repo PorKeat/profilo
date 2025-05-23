@@ -10,7 +10,7 @@ interface BuilderState {
 
 const getInitialState = (): BuilderState => {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('readmecraft-state');
+    const saved = localStorage.getItem('profilo-state');
     if (saved) {
       try {
         return JSON.parse(saved);

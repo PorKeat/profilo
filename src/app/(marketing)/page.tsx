@@ -47,7 +47,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Everything you need</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              ReadmeCraft provides all the tools to craft the perfect GitHub profile, entirely in your browser.
+              Profilo provides all the tools to craft the perfect GitHub profile, entirely in your browser.
             </p>
           </div>
           
