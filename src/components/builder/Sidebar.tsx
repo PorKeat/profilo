@@ -41,7 +41,6 @@ export function Sidebar() {
   ];
 
   const themes: { id: ThemeId, label: string }[] = [
-    { id: 'minimal-dark', label: 'Minimal Dark' },
     { id: 'clean-light', label: 'Clean Light' },
     { id: 'devops-blue', label: 'DevOps Blue' },
     { id: 'cyberpunk', label: 'Cyberpunk' },

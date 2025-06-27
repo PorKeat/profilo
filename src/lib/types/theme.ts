@@ -1,7 +1,6 @@
 import { Block } from './blocks';
 
 export type ThemeId = 
-  | 'minimal-dark' 
   | 'clean-light' 
   | 'devops-blue' 
   | 'cyberpunk' 

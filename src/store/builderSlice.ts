@@ -21,7 +21,7 @@ const getInitialState = (): BuilderState => {
   }
   return {
     blocks: [],
-    themeId: 'minimal-dark',
+    themeId: 'github-classic',
     templateId: null,
   };
 };
@@ -66,7 +66,7 @@ export const builderSlice = createSlice({
     },
     resetBuilder: (state) => {
       state.blocks = [];
-      state.themeId = 'minimal-dark';
+      state.themeId = 'github-classic';
       state.templateId = null;
     }
   },
