@@ -104,7 +104,7 @@ function createDefaultBlock(type: BlockType): any {
     case 'skills':
       return { id, type, data: { skills: ['React', 'TypeScript', 'Node.js'], style: 'flat' } };
     case 'github-stats':
-      return { id, type, data: { username: 'yourusername', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: false, show3dContrib: false, theme: 'radical' } };
+      return { id, type, data: { username: 'yourusername', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, theme: 'radical' } };
     case 'projects':
       return { id, type, data: { projects: [{ id: uuidv4(), name: 'Project 1', description: 'A cool project', githubUrl: '', demoUrl: '', techStack: ['React'] }] } };
     case 'socials':

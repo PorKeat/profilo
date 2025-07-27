@@ -121,6 +121,21 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
       md += `  <img src="https://raw.githubusercontent.com/${username}/${username}/main/profile-3d-contrib/profile-night-rainbow.svg" alt="3D Contribution Graph" />\n`;
     }
   }
+  if (block.data.showPacman) {
+    md += `  <br />\n`;
+    md += `  <!-- Note: The Pacman animation requires setting up the abozanona/pacman-contribution-graph Action. -->\n`;
+    if (isPreview) {
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake-dark.svg" />\n`;
+      md += `    <img src="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake.svg" alt="Pacman Animation Preview" />\n`;
+      md += `  </picture>\n`;
+    } else {
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/${username}/${username}/output/pacman-contribution-graph-dark.svg" />\n`;
+      md += `    <img src="https://raw.githubusercontent.com/${username}/${username}/output/pacman-contribution-graph.svg" alt="Pacman Animation" />\n`;
+      md += `  </picture>\n`;
+    }
+  }
   
   md += `</div>\n\n`;
   return md;

@@ -43,6 +43,7 @@ export interface GitHubStatsBlock extends BaseBlock {
     showStreak: boolean;
     showActivityGraph: boolean;
     showSnake: boolean;
+    showPacman: boolean;
     show3dContrib: boolean;
     theme: string;
   };

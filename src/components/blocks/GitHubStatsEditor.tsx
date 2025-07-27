@@ -6,6 +6,7 @@ import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function GitHubStatsEditor({ block }: { block: GitHubStatsBlock }) {
   const dispatch = useAppDispatch();
@@ -85,6 +86,39 @@ export function GitHubStatsEditor({ block }: { block: GitHubStatsBlock }) {
             checked={data.show3dContrib} 
             onCheckedChange={(checked) => handleChange('show3dContrib', checked)} 
           />
+        </div>
+
+        <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
+          <div className="flex-1">
+            <Label htmlFor="showPacman" className="cursor-pointer">Show Pacman Animation</Label>
+            <p className="text-[10px] text-muted-foreground leading-tight mt-1">Requires GitHub Action (abozanona/pacman)</p>
+          </div>
+          <Switch 
+            id="showPacman" 
+            checked={data.showPacman} 
+            onCheckedChange={(checked) => handleChange('showPacman', checked)} 
+          />
+        </div>
+
+        <div className="space-y-2 pt-2 border-t">
+          <Label>Widget Theme</Label>
+          <Select value={data.theme} onValueChange={(val) => handleChange('theme', val)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="radical">Radical</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="merko">Merko</SelectItem>
+              <SelectItem value="gruvbox">Gruvbox</SelectItem>
+              <SelectItem value="tokyonight">Tokyo Night</SelectItem>
+              <SelectItem value="onedark">One Dark</SelectItem>
+              <SelectItem value="cobalt">Cobalt</SelectItem>
+              <SelectItem value="synthwave">Synthwave</SelectItem>
+              <SelectItem value="highcontrast">High Contrast</SelectItem>
+              <SelectItem value="dracula">Dracula</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
