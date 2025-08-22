@@ -8,6 +8,8 @@ import { GitHubStatsEditor } from '../blocks/GitHubStatsEditor';
 import { ProjectsEditor } from '../blocks/ProjectsEditor';
 import { SocialsEditor } from '../blocks/SocialsEditor';
 import { ContactEditor } from '../blocks/ContactEditor';
+import { BannerEditor } from '../blocks/BannerEditor';
+import { TypingEditor } from '../blocks/TypingEditor';
 
 interface BlockEditorProps {
   block: Block;
@@ -29,6 +31,10 @@ export function BlockEditor({ block }: BlockEditorProps) {
       return <SocialsEditor block={block as any} />;
     case 'contact':
       return <ContactEditor block={block as any} />;
+    case 'banner':
+      return <BannerEditor block={block as any} />;
+    case 'typing':
+      return <TypingEditor block={block as any} />;
     default:
       return <div>Unknown block type</div>;
   }

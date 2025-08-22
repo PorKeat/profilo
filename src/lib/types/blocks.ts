@@ -1,4 +1,4 @@
-export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact';
+export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing';
 
 export interface BaseBlock {
   id: string;
@@ -13,6 +13,30 @@ export interface HeroBlock extends BaseBlock {
     shortIntro: string;
     avatarUrl?: string;
     bannerStyle: 'solid' | 'gradient' | 'image' | 'none';
+  };
+}
+
+export interface BannerBlock extends BaseBlock {
+  type: 'banner';
+  data: {
+    bannerType: 'waving' | 'rect' | 'soft' | 'cylinder' | 'transparent';
+    height: number;
+    text: string;
+    desc: string;
+    color: string;
+    fontColor: string;
+    section: 'header' | 'footer';
+  };
+}
+
+export interface TypingBlock extends BaseBlock {
+  type: 'typing';
+  data: {
+    lines: string[];
+    color: string;
+    size: number;
+    center: boolean;
+    vCenter: boolean;
   };
 }
 
@@ -45,7 +69,16 @@ export interface GitHubStatsBlock extends BaseBlock {
     showSnake: boolean;
     showPacman: boolean;
     show3dContrib: boolean;
+    showProfileViews: boolean;
+    useCustomColors: boolean;
     theme: string;
+    customColors: {
+      bg: string;
+      title: string;
+      text: string;
+      icon: string;
+      border: string;
+    };
   };
 }
 
@@ -61,6 +94,16 @@ export interface Project {
 export interface FeaturedProjectsBlock extends BaseBlock {
   type: 'projects';
   data: {
+    style: 'text' | 'cards';
+    useCustomColors: boolean;
+    theme: string;
+    customColors: {
+      bg: string;
+      title: string;
+      text: string;
+      icon: string;
+      border: string;
+    };
     projects: Project[];
   };
 }
@@ -86,6 +129,8 @@ export interface ContactBlock extends BaseBlock {
 
 export type Block =
   | HeroBlock
+  | BannerBlock
+  | TypingBlock
   | AboutBlock
   | TechnicalSkillsBlock
   | GitHubStatsBlock

@@ -1,4 +1,4 @@
-import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock } from '../types/blocks';
+import { Block, HeroBlock, BannerBlock, TypingBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock } from '../types/blocks';
 import { ThemeId } from '../types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 
@@ -9,6 +9,12 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
     switch (block.type) {
       case 'hero':
         markdown += generateHero(block);
+        break;
+      case 'banner':
+        markdown += generateBanner(block);
+        break;
+      case 'typing':
+        markdown += generateTyping(block);
         break;
       case 'about':
         markdown += generateAbout(block);
@@ -52,6 +58,27 @@ function generateHero(block: HeroBlock): string {
   return md;
 }
 
+function generateBanner(block: BannerBlock): string {
+  const { bannerType, height, text, desc, color, fontColor, section } = block.data;
+  const safeText = encodeURIComponent(text);
+  const safeDesc = encodeURIComponent(desc);
+  let md = `<div align="center">\n`;
+  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${color}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${fontColor}&fontSize=80&descSize=22" alt="Banner" />\n`;
+  md += `</div>\n`;
+  return md;
+}
+
+function generateTyping(block: TypingBlock): string {
+  const { lines, color, size, center, vCenter } = block.data;
+  const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
+  let md = `<div align="center">\n`;
+  md += `  <a href="https://git.io/typing-svg">\n`;
+  md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${color}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
+  md += `  </a>\n`;
+  md += `</div>\n`;
+  return md;
+}
+
 function generateAbout(block: AboutBlock): string {
   const { paragraph, currentlyLearning, currentlyWorkingOn, askMeAbout } = block.data;
   let md = `## About Me\n\n`;
@@ -83,21 +110,39 @@ function generateSkills(block: TechnicalSkillsBlock): string {
 }
 
 function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): string {
-  const { username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, theme } = block.data;
+  const { username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, showProfileViews, useCustomColors, customColors, theme } = block.data;
   let md = `## GitHub Statistics\n\n`;
   md += `<div align="center">\n`;
   
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
   const previewUsername = isPreview ? targetUsername : username;
   
+  let colorParams = '';
+  if (useCustomColors && customColors) {
+    colorParams = `&bg_color=${customColors.bg}&title_color=${customColors.title}&text_color=${customColors.text}&icon_color=${customColors.icon}&border_color=${customColors.border}`;
+  } else {
+    colorParams = `&theme=${theme}`;
+  }
+  
+  if (showProfileViews) {
+    const vcColor = useCustomColors && customColors ? customColors.title : 'ff003c';
+    md += `  <img src="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColor}&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />\n  <br /><br />\n`;
+  }
+  
   if (showStats) {
-    md += `  <img src="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true&theme=${theme}" alt="${username}'s GitHub stats" />\n`;
+    md += `  <img src="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true${colorParams}" alt="${username}'s GitHub stats" />\n`;
   }
   if (showTopLanguages) {
-    md += `  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact&theme=${theme}" alt="Top Languages" />\n`;
+    md += `  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact${colorParams}" alt="Top Languages" />\n`;
   }
   if (showStreak) {
-    md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}&theme=${theme}" alt="GitHub Streak" />\n`;
+    let streakParams = '';
+    if (useCustomColors && customColors) {
+      streakParams = `&background=${customColors.bg}&border=${customColors.border}&ring=${customColors.icon}&fire=${customColors.icon}&currStreakNum=${customColors.text}&sideNums=${customColors.text}&currStreakLabel=${customColors.title}&sideLabels=${customColors.title}&dates=${customColors.text}`;
+    } else {
+      streakParams = `&theme=${theme}`;
+    }
+    md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${streakParams}" alt="GitHub Streak" />\n`;
   }
   if (showActivityGraph) {
     md += `  <br />\n`;
@@ -142,24 +187,50 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
 }
 
 function generateProjects(block: FeaturedProjectsBlock): string {
-  const { projects } = block.data;
+  const { projects, style, useCustomColors, theme, customColors } = block.data;
   if (!projects || projects.length === 0) return '';
   
   let md = `## Featured Projects\n\n`;
-  projects.forEach(project => {
-    md += `### ${project.name}\n`;
-    md += `${project.description}\n\n`;
-    if (project.techStack && project.techStack.length > 0) {
-      md += `**Tech Stack:** ${project.techStack.join(', ')}\n\n`;
+  
+  if (style === 'cards') {
+    md += `<div align="center">\n`;
+    let colorParams = '';
+    if (useCustomColors && customColors) {
+      colorParams = `&bg_color=${customColors.bg}&title_color=${customColors.title}&text_color=${customColors.text}&icon_color=${customColors.icon}&border_color=${customColors.border}`;
+    } else {
+      colorParams = `&theme=${theme}`;
     }
-    if (project.githubUrl) {
-      md += `[GitHub Repository](${project.githubUrl}) `;
-    }
-    if (project.demoUrl) {
-      md += `| [Live Demo](${project.demoUrl})`;
-    }
-    md += `\n\n`;
-  });
+    
+    projects.forEach(project => {
+      if (project.githubUrl) {
+        // extract username and repo from github URL
+        const parts = project.githubUrl.replace(/\/$/, '').split('/');
+        const repo = parts.pop();
+        const user = parts.pop();
+        if (user && repo) {
+          md += `  <a href="${project.githubUrl}">\n`;
+          md += `    <img src="https://github-readme-stats.vercel.app/api/pin/?username=${user}&repo=${repo}${colorParams}" width="400" />\n`;
+          md += `  </a>\n`;
+        }
+      }
+    });
+    md += `</div>\n\n`;
+  } else {
+    projects.forEach(project => {
+      md += `### ${project.name}\n`;
+      md += `${project.description}\n\n`;
+      if (project.techStack && project.techStack.length > 0) {
+        md += `**Tech Stack:** ${project.techStack.join(', ')}\n\n`;
+      }
+      if (project.githubUrl) {
+        md += `[GitHub Repository](${project.githubUrl}) `;
+      }
+      if (project.demoUrl) {
+        md += `| [Live Demo](${project.demoUrl})`;
+      }
+      md += `\n\n`;
+    });
+  }
   return md;
 }
 

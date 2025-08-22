@@ -6,7 +6,7 @@ import { BlockType } from '@/lib/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, GripVertical, Trash2, Settings, ChevronDown, ChevronUp, Palette } from 'lucide-react';
+import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, GripVertical, Trash2, Settings, ChevronDown, ChevronUp, Palette, Image, Type } from 'lucide-react';
 import { Github } from "@/components/icons/Github";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ThemeId } from '@/lib/types/theme';
@@ -32,6 +32,8 @@ export function Sidebar() {
 
   const blockTypes = [
     { type: 'hero', label: 'Hero', icon: User },
+    { type: 'banner', label: 'Waving Banner', icon: Image },
+    { type: 'typing', label: 'Typing Animation', icon: Type },
     { type: 'about', label: 'About Me', icon: Info },
     { type: 'skills', label: 'Technical Skills', icon: Code2 },
     { type: 'github-stats', label: 'GitHub Statistics', icon: Github },
@@ -99,14 +101,18 @@ function createDefaultBlock(type: BlockType): any {
   switch (type) {
     case 'hero':
       return { id, type, data: { name: 'Your Name', title: 'Full Stack Developer', shortIntro: 'I build things for the web.', bannerStyle: 'none' } };
+    case 'banner':
+      return { id, type, data: { bannerType: 'waving', height: 250, text: 'Hello World', desc: 'Welcome to my profile', color: '0:4a0000,50:b30000,100:ff003c', fontColor: 'ffffff', section: 'header' } };
+    case 'typing':
+      return { id, type, data: { lines: ['Automating the Future', 'Building Scalable Infrastructure', 'Turning Coffee into Code'], color: 'ff003c', size: 24, center: true, vCenter: true } };
     case 'about':
       return { id, type, data: { paragraph: 'I am a passionate developer.', currentlyLearning: 'Next.js', currentlyWorkingOn: 'A cool open source project', askMeAbout: 'React and TypeScript' } };
     case 'skills':
       return { id, type, data: { skills: ['React', 'TypeScript', 'Node.js'], style: 'flat' } };
     case 'github-stats':
-      return { id, type, data: { username: 'yourusername', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, theme: 'radical' } };
+      return { id, type, data: { username: 'yourusername', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, showProfileViews: false, useCustomColors: false, theme: 'radical', customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' } } };
     case 'projects':
-      return { id, type, data: { projects: [{ id: uuidv4(), name: 'Project 1', description: 'A cool project', githubUrl: '', demoUrl: '', techStack: ['React'] }] } };
+      return { id, type, data: { style: 'text', useCustomColors: false, theme: 'radical', customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' }, projects: [{ id: uuidv4(), name: 'Project 1', description: 'A cool project', githubUrl: '', demoUrl: '', techStack: ['React'] }] } };
     case 'socials':
       return { id, type, data: { github: '', linkedin: '', twitter: '', portfolio: '', email: '' } };
     case 'contact':
