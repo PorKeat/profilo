@@ -30,7 +30,7 @@ export function Navbar() {
       <div className="container flex h-14 items-center px-4 md:px-8 max-w-7xl mx-auto">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <img src="/logo.png" alt="Profilo Logo" className="w-8 h-8 rounded-md" onError={(e) => {
+            <img src="/logo.png" alt="Profilo Logo" className="w-8 h-8 rounded-md object-contain" onError={(e) => {
               // Fallback to the icon if image not found
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextElementSibling?.classList.remove('hidden');
