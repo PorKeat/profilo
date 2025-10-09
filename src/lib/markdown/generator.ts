@@ -1,4 +1,4 @@
-import { Block, HeroBlock, BannerBlock, TypingBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock } from '../types/blocks';
+import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock } from '../types/blocks';
 import { ThemeId } from '../types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 
@@ -24,6 +24,15 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         break;
       case 'github-stats':
         markdown += generateGitHubStats(block, isPreview);
+        break;
+      case 'activity-graph':
+        markdown += generateActivityGraph(block, isPreview);
+        break;
+      case 'snake':
+        markdown += generateSnake(block, isPreview);
+        break;
+      case 'pacman':
+        markdown += generatePacman(block, isPreview);
         break;
       case 'projects':
         markdown += generateProjects(block);
@@ -144,6 +153,7 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
     }
     md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${streakParams}" alt="GitHub Streak" />\n`;
   }
+  
   if (showActivityGraph) {
     md += `  <br />\n`;
     md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}&bg_color=1F222E&color=F8D866&line=F8D866&point=FFFFFF&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
@@ -183,6 +193,61 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
   }
   
   md += `</div>\n\n`;
+  return md;
+}
+
+function generateActivityGraph(block: ActivityGraphBlock, isPreview: boolean): string {
+  const { username, theme, useCustomColors, customColors } = block.data;
+  let md = `<div align="center">\n`;
+  
+  const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
+  const previewUsername = isPreview ? targetUsername : username;
+  
+  let colorParams = '';
+  if (useCustomColors && customColors) {
+    colorParams = `&bg_color=${customColors.bg}&color=${customColors.color}&line=${customColors.line}&point=${customColors.point}`;
+  } else {
+    colorParams = `&theme=${theme}`;
+  }
+  
+  md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${colorParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+  md += `</div>\n`;
+  return md;
+}
+
+function generateSnake(block: SnakeBlock, isPreview: boolean): string {
+  const { username } = block.data;
+  let md = `<div align="center">\n`;
+  const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
+  
+  md += `  <!-- Note: The snake animation requires setting up the Platane/snk GitHub Action. -->\n`;
+  if (isPreview || targetUsername === 'torvalds') {
+    md += `  <img src="https://raw.githubusercontent.com/Platane/Platane/output/github-contribution-grid-snake.svg" alt="GitHub Snake Animation Preview" />\n`;
+  } else {
+    md += `  <img src="https://raw.githubusercontent.com/${targetUsername}/${targetUsername}/output/github-contribution-grid-snake.svg" alt="GitHub Snake Animation" />\n`;
+  }
+  md += `</div>\n`;
+  return md;
+}
+
+function generatePacman(block: PacmanBlock, isPreview: boolean): string {
+  const { username } = block.data;
+  let md = `<div align="center">\n`;
+  const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
+  
+  md += `  <!-- Note: The Pacman animation requires setting up the abozanona/pacman-contribution-graph Action. -->\n`;
+  if (isPreview || targetUsername === 'torvalds') {
+    md += `  <picture>\n`;
+    md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake-dark.svg" />\n`;
+    md += `    <img src="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake.svg" alt="Pacman Animation Preview" />\n`;
+    md += `  </picture>\n`;
+  } else {
+    md += `  <picture>\n`;
+    md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/${targetUsername}/${targetUsername}/output/pacman-contribution-graph-dark.svg" />\n`;
+    md += `    <img src="https://raw.githubusercontent.com/${targetUsername}/${targetUsername}/output/pacman-contribution-graph.svg" alt="Pacman Animation" />\n`;
+    md += `  </picture>\n`;
+  }
+  md += `</div>\n`;
   return md;
 }
 

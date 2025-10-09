@@ -56,56 +56,11 @@ export function GitHubStatsEditor({ block }: { block: GitHubStatsBlock }) {
         </div>
 
         <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
-          <Label htmlFor="showActivityGraph" className="flex-1 cursor-pointer">Show Activity Graph</Label>
-          <Switch 
-            id="showActivityGraph" 
-            checked={data.showActivityGraph} 
-            onCheckedChange={(checked) => handleChange('showActivityGraph', checked)} 
-          />
-        </div>
-
-        <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
           <Label htmlFor="showProfileViews" className="flex-1 cursor-pointer">Show Profile Views</Label>
           <Switch 
             id="showProfileViews" 
             checked={data.showProfileViews} 
             onCheckedChange={(checked) => handleChange('showProfileViews', checked)} 
-          />
-        </div>
-
-        <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
-          <div className="flex-1">
-            <Label htmlFor="showSnake" className="cursor-pointer">Show Snake Animation</Label>
-            <p className="text-[10px] text-muted-foreground leading-tight mt-1">Requires GitHub Action (Platane/snk)</p>
-          </div>
-          <Switch 
-            id="showSnake" 
-            checked={data.showSnake} 
-            onCheckedChange={(checked) => handleChange('showSnake', checked)} 
-          />
-        </div>
-
-        <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
-          <div className="flex-1">
-            <Label htmlFor="show3dContrib" className="cursor-pointer">Show 3D Contribution Graph</Label>
-            <p className="text-[10px] text-muted-foreground leading-tight mt-1">Requires GitHub Action (yoshi389111)</p>
-          </div>
-          <Switch 
-            id="show3dContrib" 
-            checked={data.show3dContrib} 
-            onCheckedChange={(checked) => handleChange('show3dContrib', checked)} 
-          />
-        </div>
-
-        <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
-          <div className="flex-1">
-            <Label htmlFor="showPacman" className="cursor-pointer">Show Pacman Animation</Label>
-            <p className="text-[10px] text-muted-foreground leading-tight mt-1">Requires GitHub Action (abozanona/pacman)</p>
-          </div>
-          <Switch 
-            id="showPacman" 
-            checked={data.showPacman} 
-            onCheckedChange={(checked) => handleChange('showPacman', checked)} 
           />
         </div>
 

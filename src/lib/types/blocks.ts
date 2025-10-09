@@ -1,4 +1,4 @@
-export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing';
+export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman';
 
 export interface BaseBlock {
   id: string;
@@ -37,6 +37,35 @@ export interface TypingBlock extends BaseBlock {
     size: number;
     center: boolean;
     vCenter: boolean;
+  };
+}
+
+export interface ActivityGraphBlock extends BaseBlock {
+  type: 'activity-graph';
+  data: {
+    username: string;
+    theme: string;
+    useCustomColors: boolean;
+    customColors: {
+      bg: string;
+      color: string;
+      line: string;
+      point: string;
+    };
+  };
+}
+
+export interface SnakeBlock extends BaseBlock {
+  type: 'snake';
+  data: {
+    username: string;
+  };
+}
+
+export interface PacmanBlock extends BaseBlock {
+  type: 'pacman';
+  data: {
+    username: string;
   };
 }
 
@@ -131,6 +160,9 @@ export type Block =
   | HeroBlock
   | BannerBlock
   | TypingBlock
+  | ActivityGraphBlock
+  | SnakeBlock
+  | PacmanBlock
   | AboutBlock
   | TechnicalSkillsBlock
   | GitHubStatsBlock

@@ -6,7 +6,7 @@ import { BlockType } from '@/lib/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, GripVertical, Trash2, Settings, ChevronDown, ChevronUp, Palette, Image, Type } from 'lucide-react';
+import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, GripVertical, Trash2, Settings, ChevronDown, ChevronUp, Palette, Image, Type, Activity, PlaySquare, Gamepad2 } from 'lucide-react';
 import { Github } from "@/components/icons/Github";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ThemeId } from '@/lib/types/theme';
@@ -37,6 +37,9 @@ export function Sidebar() {
     { type: 'about', label: 'About Me', icon: Info },
     { type: 'skills', label: 'Technical Skills', icon: Code2 },
     { type: 'github-stats', label: 'GitHub Statistics', icon: Github },
+    { type: 'activity-graph', label: 'Activity Graph', icon: Activity },
+    { type: 'snake', label: 'Snake Animation', icon: PlaySquare },
+    { type: 'pacman', label: 'Pacman Animation', icon: Gamepad2 },
     { type: 'projects', label: 'Featured Projects', icon: FolderGit2 },
     { type: 'socials', label: 'Social Links', icon: Share2 },
     { type: 'contact', label: 'Contact', icon: Mail },
@@ -111,6 +114,12 @@ function createDefaultBlock(type: BlockType): any {
       return { id, type, data: { skills: ['React', 'TypeScript', 'Node.js'], style: 'flat' } };
     case 'github-stats':
       return { id, type, data: { username: 'yourusername', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, showProfileViews: false, useCustomColors: false, theme: 'radical', customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' } } };
+    case 'activity-graph':
+      return { id, type, data: { username: 'yourusername', theme: 'radical', useCustomColors: false, customColors: { bg: '000000', color: 'ff003c', line: 'ff003c', point: 'ffffff' } } };
+    case 'snake':
+      return { id, type, data: { username: 'yourusername' } };
+    case 'pacman':
+      return { id, type, data: { username: 'yourusername' } };
     case 'projects':
       return { id, type, data: { style: 'text', useCustomColors: false, theme: 'radical', customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' }, projects: [{ id: uuidv4(), name: 'Project 1', description: 'A cool project', githubUrl: '', demoUrl: '', techStack: ['React'] }] } };
     case 'socials':

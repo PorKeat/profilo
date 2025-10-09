@@ -10,6 +10,9 @@ import { SocialsEditor } from '../blocks/SocialsEditor';
 import { ContactEditor } from '../blocks/ContactEditor';
 import { BannerEditor } from '../blocks/BannerEditor';
 import { TypingEditor } from '../blocks/TypingEditor';
+import { ActivityGraphEditor } from '../blocks/ActivityGraphEditor';
+import { SnakeEditor } from '../blocks/SnakeEditor';
+import { PacmanEditor } from '../blocks/PacmanEditor';
 
 interface BlockEditorProps {
   block: Block;
@@ -35,6 +38,12 @@ export function BlockEditor({ block }: BlockEditorProps) {
       return <BannerEditor block={block as any} />;
     case 'typing':
       return <TypingEditor block={block as any} />;
+    case 'activity-graph':
+      return <ActivityGraphEditor block={block as any} />;
+    case 'snake':
+      return <SnakeEditor block={block as any} />;
+    case 'pacman':
+      return <PacmanEditor block={block as any} />;
     default:
       return <div>Unknown block type</div>;
   }
