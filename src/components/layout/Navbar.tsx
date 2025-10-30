@@ -36,8 +36,8 @@ export function Navbar() {
               e.currentTarget.nextElementSibling?.classList.remove('hidden');
               e.currentTarget.nextElementSibling?.classList.add('flex');
             }} />
-            <div className="bg-primary text-primary-foreground p-1 rounded-md hidden">
-              <FileText className="h-5 w-5" />
+            <div className="hidden">
+              <FileText className="h-8 w-8 text-primary" />
             </div>
             <span className="hidden font-bold sm:inline-block">
               Profilo

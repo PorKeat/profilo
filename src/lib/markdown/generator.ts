@@ -201,7 +201,7 @@ function generateActivityGraph(block: ActivityGraphBlock, isPreview: boolean): s
   let md = `<div align="center">\n`;
   
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
-  const previewUsername = isPreview ? targetUsername : username;
+  const previewUsername = isPreview ? 'ashutosh00710' : targetUsername;
   
   let colorParams = '';
   if (useCustomColors && customColors) {
@@ -238,8 +238,7 @@ function generatePacman(block: PacmanBlock, isPreview: boolean): string {
   md += `  <!-- Note: The Pacman animation requires setting up the abozanona/pacman-contribution-graph Action. -->\n`;
   if (isPreview || targetUsername === 'torvalds') {
     md += `  <picture>\n`;
-    md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake-dark.svg" />\n`;
-    md += `    <img src="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake.svg" alt="Pacman Animation Preview" />\n`;
+    md += `    <img src="https://raw.githubusercontent.com/Platane/Platane/output/github-contribution-grid-snake.svg" alt="Pacman Animation Preview" />\n`;
     md += `  </picture>\n`;
   } else {
     md += `  <picture>\n`;
