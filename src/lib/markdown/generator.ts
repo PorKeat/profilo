@@ -238,7 +238,8 @@ function generatePacman(block: PacmanBlock, isPreview: boolean): string {
   md += `  <!-- Note: The Pacman animation requires setting up the abozanona/pacman-contribution-graph Action. -->\n`;
   if (isPreview || targetUsername === 'torvalds') {
     md += `  <picture>\n`;
-    md += `    <img src="https://raw.githubusercontent.com/Platane/Platane/output/github-contribution-grid-snake.svg" alt="Pacman Animation Preview" />\n`;
+    md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/abozanona/pacman-contribution-graph/main/assets/demo/pacman-dark.svg" />\n`;
+    md += `    <img src="https://raw.githubusercontent.com/abozanona/pacman-contribution-graph/main/assets/demo/pacman.svg" alt="Pacman Animation Preview" />\n`;
     md += `  </picture>\n`;
   } else {
     md += `  <picture>\n`;
