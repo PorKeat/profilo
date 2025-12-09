@@ -4,7 +4,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { addBlock } from '@/store/builderSlice';
 import { BlockType } from '@/lib/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, GripVertical, Trash2, Settings, ChevronDown, ChevronUp, Palette, Image, Type, Activity, PlaySquare, Gamepad2 } from 'lucide-react';
 import { Github } from "@/components/icons/Github";
@@ -12,6 +12,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ThemeId } from '@/lib/types/theme';
 import { setTheme } from '@/store/builderSlice';
 import { useAppSelector } from '@/store/hooks';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { generateMarkdown } from '@/lib/markdown/generator';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 export function Sidebar() {
   const dispatch = useAppDispatch();
@@ -82,16 +87,28 @@ export function Sidebar() {
         <p className="text-xs text-muted-foreground mb-3">Click to add a section to your README.</p>
         <div className="space-y-2">
           {blockTypes.map(({ type, label, icon: Icon }) => (
-            <Button
-              key={type}
-              variant="outline"
-              size="sm"
-              className="w-full justify-start text-left text-xs"
-              onClick={() => handleAddBlock(type as BlockType)}
-            >
-              <Icon className="w-3 h-3 mr-2" />
-              {label}
-            </Button>
+            <HoverCard key={type}>
+              <HoverCardTrigger 
+                className={buttonVariants({ variant: "outline", size: "sm" }) + " w-full justify-start text-left text-xs cursor-pointer"}
+                onClick={() => handleAddBlock(type as BlockType)}
+              >
+                <Icon className="w-3 h-3 mr-2" />
+                {label}
+              </HoverCardTrigger>
+              <HoverCardContent side="right" align="start" className="w-[450px] p-0 overflow-hidden bg-background z-50">
+                <div className="bg-muted/30 p-2 border-b text-xs font-medium text-muted-foreground flex items-center justify-between">
+                  <span>Preview: {label}</span>
+                  <span className="text-[10px] opacity-50">Click to add</span>
+                </div>
+                <div className="p-4 max-h-[350px] overflow-y-auto">
+                  <div className="prose prose-sm dark:prose-invert max-w-none transform scale-[0.8] origin-top w-[125%] mx-auto">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                      {generateMarkdown([createDefaultBlock(type as BlockType)], currentTheme, true)}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
           ))}
         </div>
       </div>
