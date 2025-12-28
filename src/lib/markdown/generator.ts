@@ -72,7 +72,7 @@ function generateBanner(block: BannerBlock): string {
   const safeText = encodeURIComponent(text);
   const safeDesc = encodeURIComponent(desc);
   let md = `<div align="center">\n`;
-  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${color}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${fontColor}&fontSize=80&descSize=22" alt="Banner" />\n`;
+  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${color}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${fontColor}&fontSize=80&descSize=22&fontAlignY=38&descAlignY=60" alt="Banner" />\n`;
   md += `</div>\n`;
   return md;
 }
