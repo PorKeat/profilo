@@ -100,8 +100,8 @@ export function Sidebar() {
                   <span>Preview: {label}</span>
                   <span className="text-[10px] opacity-50">Click to add</span>
                 </div>
-                <div className="p-4 max-h-[350px] overflow-y-auto">
-                  <div className="prose prose-sm dark:prose-invert max-w-none transform scale-[0.8] origin-top w-[125%] mx-auto">
+                <div className="py-4 max-h-[350px] overflow-y-auto overflow-x-hidden flex justify-center">
+                  <div className="prose prose-sm dark:prose-invert max-w-none transform scale-[0.75] origin-top w-[500px]">
                     <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                       {generateMarkdown([createDefaultBlock(type as BlockType)], currentTheme, true)}
                     </ReactMarkdown>
