@@ -29,7 +29,7 @@ export function Footer() {
             Templates
           </Link>
           <Link
-            href="https://github.com"
+            href="https://github.com/PorKeat/profilo"
             target="_blank"
             rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"

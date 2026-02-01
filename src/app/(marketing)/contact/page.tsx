@@ -30,7 +30,7 @@ export default function ContactPage() {
               Profilo is built in the open. The best way to report bugs, request features, 
                 or contribute is through our GitHub repository.
               </p>
-            <Link href="https://github.com" target="_blank">
+            <Link href="https://github.com/PorKeat/profilo" target="_blank">
               <Button variant="outline">
                 <Github className="w-4 h-4 mr-2" />
                 Visit GitHub Repository

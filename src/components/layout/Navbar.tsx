@@ -62,7 +62,7 @@ export function Navbar() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
           </div>
           <nav className="flex items-center space-x-2">
-            <Link href="https://github.com" target="_blank" rel="noreferrer">
+            <Link href="https://github.com/PorKeat/profilo" target="_blank" rel="noreferrer">
               <div className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 py-2 w-9 px-0">
                 <Github className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
