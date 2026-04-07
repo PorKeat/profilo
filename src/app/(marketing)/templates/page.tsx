@@ -1,18 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Monitor, Code, Terminal, Server } from "lucide-react";
 import { TEMPLATES } from "@/lib/templates";
-
-// Map icons to templates for a visual flair
-const getIconForTemplate = (id: string) => {
-  switch (id) {
-    case 'devops': return <Terminal className="w-16 h-16 text-primary/50 transition-transform group-hover:scale-110 duration-500" />;
-    case 'cyberpunk': return <Monitor className="w-16 h-16 text-green-500/50 transition-transform group-hover:scale-110 duration-500" />;
-    case 'opensource': return <Code className="w-16 h-16 text-purple-500/50 transition-transform group-hover:scale-110 duration-500" />;
-    default: return <Server className="w-16 h-16 text-blue-500/50 transition-transform group-hover:scale-110 duration-500" />;
-  }
-};
+import { generateMarkdown } from "@/lib/markdown/generator";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 export default function TemplatesPage() {
   return (
@@ -25,25 +18,35 @@ export default function TemplatesPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {TEMPLATES.map(template => (
-          <Card key={template.id} className="overflow-hidden group hover:shadow-2xl transition-all border-muted-foreground/20 bg-background/50 backdrop-blur-sm flex flex-col">
-            <div className="h-48 bg-muted/10 border-b flex items-center justify-center p-6 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {getIconForTemplate(template.id)}
-            </div>
-            <CardContent className="p-8 flex-1 flex flex-col">
-              <h3 className="font-extrabold text-2xl mb-3 tracking-tight">{template.name}</h3>
-              <p className="text-muted-foreground mb-8 flex-1 leading-relaxed">
-                {template.desc}
-              </p>
-              <Link href={`/builder?template=${template.id}`}>
-                <Button size="lg" className="w-full text-md font-semibold">
-                  Use this Template
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        ))}
+        {TEMPLATES.map(template => {
+          const markdownPreview = generateMarkdown(template.blocks, template.themeId, true);
+
+          return (
+            <Card key={template.id} className="overflow-hidden group hover:shadow-2xl transition-all border-muted-foreground/20 bg-background/50 backdrop-blur-sm flex flex-col">
+              <div className="h-64 bg-background border-b relative overflow-hidden flex justify-center p-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 duration-500 pointer-events-none" />
+                <div className="absolute top-0 w-[1000px] origin-top transform scale-[0.4] flex flex-col items-center pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="prose prose-sm dark:prose-invert max-w-none w-full">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                      {markdownPreview}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-8 flex-1 flex flex-col z-20 bg-background/95 backdrop-blur">
+                <h3 className="font-extrabold text-2xl mb-3 tracking-tight">{template.name}</h3>
+                <p className="text-muted-foreground mb-8 flex-1 leading-relaxed">
+                  {template.desc}
+                </p>
+                <Link href={`/builder?template=${template.id}`}>
+                  <Button size="lg" className="w-full text-md font-semibold">
+                    Use this Template
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );
