@@ -32,11 +32,40 @@ export const TEMPLATES: Template[] = [
       },
       {
         id: uuidv4(),
+        type: 'typing',
+        data: {
+          lines: ['Automating the Future', 'Building Scalable Infrastructure', 'Cloud Native | CI/CD | Containers', 'Turning Coffee into Pipelines'],
+          color: 'ff003c',
+          size: 24,
+          center: true,
+          vCenter: true
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'about',
+        data: {
+          paragraph: 'Passionate Site Reliability and DevOps Engineer with a focus on designing, building, and maintaining highly available cloud infrastructure. I believe in Infrastructure as Code, relentless automation, and building paved roads for developers.',
+          currentlyLearning: 'eBPF, Cilium, Advanced Kubernetes Operators',
+          currentlyWorkingOn: 'Building a multi-region active-active cloud architecture',
+          askMeAbout: 'Terraform, AWS, CI/CD Pipelines, and Incident Management'
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'skills',
+        data: {
+          skills: ['Docker', 'Kubernetes', 'AWS', 'Terraform', 'Ansible', 'Prometheus', 'Grafana', 'Jenkins', 'GitHub Actions', 'Linux', 'Python', 'Go', 'Bash'],
+          style: 'for-the-badge'
+        }
+      },
+      {
+        id: uuidv4(),
         type: 'github-stats',
         data: {
           username: 'PorKeat',
-          showStats: false,
-          showTopLanguages: false,
+          showStats: true,
+          showTopLanguages: true,
           showStreak: false,
           showActivityGraph: false,
           showSnake: false,
@@ -50,21 +79,16 @@ export const TEMPLATES: Template[] = [
       },
       {
         id: uuidv4(),
-        type: 'typing',
+        type: 'projects',
         data: {
-          lines: ['Automating the Future', 'Building Scalable Infrastructure', 'Cloud Native | CI/CD | Containers', 'Turning Coffee into Pipelines'],
-          color: 'ff003c',
-          size: 24,
-          center: true,
-          vCenter: true
-        }
-      },
-      {
-        id: uuidv4(),
-        type: 'skills',
-        data: {
-          skills: ['Docker', 'Kubernetes', 'AWS', 'Terraform', 'Jenkins', 'Linux', 'Python', 'Go', 'Bash'],
-          style: 'for-the-badge'
+          style: 'cards',
+          useCustomColors: true,
+          theme: 'radical',
+          customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' },
+          projects: [
+            { id: uuidv4(), name: 'K8s Cluster Autoscaler', description: 'Custom controller for scaling nodes based on custom metrics.', githubUrl: 'https://github.com/PorKeat', demoUrl: '', techStack: ['Go', 'Kubernetes'] },
+            { id: uuidv4(), name: 'Terraform AWS Modules', description: 'Production-ready IaC modules for AWS VPC, EKS, and RDS.', githubUrl: 'https://github.com/PorKeat', demoUrl: '', techStack: ['Terraform', 'AWS'] }
+          ]
         }
       },
       {
@@ -82,6 +106,17 @@ export const TEMPLATES: Template[] = [
         type: 'pacman',
         data: {
           username: 'PorKeat',
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'socials',
+        data: {
+          github: 'PorKeat',
+          linkedin: 'PorKeat',
+          twitter: 'PorKeat',
+          portfolio: '',
+          email: 'hello@example.com'
         }
       }
     ]
