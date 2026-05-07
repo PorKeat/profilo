@@ -60,24 +60,6 @@ export function Sidebar() {
 
   return (
     <div className="w-64 border-r bg-muted/30 flex flex-col h-full">
-      <div className="p-4 border-b space-y-4">
-        <div>
-          <h2 className="font-semibold mb-2 flex items-center gap-2 text-sm">
-            <Palette className="w-4 h-4" />
-            Theme
-          </h2>
-          <Select value={currentTheme} onValueChange={handleThemeChange}>
-            <SelectTrigger className="w-full h-8 text-xs">
-              <SelectValue placeholder="Select a theme" />
-            </SelectTrigger>
-            <SelectContent>
-              {themes.map(t => (
-                <SelectItem key={t.id} value={t.id} className="text-xs">{t.label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
       
       <div className="p-4 border-b">
         <h2 className="font-semibold mb-2 flex items-center gap-2 text-sm">

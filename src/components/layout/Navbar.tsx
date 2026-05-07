@@ -8,21 +8,42 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { setTheme as setProfileTheme } from '@/store/builderSlice';
+import { ThemeId } from '@/lib/types/theme';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  
+  const dispatch = useAppDispatch();
+  const currentProfileTheme = useAppSelector(state => state.builder?.themeId || 'github-classic');
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleThemeChange = (value: string | null) => {
+    if (value) {
+      dispatch(setProfileTheme(value as ThemeId));
+    }
+  };
 
   const routes = [
     { name: 'Home', path: '/' },
     { name: 'Templates', path: '/templates' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
+  ];
+
+  const profileThemes = [
+    { id: 'clean-light', label: 'Clean Light' },
+    { id: 'devops-blue', label: 'DevOps Blue' },
+    { id: 'cyberpunk', label: 'Cyberpunk' },
+    { id: 'github-classic', label: 'GitHub Classic' },
+    { id: 'purple-gradient', label: 'Purple Gradient' },
   ];
 
   return (
@@ -62,6 +83,19 @@ export function Navbar() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
           </div>
           <nav className="flex items-center space-x-2">
+            <div className="hidden md:flex items-center space-x-2 mr-2">
+              <span className="text-xs text-muted-foreground font-medium">Profile Theme:</span>
+              <Select value={currentProfileTheme} onValueChange={handleThemeChange}>
+                <SelectTrigger className="w-[140px] h-8 text-xs bg-background">
+                  <SelectValue placeholder="Select a theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  {profileThemes.map(t => (
+                    <SelectItem key={t.id} value={t.id} className="text-xs">{t.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <Link href="https://github.com/PorKeat/profilo" target="_blank" rel="noreferrer">
               <div className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 py-2 w-9 px-0">
                 <Github className="h-4 w-4" />
