@@ -110,8 +110,9 @@ function generateSkills(block: TechnicalSkillsBlock): string {
     const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
     const safeSkillName = encodeURIComponent(skill);
     const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
+    const badgeColor = skillDef?.color || '2bbc8a'; // Use brand color or fallback
     
-    md += `  <img src="https://img.shields.io/badge/${safeSkillName}-informational?style=${style}&logo=${iconName}&logoColor=white&color=2bbc8a" alt="${skill}" />\n`;
+    md += `  <img src="https://img.shields.io/badge/${safeSkillName}-informational?style=${style}&logo=${iconName}&logoColor=white&color=${badgeColor}" alt="${skill}" />\n`;
   });
   
   md += `</div>\n\n`;
