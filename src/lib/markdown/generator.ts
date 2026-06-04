@@ -112,7 +112,8 @@ function generateSkills(block: TechnicalSkillsBlock): string {
     const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
     const badgeColor = skillDef?.color || '2bbc8a'; // Use brand color or fallback
     
-    md += `  <img src="https://img.shields.io/badge/${safeSkillName}-informational?style=${style}&logo=${iconName}&logoColor=white&color=${badgeColor}" alt="${skill}" />\n`;
+    // Format: -Message-Color (empty label, so it's just one solid colored block)
+    md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=white" alt="${skill}" />\n`;
   });
   
   md += `</div>\n\n`;
