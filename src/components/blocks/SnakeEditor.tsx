@@ -10,7 +10,7 @@ export function SnakeEditor({ block }: { block: SnakeBlock }) {
   const dispatch = useAppDispatch();
   const { data } = block;
 
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: unknown) => {
     dispatch(updateBlock({ id: block.id, data: { [field]: value } }));
   };
 

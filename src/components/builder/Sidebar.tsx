@@ -2,15 +2,11 @@
 
 import { useAppDispatch } from '@/store/hooks';
 import { addBlock } from '@/store/builderSlice';
-import { BlockType } from '@/lib/types/blocks';
+import { BlockType, Block } from '@/lib/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, GripVertical, Trash2, Settings, ChevronDown, ChevronUp, Palette, Image, Type, Activity, PlaySquare, Gamepad2 } from 'lucide-react';
+import { buttonVariants } from '@/components/ui/button';
+import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, Image, Type, Activity, PlaySquare, Gamepad2 } from 'lucide-react';
 import { Github } from "@/components/icons/Github";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ThemeId } from '@/lib/types/theme';
-import { setTheme } from '@/store/builderSlice';
 import { useAppSelector } from '@/store/hooks';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { generateMarkdown } from '@/lib/markdown/generator';
@@ -27,14 +23,6 @@ export function Sidebar() {
     dispatch(addBlock(newBlock));
   };
 
-  const handleThemeChange = (value: string | null) => {
-    if (value) {
-      dispatch(setTheme(value as ThemeId));
-      // Since next-themes doesn't handle our custom UI themes yet, we'll just store it in Redux for now
-      // We can sync it with next-themes if needed
-    }
-  };
-
   const blockTypes = [
     { type: 'hero', label: 'Hero', icon: User },
     { type: 'banner', label: 'Waving Banner', icon: Image },
@@ -48,14 +36,6 @@ export function Sidebar() {
     { type: 'projects', label: 'Featured Projects', icon: FolderGit2 },
     { type: 'socials', label: 'Social Links', icon: Share2 },
     { type: 'contact', label: 'Contact', icon: Mail },
-  ];
-
-  const themes: { id: ThemeId, label: string }[] = [
-    { id: 'clean-light', label: 'Clean Light' },
-    { id: 'devops-blue', label: 'DevOps Blue' },
-    { id: 'cyberpunk', label: 'Cyberpunk' },
-    { id: 'github-classic', label: 'GitHub Classic' },
-    { id: 'purple-gradient', label: 'Purple Gradient' },
   ];
 
   return (
@@ -98,7 +78,7 @@ export function Sidebar() {
   );
 }
 
-function createDefaultBlock(type: BlockType): any {
+function createDefaultBlock(type: BlockType): Block {
   const id = uuidv4();
   switch (type) {
     case 'hero':

@@ -17,7 +17,6 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortableBlock } from './SortableBlock';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function Canvas() {
   const blocks = useAppSelector((state) => state.builder.blocks);

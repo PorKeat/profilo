@@ -8,7 +8,6 @@ import rehypeRaw from 'rehype-raw';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Copy, Download, Eye, Code2 } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function PreviewPanel() {
   const { blocks, themeId } = useAppSelector((state) => state.builder);

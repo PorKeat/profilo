@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import Link from 'next/link';
@@ -22,6 +23,7 @@ export function Navbar() {
   const currentProfileTheme = useAppSelector(state => state.builder?.themeId || 'github-classic');
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

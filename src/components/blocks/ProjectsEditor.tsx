@@ -23,7 +23,7 @@ export function ProjectsEditor({ block }: { block: FeaturedProjectsBlock }) {
     dispatch(updateBlock({ id: block.id, data: { projects: updatedProjects } }));
   };
 
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: unknown) => {
     dispatch(updateBlock({ id: block.id, data: { [field]: value } }));
   };
 

@@ -11,7 +11,7 @@ export function BannerEditor({ block }: { block: BannerBlock }) {
   const dispatch = useAppDispatch();
   const { data } = block;
 
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: unknown) => {
     dispatch(updateBlock({ id: block.id, data: { [field]: value } }));
   };
 
@@ -92,7 +92,7 @@ export function BannerEditor({ block }: { block: BannerBlock }) {
           placeholder="e.g. 0:4a0000,50:b30000,100:ff003c" 
         />
         <p className="text-xs text-muted-foreground mt-1">
-          Use hex colors without the # symbol. Or simply use 'timeAuto' for a dynamic gradient!
+          Use hex colors without the # symbol. Or simply use &apos;timeAuto&apos; for a dynamic gradient!
         </p>
       </div>
     </div>

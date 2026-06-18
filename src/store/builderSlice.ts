@@ -38,7 +38,7 @@ export const builderSlice = createSlice({
     addBlock: (state, action: PayloadAction<Block>) => {
       state.blocks.push(action.payload);
     },
-    updateBlock: (state, action: PayloadAction<{ id: string; data: any }>) => {
+    updateBlock: (state, action: PayloadAction<{ id: string; data: Record<string, unknown> }>) => {
       const block = state.blocks.find(b => b.id === action.payload.id);
       if (block) {
         block.data = { ...block.data, ...action.payload.data };

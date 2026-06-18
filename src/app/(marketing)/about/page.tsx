@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Code2, Users, Rocket } from "lucide-react";
+import { Code2, Rocket } from "lucide-react";
 import { Github } from "@/components/icons/Github";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -18,13 +18,13 @@ export default function AboutPage() {
         <section className="prose prose-slate dark:prose-invert max-w-none">
           <h2>Why Profilo?</h2>
           <p>
-            Your GitHub profile README is your developer portfolio. It's often the first thing 
+            Your GitHub profile README is your developer portfolio. It&apos;s often the first thing 
             recruiters, collaborators, and open-source maintainers see. However, crafting a 
             beautiful Markdown file from scratch with badges, stats, and consistent formatting 
             can be tedious.
           </p>
           <p>
-            Profilo was built to solve this. It's a completely free, browser-based tool 
+            Profilo was built to solve this. It&apos;s a completely free, browser-based tool 
             that lets you visually build your README.
           </p>
         </section>

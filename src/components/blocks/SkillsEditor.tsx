@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { TechnicalSkillsBlock } from '@/lib/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Label } from '@/components/ui/label';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { X, Check, ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 import { POPULAR_SKILLS } from '@/lib/constants/skills';
