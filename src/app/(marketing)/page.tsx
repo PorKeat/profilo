@@ -158,16 +158,16 @@ export default function Home() {
         <Section className="py-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center border-t border-black/5 dark:border-white/5">
 
           {/* Left — 3D floating cards */}
-          <motion.div variants={fadeIn} className="relative h-[420px] flex items-center justify-center">
-            <div className="absolute inset-0 bg-primary/5 rounded-full blur-[80px]" />
+          <motion.div variants={fadeIn} className="relative h-[420px] flex items-center justify-center w-full max-w-md mx-auto lg:max-w-none">
+            <div className="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-full blur-[100px] -z-10" />
 
             {/* Main card */}
             <motion.div
-              initial={{ rotateX: 8, rotateY: 8 }}
-              whileHover={{ rotateX: 0, rotateY: 0, scale: 1.02 }}
+              initial={{ rotateX: 8, rotateY: 12 }}
+              whileHover={{ rotateX: 0, rotateY: 0, scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-              style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
-              className="relative z-10 bg-white/80 dark:bg-black/60 backdrop-blur-2xl border border-black/8 dark:border-white/10 rounded-2xl p-6 w-72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
+              style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
+              className="relative z-10 bg-white/90 dark:bg-[#0d1117]/80 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-3xl p-7 w-80 shadow-[0_30px_80px_rgba(0,0,0,0.15)] dark:shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
             >
               <div className="flex items-center gap-2 mb-4">
                 <Terminal className="w-4 h-4 text-primary" />
@@ -185,26 +185,29 @@ export default function Home() {
 
             {/* Floating cards */}
             <motion.div
-              animate={{ y: [-6, 6, -6] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-[12%] left-[5%] bg-white dark:bg-[#0e0e18]/90 backdrop-blur border border-black/8 dark:border-white/10 rounded-xl p-4 shadow-lg dark:shadow-xl z-20"
+              animate={{ y: [-8, 8, -8] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-[8%] left-[2%] bg-white/95 dark:bg-[#1a1f2e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-2xl p-4.5 shadow-2xl z-20"
             >
-              <div className="text-primary font-bold text-xs mb-1">Live Preview</div>
-              <div className="text-foreground font-bold text-sm">See changes instantly</div>
+              <div className="flex items-center gap-2 mb-1.5">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <div className="text-primary font-bold text-xs uppercase tracking-wider">Live Preview</div>
+              </div>
+              <div className="text-foreground font-extrabold text-sm">See changes instantly</div>
             </motion.div>
 
             <motion.div
-              animate={{ y: [6, -6, 6] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute bottom-[12%] right-[2%] bg-white dark:bg-[#0e0e18]/90 backdrop-blur border border-black/8 dark:border-white/10 rounded-xl p-4 shadow-lg dark:shadow-xl z-20 w-44"
+              animate={{ y: [8, -8, 8] }}
+              transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute bottom-[8%] right-[0%] bg-white/95 dark:bg-[#1a1f2e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-2xl p-5 shadow-2xl z-20 w-48"
             >
-              <div className="text-xs text-foreground/80 dark:text-foreground/70 mb-1">Top Language</div>
-              <div className="text-foreground font-bold text-base mb-2">TypeScript</div>
-              <div className="w-full h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
+              <div className="text-[11px] font-bold text-foreground/60 dark:text-foreground/50 uppercase tracking-widest mb-1">Top Language</div>
+              <div className="text-foreground font-black text-lg mb-3">TypeScript</div>
+              <div className="w-full h-2 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden shadow-inner">
                 <motion.div
                   animate={{ width: ['0%', '68%', '68%'] }}
-                  transition={{ duration: 2, delay: 0.5, repeat: Infinity, repeatDelay: 3 }}
-                  className="h-full bg-[#3178c6] rounded-full"
+                  transition={{ duration: 2.5, delay: 0.5, repeat: Infinity, repeatDelay: 3 }}
+                  className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full"
                 />
               </div>
             </motion.div>
@@ -222,27 +225,39 @@ export default function Home() {
           </motion.div>
 
           {/* Right */}
-          <motion.div variants={fadeUpStagger} className="flex flex-col items-start space-y-6">
-            <motion.div variants={fadeUp}>
-              <span className="text-xs text-primary font-bold tracking-widest uppercase">Built for developers</span>
+          <motion.div variants={fadeUpStagger} className="flex flex-col items-start space-y-6 relative z-10 p-2 md:p-6">
+            {/* Added Glassmorphism Backdrop for Readability */}
+            <div className="absolute -inset-4 md:-inset-8 bg-white/80 dark:bg-black/60 backdrop-blur-2xl rounded-[2.5rem] -z-10 border border-black/5 dark:border-white/5 shadow-2xl" />
+            
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-2">
+              <span className="text-[10px] text-primary font-bold tracking-widest uppercase">Built for developers</span>
             </motion.div>
-            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
+            
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-[3.25rem] font-extrabold tracking-tight text-foreground leading-[1.05]">
               Create your README<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">in minutes, not hours.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-purple-400">in minutes, not hours.</span>
             </motion.h2>
-            <motion.div variants={fadeUp} className="flex gap-1">
-              {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
+            
+            <motion.div variants={fadeUp} className="flex items-center gap-3 bg-black/5 dark:bg-white/5 py-2 px-4 rounded-full w-fit">
+              <div className="flex gap-1">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />)}
+              </div>
+              <span className="text-[11px] font-bold text-foreground/80">Loved by 10k+ devs</span>
             </motion.div>
-            <motion.p variants={fadeUp} className="text-sm text-foreground/80 dark:text-foreground/70 leading-relaxed max-w-md">
-              Profilo integrates with popular open-source statistics APIs to display live commit graphs, profile views, and top languages — without any backend setup.
+            
+            <motion.p variants={fadeUp} className="text-base text-foreground/90 dark:text-foreground/80 leading-relaxed max-w-lg">
+              Profilo integrates with popular open-source statistics APIs to display live commit graphs, profile views, and top languages — completely client-side without any backend setup.
             </motion.p>
-            <motion.div variants={fadeUp} className="flex items-center gap-4 pt-2">
-              <Link href="/builder">
-                <Button className="bg-primary text-black hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.35)] hover:shadow-[0_0_50px_rgba(75,134,247,0.55)] hover:scale-105 transition-all duration-300">
+            
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
+              <Link href="/builder" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-primary text-black hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.35)] hover:shadow-[0_0_50px_rgba(75,134,247,0.55)] hover:scale-105 transition-all duration-300">
                   Start Building <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Link href="/about" className="text-sm text-foreground/80 dark:text-foreground/70 hover:text-foreground transition-colors">How it works →</Link>
+              <Link href="/about" className="w-full sm:w-auto flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-sm font-bold text-foreground transition-colors border border-black/5 dark:border-white/5">
+                How it works <ArrowRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           </motion.div>
         </Section>
