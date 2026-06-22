@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 const TROPHY_THEMES = [
   'flat', 'onedark', 'gruvbox', 'dracula', 'monokai', 'cobalt', 'synthwave', 'radical', 'tokyonight', 'discord', 'algolia', 'gitdimmed', 'matrix'
@@ -21,7 +22,13 @@ export function TrophiesEditor({ block }: { block: TrophiesBlock }) {
   };
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="🏆 GitHub Trophies" 
+        color={data.sectionTitleColor} 
+        onChange={handleChange} 
+      />
       <div className="space-y-2">
         <Label>GitHub Username</Label>
         <Input value={data.username} onChange={(e) => handleChange('username', e.target.value)} placeholder="yourusername" />
@@ -29,7 +36,7 @@ export function TrophiesEditor({ block }: { block: TrophiesBlock }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Theme</Label>
-          <Select value={data.theme} onValueChange={(v) => handleChange('theme', v)}>
+          <Select value={data.theme} onValueChange={(v) => v && handleChange('theme', v)}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
               {TROPHY_THEMES.map(t => (
@@ -40,7 +47,7 @@ export function TrophiesEditor({ block }: { block: TrophiesBlock }) {
         </div>
         <div className="space-y-2">
           <Label>Columns</Label>
-          <Select value={data.columns.toString()} onValueChange={(v) => handleChange('columns', parseInt(v))}>
+          <Select value={data.columns.toString()} onValueChange={(v) => v && handleChange('columns', parseInt(v))}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
               {[3, 4, 5, 6, 7].map(n => (

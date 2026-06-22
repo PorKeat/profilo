@@ -4,23 +4,40 @@ import { FeaturedProjectsBlock, Project } from '@/lib/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
+import { MarkdownInput, MarkdownTextarea } from '@/components/ui/markdown-input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, X } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
 export function ProjectsEditor({ block }: { block: FeaturedProjectsBlock }) {
   const dispatch = useAppDispatch();
   const { data } = block;
 
-  const handleUpdateProject = (projectId: string, field: string, value: string) => {
+  const handleUpdateProject = (projectId: string, field: string, value: string | undefined) => {
     const updatedProjects = data.projects.map(p => 
       p.id === projectId ? { ...p, [field]: value } : p
     );
     dispatch(updateBlock({ id: block.id, data: { projects: updatedProjects } }));
+  };
+
+  const handleFileUpload = (projectId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64 = event.target?.result as string;
+      handleUpdateProject(projectId, 'localImageBase64', base64);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = (projectId: string) => {
+    handleUpdateProject(projectId, 'localImageBase64', undefined);
   };
 
   const handleChange = (field: string, value: unknown) => {
@@ -53,10 +70,18 @@ export function ProjectsEditor({ block }: { block: FeaturedProjectsBlock }) {
 
   return (
     <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="Featured Projects" 
+        color={data.sectionTitleColor} 
+        iconColor={data.iconColor}
+        hasIcons={true}
+        onChange={handleChange} 
+      />
       <div className="space-y-4 pb-4 border-b">
         <div className="space-y-2">
           <Label>Project Display Style</Label>
-          <Select value={data.style} onValueChange={(val) => handleChange('style', val)}>
+          <Select value={data.style} onValueChange={(val) => val && handleChange('style', val)}>
             <SelectTrigger>
               <SelectValue placeholder="Select style" />
             </SelectTrigger>
@@ -81,7 +106,7 @@ export function ProjectsEditor({ block }: { block: FeaturedProjectsBlock }) {
             {!data.useCustomColors ? (
               <div className="space-y-2">
                 <Label>Card Theme</Label>
-                <Select value={data.theme} onValueChange={(val) => handleChange('theme', val)}>
+                <Select value={data.theme} onValueChange={(val) => val && handleChange('theme', val)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a theme" />
                   </SelectTrigger>
@@ -157,11 +182,37 @@ export function ProjectsEditor({ block }: { block: FeaturedProjectsBlock }) {
           </div>
           <div className="space-y-2">
             <Label>Project Name</Label>
-            <Input value={project.name} onChange={(e) => handleUpdateProject(project.id, 'name', e.target.value)} />
+            <MarkdownInput value={project.name} onChange={(val) => handleUpdateProject(project.id, 'name', val)} />
+          </div>
+          <div className="space-y-2">
+            <Label>Project Image / GIF preview</Label>
+            {project.localImageBase64 ? (
+              <div className="relative inline-block border rounded-lg p-2 bg-background">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={project.localImageBase64} alt="Project Preview" className="h-20 object-cover rounded" />
+                <Button 
+                  variant="destructive" 
+                  size="icon" 
+                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full"
+                  onClick={() => handleRemoveImage(project.id)}
+                >
+                  <X className="w-3 h-3" />
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={(e) => handleFileUpload(project.id, e)} 
+                  className="text-xs file:bg-primary file:text-primary-foreground file:border-0 file:rounded file:px-2 file:py-1 file:mr-2 file:text-xs file:cursor-pointer hover:file:bg-primary/90"
+                />
+              </div>
+            )}
           </div>
           <div className="space-y-2">
             <Label>Description</Label>
-            <Textarea value={project.description} onChange={(e) => handleUpdateProject(project.id, 'description', e.target.value)} />
+            <MarkdownTextarea value={project.description} onChange={(val) => handleUpdateProject(project.id, 'description', val)} />
           </div>
           <div className="space-y-2">
             <Label>GitHub URL</Label>

@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FileText, Moon, Sun, Menu, X } from 'lucide-react';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { Github } from '@/components/icons/Github';
-import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { useEffect, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 const routes = [
   { name: 'Home',      path: '/'          },
@@ -29,6 +29,7 @@ export function Navbar() {
 
   const isDark = theme === 'dark';
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export function Navbar() {
   }, []);
 
   // Close mobile menu on route change
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const handleThemeToggle = async () => {
@@ -51,7 +53,6 @@ export function Navbar() {
       document.documentElement.classList.add('theme-transitioning');
       setIsAnimating(true);
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-      // @ts-expect-error — startViewTransition not yet in TS lib
       const transition = document.startViewTransition(() => {
         setTheme(isDark ? 'light' : 'dark');
       });
@@ -91,7 +92,8 @@ export function Navbar() {
               transition={{ duration: 0.5 }}
               className="flex items-center justify-center -mr-1"
             >
-              <img src="/logo.png" alt="Profilo Logo" className="w-8 h-8 object-contain" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.svg" alt="Profilo" className="w-6 h-6 sm:w-7 sm:h-7" />
             </motion.div>
             <span className="font-extrabold text-base tracking-tight text-foreground group-hover:text-primary transition-colors duration-200">
               Profilo

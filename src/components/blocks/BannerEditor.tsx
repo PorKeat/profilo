@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ColorPicker } from '@/components/ui/color-picker';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function BannerEditor({ block }: { block: BannerBlock }) {
@@ -20,7 +21,7 @@ export function BannerEditor({ block }: { block: BannerBlock }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Section</Label>
-          <Select value={data.section} onValueChange={(val) => handleChange('section', val)}>
+          <Select value={data.section} onValueChange={(val) => val && handleChange('section', val)}>
             <SelectTrigger>
               <SelectValue placeholder="Select section" />
             </SelectTrigger>
@@ -32,7 +33,7 @@ export function BannerEditor({ block }: { block: BannerBlock }) {
         </div>
         <div className="space-y-2">
           <Label>Banner Type</Label>
-          <Select value={data.bannerType} onValueChange={(val) => handleChange('bannerType', val)}>
+          <Select value={data.bannerType} onValueChange={(val) => val && handleChange('bannerType', val)}>
             <SelectTrigger>
               <SelectValue placeholder="Select type" />
             </SelectTrigger>
@@ -76,20 +77,20 @@ export function BannerEditor({ block }: { block: BannerBlock }) {
         </div>
         <div className="space-y-2">
           <Label>Font Color (Hex)</Label>
-          <Input 
+          <ColorPicker 
             value={data.fontColor} 
-            onChange={(e) => handleChange('fontColor', e.target.value)} 
-            placeholder="e.g. ffffff" 
+            onChange={(v) => handleChange('fontColor', v)} 
+            placeholder="FFFFFF"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>Background Gradient (Format: 0:hex,50:hex,100:hex)</Label>
-        <Input 
+        <Label>Background Color (Hex)</Label>
+        <ColorPicker 
           value={data.color} 
-          onChange={(e) => handleChange('color', e.target.value)} 
-          placeholder="e.g. 0:4a0000,50:b30000,100:ff003c" 
+          onChange={(v) => handleChange('color', v)} 
+          placeholder="000000"
         />
         <p className="text-xs text-muted-foreground mt-1">
           Use hex colors without the # symbol. Or simply use &apos;timeAuto&apos; for a dynamic gradient!

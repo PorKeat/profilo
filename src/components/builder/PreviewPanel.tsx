@@ -18,11 +18,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Copy, Download, Eye, Code2, ChevronDown, Check, Zap, Bot, Sparkles, Sun, AlertTriangle } from 'lucide-react';
+import { Copy, Download, Eye, Code2, ChevronDown, Check, Zap, Bot, Sparkles, Sun, AlertTriangle, FileText } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { setTheme as setProfileTheme } from '@/store/builderSlice';
 import { ThemeId } from '@/lib/types/theme';
 import type { Components } from 'react-markdown';
+import type { SupportBlock, FeaturedProjectsBlock, ExperienceBlock, HeroBlock } from '@/lib/types/blocks';
 
 // ─── Theme definitions ────────────────────────────────────────────────────────
 type ThemeStyles = {
@@ -141,10 +142,19 @@ export function PreviewPanel() {
 
   const handleDownload = async () => {
     const workflows = generateWorkflows(blocks);
-    const supportBlock = blocks.find(b => b.type === 'support') as any;
+    const supportBlock = blocks.find(b => b.type === 'support') as unknown as SupportBlock;
     const qrCodeBase64 = supportBlock?.data?.qrCodeBase64;
     
-    if (workflows.length > 0 || qrCodeBase64) {
+    const projectBlocks = blocks.filter(b => b.type === 'projects') as unknown as FeaturedProjectsBlock[];
+    const projectImages = projectBlocks.flatMap(b => b.data.projects).filter(p => p.localImageBase64);
+    
+    const experienceBlocks = blocks.filter(b => b.type === 'experience') as unknown as ExperienceBlock[];
+    const experienceLogos = experienceBlocks.flatMap(b => b.data.jobs).filter(j => j.companyLogoBase64);
+    
+    const heroBlock = blocks.find(b => b.type === 'hero') as unknown as HeroBlock;
+    const localAvatarBase64 = heroBlock?.data?.localAvatarBase64;
+    
+    if (workflows.length > 0 || qrCodeBase64 || projectImages.length > 0 || experienceLogos.length > 0 || localAvatarBase64) {
       const zip = new JSZip();
       zip.file('README.md', markdown);
       
@@ -162,6 +172,29 @@ export function PreviewPanel() {
         const base64Data = qrCodeBase64.split(',')[1];
         if (base64Data) {
           zip.file('support-qr.png', base64Data, { base64: true });
+        }
+      }
+
+      projectImages.forEach((p: { id: string; localImageBase64?: string }) => {
+        if (!p.localImageBase64) return;
+        const base64Data = p.localImageBase64.split(',')[1];
+        if (base64Data) {
+          zip.file(`project-${p.id}.png`, base64Data, { base64: true });
+        }
+      });
+
+      experienceLogos.forEach((j: { id: string; companyLogoBase64?: string }) => {
+        if (!j.companyLogoBase64) return;
+        const base64Data = j.companyLogoBase64.split(',')[1];
+        if (base64Data) {
+          zip.file(`company-${j.id}.png`, base64Data, { base64: true });
+        }
+      });
+
+      if (localAvatarBase64) {
+        const base64Data = localAvatarBase64.split(',')[1];
+        if (base64Data) {
+          zip.file('avatar.png', base64Data, { base64: true });
         }
       }
       
@@ -188,14 +221,17 @@ export function PreviewPanel() {
   };
 
   const markdownComponents: Components = {
-    // eslint-disable-next-line @next/next/no-img-element
+     
     img: ({ src, alt }) => {
       const srcStr = typeof src === 'string' ? src : '';
-      const bustedSrc = srcStr
-        ? srcStr.includes('?') ? `${srcStr}&_t=${themeId}` : `${srcStr}?_t=${themeId}`
-        : srcStr;
+      let finalSrc = srcStr;
+      
+      if (srcStr && !srcStr.startsWith('data:')) {
+        finalSrc = srcStr.includes('?') ? `${srcStr}&_t=${themeId}` : `${srcStr}?_t=${themeId}`;
+      }
+      
       // eslint-disable-next-line @next/next/no-img-element
-      return <img src={bustedSrc} alt={alt ?? ''} style={{ maxWidth: '100%', display: 'inline-block' }} />;
+      return <img src={finalSrc} alt={alt ?? ''} style={{ maxWidth: '100%', display: 'inline-block' }} />;
     },
     h1: ({ children }) => (
       <h1 style={{ color: s.heading, borderBottom: `2px solid ${s.borderColor}`, paddingBottom: '0.4em', marginBottom: '0.8em', fontSize: '1.8em', fontWeight: 800 }}>
@@ -235,7 +271,7 @@ export function PreviewPanel() {
   };
 
   return (
-    <div className="w-[500px] xl:w-[600px] border-l bg-background flex flex-col h-full hidden lg:flex">
+    <div className="w-[500px] xl:w-[600px] border-l border-white/5 bg-background/60 backdrop-blur-xl flex flex-col h-full hidden lg:flex z-10 shadow-2xl">
       <Tabs defaultValue="preview" className="flex flex-col h-full">
         <div className="p-3 border-b flex items-center justify-between bg-muted/10 gap-2">
           <TabsList className="h-8">
@@ -300,19 +336,35 @@ export function PreviewPanel() {
         </div>
 
         {/* Preview — bg stays unchanged, only markdown element colors change per theme */}
-        <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col">
-          <div className="p-8 max-w-none min-h-full">
+        <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col bg-background/40 p-6 xl:p-10">
+          <div className="min-h-full w-full max-w-3xl mx-auto flex flex-col">
             {markdown ? (
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-                components={markdownComponents}
-              >
-                {previewMarkdown}
-              </ReactMarkdown>
+              <div className="w-full bg-[#0d1117] rounded-xl border border-white/10 shadow-2xl overflow-hidden flex flex-col transition-all">
+                {/* Browser Mockup Top Bar */}
+                <div className="h-10 bg-[#161b22] border-b border-white/5 flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm" />
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm" />
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm" />
+                  <div className="mx-auto bg-[#0d1117] px-4 py-1 text-[10px] text-white/40 rounded-md border border-white/5">
+                    github.com/profile/README.md
+                  </div>
+                </div>
+                {/* Markdown Content */}
+                <div className="p-8 md:p-10">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    urlTransform={(value) => value}
+                    components={markdownComponents}
+                  >
+                    {previewMarkdown}
+                  </ReactMarkdown>
+                </div>
+              </div>
             ) : (
-              <div className="text-center text-muted-foreground mt-20">
-                Add sections to preview your README.
+              <div className="text-center flex flex-col items-center justify-center h-full text-muted-foreground mt-20">
+                <FileText className="w-12 h-12 mb-4 opacity-20" />
+                <p>Add sections to preview your README.</p>
               </div>
             )}
           </div>

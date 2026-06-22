@@ -12,6 +12,7 @@ export interface HeroBlock extends BaseBlock {
     title: string;
     shortIntro: string;
     avatarUrl?: string;
+    localAvatarBase64?: string;
     bannerStyle: 'solid' | 'gradient' | 'image' | 'none';
   };
 }
@@ -43,6 +44,9 @@ export interface TypingBlock extends BaseBlock {
 export interface ActivityGraphBlock extends BaseBlock {
   type: 'activity-graph';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     username: string;
     theme: string;
     useCustomColors: boolean;
@@ -72,17 +76,27 @@ export interface PacmanBlock extends BaseBlock {
 export interface AboutBlock extends BaseBlock {
   type: 'about';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     paragraph: string;
-    currentlyLearning: string;
-    currentlyWorkingOn: string;
-    askMeAbout: string;
+    // Legacy fields
+    currentlyLearning?: string;
+    currentlyWorkingOn?: string;
+    askMeAbout?: string;
+    // Dynamic fields
+    bullets?: { id: string; emoji?: string; icon?: string; text: string; }[];
   };
 }
 
 export interface TechnicalSkillsBlock extends BaseBlock {
   type: 'skills';
   data: {
-    skills: string[];
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
+    skills: string[]; // Legacy flat list
+    groups?: { id: string; name: string; skills: string[] }[]; // Categorized
     style: 'flat' | 'plastic' | 'flat-square' | 'for-the-badge' | 'social';
   };
 }
@@ -90,6 +104,9 @@ export interface TechnicalSkillsBlock extends BaseBlock {
 export interface GitHubStatsBlock extends BaseBlock {
   type: 'github-stats';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     username: string;
     showStats: boolean;
     showTopLanguages: boolean;
@@ -118,11 +135,15 @@ export interface Project {
   githubUrl: string;
   demoUrl: string;
   techStack: string[];
+  localImageBase64?: string;
 }
 
 export interface FeaturedProjectsBlock extends BaseBlock {
   type: 'projects';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     style: 'text' | 'cards';
     useCustomColors: boolean;
     theme: string;
@@ -140,17 +161,26 @@ export interface FeaturedProjectsBlock extends BaseBlock {
 export interface SocialLinksBlock extends BaseBlock {
   type: 'socials';
   data: {
-    github: string;
-    linkedin: string;
-    twitter: string;
-    portfolio: string;
-    email: string;
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
+    links?: { id: string; platform: string; url: string; color: string; icon: string }[];
+    badgeStyle?: string;
+    // Legacy fields for backward compatibility during migration
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    portfolio?: string;
+    email?: string;
   };
 }
 
 export interface ContactBlock extends BaseBlock {
   type: 'contact';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     email: string;
     message: string;
   };
@@ -159,6 +189,9 @@ export interface ContactBlock extends BaseBlock {
 export interface BlogPostsBlock extends BaseBlock {
   type: 'blog-posts';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     platform: 'dev.to' | 'medium' | 'hashnode';
     username: string;
   };
@@ -167,6 +200,9 @@ export interface BlogPostsBlock extends BaseBlock {
 export interface TrophiesBlock extends BaseBlock {
   type: 'trophies';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     username: string;
     theme: string;
     columns: number;
@@ -178,6 +214,9 @@ export interface TrophiesBlock extends BaseBlock {
 export interface SpotifyBlock extends BaseBlock {
   type: 'spotify';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     spotifyUrl: string;
     theme: string;
   };
@@ -186,6 +225,10 @@ export interface SpotifyBlock extends BaseBlock {
 export interface SupportBlock extends BaseBlock {
   type: 'support';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
+    supportMode?: 'international' | 'local';
     buyMeACoffee?: string;
     patreon?: string;
     kofi?: string;
@@ -201,11 +244,16 @@ export interface Experience {
   company: string;
   duration: string;
   description: string;
+  companyLogoBase64?: string;
+  techStack?: string[];
 }
 
 export interface ExperienceBlock extends BaseBlock {
   type: 'experience';
   data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
     jobs: Experience[];
   };
 }

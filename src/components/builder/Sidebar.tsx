@@ -1,15 +1,16 @@
 'use client';
 
 import { useAppDispatch } from '@/store/hooks';
-import { addBlock, removeBlock } from '@/store/builderSlice';
+import { addBlock, removeBlock, reorderBlocks } from '@/store/builderSlice';
 import { BlockType, Block } from '@/lib/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
 import { buttonVariants } from '@/components/ui/button';
-import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, Image, Type, Activity, PlaySquare, Gamepad2, ChevronLeft, Sun, Moon, FileText, Trash2, Rss, Trophy, Music, Coffee, Briefcase, Quote } from 'lucide-react';
+import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, Image, Type, Activity, PlaySquare, Gamepad2, ChevronLeft, Sun, Moon, FileText, Trash2, Rss, Trophy, Music, Coffee, Briefcase, Quote, GripVertical } from 'lucide-react';
 import { Github } from "@/components/icons/Github";
 import { useAppSelector } from '@/store/hooks';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { generateMarkdown } from '@/lib/markdown/generator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -18,6 +19,79 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+function SortableSidebarItem({ block, index, typeDef }: { block: Block, index: number, typeDef?: { icon?: React.ElementType, label: string } }) {
+  const dispatch = useAppDispatch();
+  const Icon = typeDef?.icon || FileText;
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: block.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 1 : 0,
+    opacity: isDragging ? 0.8 : 1,
+  };
+
+  return (
+    <div 
+      ref={setNodeRef}
+      style={style}
+      className={cn(
+        "group flex items-center justify-between text-xs p-2 rounded border transition-colors cursor-pointer",
+        isDragging ? "bg-muted shadow-md border-primary/50" : "bg-muted/20 border-muted-foreground/10 hover:border-border hover:bg-muted/40 text-foreground"
+      )}
+      onClick={() => document.getElementById(`block-${block.id}`)?.scrollIntoView({ behavior: 'smooth' })}
+    >
+      <div className="flex items-center gap-2 overflow-hidden flex-1">
+        <button
+          className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground shrink-0"
+          {...attributes}
+          {...listeners}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <GripVertical className="w-3.5 h-3.5" />
+        </button>
+        <span className="opacity-40 font-mono text-[10px] w-4 shrink-0">{index + 1}.</span>
+        <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
+        <span className="truncate">{typeDef?.label || 'Section'}</span>
+      </div>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(removeBlock(block.id));
+        }}
+        className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded transition-all shrink-0"
+        title="Remove section"
+      >
+        <Trash2 className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
 
 export function Sidebar() {
   const dispatch = useAppDispatch();
@@ -31,6 +105,7 @@ export function Sidebar() {
   
   const isDark = theme === 'dark';
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMounted(true); }, []);
 
   const handleThemeToggle = async () => {
@@ -44,7 +119,6 @@ export function Sidebar() {
       document.documentElement.classList.add('theme-transitioning');
       setIsAnimating(true);
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-      // @ts-expect-error — startViewTransition not yet in TS lib
       const transition = document.startViewTransition(() => {
         setTheme(isDark ? 'light' : 'dark');
       });
@@ -62,33 +136,80 @@ export function Sidebar() {
     dispatch(addBlock(newBlock));
   };
 
-  const blockTypes = [
-    { type: 'hero', label: 'Hero', icon: User },
-    { type: 'banner', label: 'Waving Banner', icon: Image },
-    { type: 'typing', label: 'Typing Animation', icon: Type },
-    { type: 'about', label: 'About Me', icon: Info },
-    { type: 'experience', label: 'Work Experience', icon: Briefcase },
-    { type: 'skills', label: 'Technical Skills', icon: Code2 },
-    { type: 'github-stats', label: 'GitHub Statistics', icon: Github },
-    { type: 'activity-graph', label: 'Activity Graph', icon: Activity },
-    { type: 'trophies', label: 'GitHub Trophies', icon: Trophy },
-    { type: 'blog-posts', label: 'Latest Blog Posts', icon: Rss },
-    { type: 'spotify', label: 'Currently Listening', icon: Music },
-    { type: 'snake', label: 'Snake Animation', icon: PlaySquare },
-    { type: 'pacman', label: 'Pacman Animation', icon: Gamepad2 },
-    { type: 'projects', label: 'Featured Projects', icon: FolderGit2 },
-    { type: 'quote', label: 'Quote of the Day', icon: Quote },
-    { type: 'support', label: 'Support Me', icon: Coffee },
-    { type: 'socials', label: 'Social Links', icon: Share2 },
-    { type: 'contact', label: 'Contact', icon: Mail },
+  const blockCategories = [
+    {
+      id: 'general',
+      label: 'Profile',
+      blocks: [
+        { type: 'hero', label: 'Hero', icon: User },
+        { type: 'about', label: 'About Me', icon: Info },
+        { type: 'contact', label: 'Contact', icon: Mail },
+      ]
+    },
+    {
+      id: 'skills',
+      label: 'Work',
+      blocks: [
+        { type: 'experience', label: 'Work Experience', icon: Briefcase },
+        { type: 'skills', label: 'Technical Skills', icon: Code2 },
+        { type: 'projects', label: 'Featured Projects', icon: FolderGit2 },
+      ]
+    },
+    {
+      id: 'github',
+      label: 'GitHub',
+      blocks: [
+        { type: 'github-stats', label: 'GitHub Statistics', icon: Github },
+        { type: 'activity-graph', label: 'Activity Graph', icon: Activity },
+        { type: 'trophies', label: 'GitHub Trophies', icon: Trophy },
+      ]
+    },
+    {
+      id: 'dynamic',
+      label: 'Widgets',
+      blocks: [
+        { type: 'typing', label: 'Typing Animation', icon: Type },
+        { type: 'banner', label: 'Waving Banner', icon: Image },
+        { type: 'snake', label: 'Snake Animation', icon: PlaySquare },
+        { type: 'pacman', label: 'Pacman Animation', icon: Gamepad2 },
+        { type: 'quote', label: 'Quote of the Day', icon: Quote },
+      ]
+    },
+    {
+      id: 'social',
+      label: 'Social',
+      blocks: [
+        { type: 'socials', label: 'Social Links', icon: Share2 },
+        { type: 'support', label: 'Support Me', icon: Coffee },
+        { type: 'blog-posts', label: 'Latest Blog Posts', icon: Rss },
+        { type: 'spotify', label: 'Currently Listening', icon: Music },
+      ]
+    }
   ];
 
+  const blockTypes = blockCategories.flatMap(c => c.blocks);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      dispatch(reorderBlocks({ activeId: active.id as string, overId: over.id as string }));
+    }
+  };
+
   return (
-    <div className="w-64 border-r bg-muted/30 flex flex-col h-full">
+    <div className="w-[300px] border-r border-white/5 bg-background/60 backdrop-blur-xl flex flex-col h-full z-10 shadow-2xl">
       {/* ── Top Bar ── */}
       <div className="p-4 border-b flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-1 group">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Profilo Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform" />
             <span className="font-extrabold text-sm tracking-tight text-foreground group-hover:text-primary transition-colors duration-200">
               Profilo
@@ -141,71 +262,79 @@ export function Sidebar() {
           <FileText className="w-4 h-4" />
           Current Sections
         </h2>
-        <div className="space-y-1 mb-8">
+        <div className="mb-8">
           {blocks.length === 0 ? (
             <p className="text-xs text-muted-foreground italic">No sections added yet.</p>
           ) : (
-            blocks.map((block, i) => {
-              const typeDef = blockTypes.find(t => t.type === block.type);
-              const Icon = typeDef?.icon || FileText;
-              return (
-                <div 
-                  key={block.id} 
-                  className="group flex items-center justify-between text-xs p-2 rounded bg-muted/20 border border-muted-foreground/10 hover:border-border hover:bg-muted/40 transition-colors text-foreground cursor-pointer"
-                  onClick={() => document.getElementById(`block-${block.id}`)?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  <div className="flex items-center gap-2 overflow-hidden flex-1">
-                    <span className="opacity-40 font-mono text-[10px] w-4 shrink-0">{i + 1}.</span>
-                    <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
-                    <span className="truncate">{typeDef?.label || 'Section'}</span>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      dispatch(removeBlock(block.id));
-                    }}
-                    className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded transition-all shrink-0"
-                    title="Remove section"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={blocks.map(b => b.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-1">
+                  {blocks.map((block, i) => {
+                    const typeDef = blockTypes.find(t => t.type === block.type);
+                    return <SortableSidebarItem key={block.id} block={block} index={i} typeDef={typeDef} />;
+                  })}
                 </div>
-              );
-            })
+              </SortableContext>
+            </DndContext>
           )}
         </div>
 
-        <h2 className="font-semibold mb-2 flex items-center gap-2 text-sm">
+        <h2 className="font-semibold mb-3 flex items-center gap-2 text-sm">
           <LayoutTemplate className="w-4 h-4" />
           Add Section
         </h2>
-        <p className="text-xs text-muted-foreground mb-3">Click to add a section to your README.</p>
-        <div className="space-y-2">
-          {blockTypes.map(({ type, label, icon: Icon }) => (
-            <HoverCard key={type}>
-              <HoverCardTrigger 
-                className={buttonVariants({ variant: "outline", size: "sm" }) + " w-full justify-start text-left text-xs cursor-pointer"}
-                onClick={() => handleAddBlock(type as BlockType)}
+        
+        <Tabs defaultValue="general" className="w-full">
+          <TabsList className="w-full flex flex-wrap h-auto gap-1 bg-transparent p-0 mb-4">
+            {blockCategories.map(cat => (
+              <TabsTrigger 
+                key={cat.id} 
+                value={cat.id}
+                className="text-[10px] px-2 py-1 h-6 rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground border border-border/40"
               >
-                <Icon className="w-3 h-3 mr-2" />
-                {label}
-              </HoverCardTrigger>
-              <HoverCardContent side="right" align="start" className="w-[450px] p-0 overflow-hidden bg-background z-50">
-                <div className="bg-muted/30 p-2 border-b text-xs font-medium text-muted-foreground flex items-center justify-between">
-                  <span>Preview: {label}</span>
-                  <span className="text-[10px] opacity-50">Click to add</span>
-                </div>
-                <div className="py-4 max-h-[350px] overflow-y-auto overflow-x-hidden flex justify-center">
-                  <div className="prose prose-sm dark:prose-invert max-w-none transform scale-[0.75] origin-top w-[500px]">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-                      {generateMarkdown([createDefaultBlock(type as BlockType)], currentTheme, true)}
-                    </ReactMarkdown>
-                  </div>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
+                {cat.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
+          {blockCategories.map(cat => (
+            <TabsContent key={cat.id} value={cat.id} className="mt-0">
+              <div className="space-y-2">
+                {cat.blocks.map(({ type, label, icon: Icon }) => (
+                  <HoverCard key={type}>
+                    <HoverCardTrigger 
+                      className={buttonVariants({ variant: "outline", size: "sm" }) + " w-full justify-start text-left text-xs cursor-pointer border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all"}
+                      onClick={() => handleAddBlock(type as BlockType)}
+                    >
+                      <Icon className="w-3 h-3 mr-2" />
+                      {label}
+                    </HoverCardTrigger>
+                    <HoverCardContent side="right" align="start" className="w-[450px] p-0 overflow-hidden bg-background z-50 border-white/10 shadow-xl rounded-xl">
+                      <div className="bg-muted/30 p-2 border-b border-white/5 text-xs font-medium text-muted-foreground flex items-center justify-between">
+                        <span>Preview: {label}</span>
+                        <span className="text-[10px] opacity-50">Click to add</span>
+                      </div>
+                      <div className="py-4 max-h-[350px] overflow-y-auto overflow-x-hidden flex justify-center bg-[#0d1117]">
+                        <div className="prose prose-sm dark:prose-invert max-w-none transform scale-[0.75] origin-top w-[500px]">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                            {generateMarkdown([createDefaultBlock(type as BlockType)], currentTheme, true)}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
+                ))}
+              </div>
+            </TabsContent>
           ))}
-        </div>
+        </Tabs>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock } from '../types/blocks';
 import { ThemeId } from '../types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
+import { PLATFORMS } from '../constants/platforms';
 
 export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: boolean = false): string {
   let markdown = '';
@@ -8,16 +9,16 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
   blocks.forEach((block, index) => {
     switch (block.type) {
       case 'hero':
-        markdown += generateHero(block);
+        markdown += generateHero(block, isPreview);
         break;
       case 'banner':
-        markdown += generateBanner(block, themeId);
+        markdown += generateBanner(block);
         break;
       case 'typing':
-        markdown += generateTyping(block, themeId);
+        markdown += generateTyping(block);
         break;
       case 'about':
-        markdown += generateAbout(block);
+        markdown += generateAbout(block, themeId);
         break;
       case 'skills':
         markdown += generateSkills(block, themeId);
@@ -35,7 +36,7 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         markdown += generatePacman(block, isPreview);
         break;
       case 'projects':
-        markdown += generateProjects(block, themeId);
+        markdown += generateProjects(block, themeId, isPreview);
         break;
       case 'socials':
         markdown += generateSocials(block);
@@ -56,10 +57,10 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         markdown += generateSupport(block, isPreview);
         break;
       case 'experience':
-        markdown += generateExperience(block);
+        markdown += generateExperience(block, themeId, isPreview);
         break;
       case 'quote':
-        markdown += generateQuote(block, isPreview);
+        markdown += generateQuote(block);
         break;
     }
     
@@ -114,7 +115,15 @@ function getActivityGraphColorParams(themeId: ThemeId): string {
   }
 }
 
-// Returns the primary accent hex (no #) for a given theme used in widget URLs
+function generateSectionTitle(defaultTitle: string, title?: string, color?: string): string {
+  const finalTitle = title || defaultTitle;
+  if (color && color.trim() !== '') {
+    const cleanColor = color.replace('#', '');
+    return `<h3><img src="https://readme-typing-svg.demolab.com?font=Inter&weight=700&size=24&duration=1&pause=1000&color=${cleanColor}&width=400&lines=${encodeURIComponent(finalTitle)}" alt="${finalTitle}" /></h3>\n\n`;
+  }
+  return `## ${finalTitle}\n\n`;
+}
+
 function getThemeAccent(themeId: ThemeId): { color: string; bg: string; fontColor: string } {
   switch (themeId) {
     case 'cyberpunk':
@@ -129,18 +138,6 @@ function getThemeAccent(themeId: ThemeId): { color: string; bg: string; fontColo
   }
 }
 
-// Returns the typing SVG text color for a given theme
-function getThemeTypingColor(themeId: ThemeId): string {
-  switch (themeId) {
-    case 'cyberpunk':       return '00ff9f';
-    case 'purple-gradient': return 'd8b4fe';
-    case 'clean-light':     return '0366d6';
-    case 'github-classic':
-    default:                return '58a6ff';
-  }
-}
-
-// Returns a shields.io badge style color for skills
 function getThemeBadgeColor(themeId: ThemeId): string {
   switch (themeId) {
     case 'cyberpunk':       return '00b377';
@@ -151,10 +148,13 @@ function getThemeBadgeColor(themeId: ThemeId): string {
   }
 }
 
-function generateHero(block: HeroBlock): string {
-  const { name, title, shortIntro, avatarUrl } = block.data;
+function generateHero(block: HeroBlock, isPreview: boolean): string {
+  const { name, title, shortIntro, avatarUrl, localAvatarBase64 } = block.data;
   let md = `<div align="center">\n`;
-  if (avatarUrl) {
+  if (localAvatarBase64) {
+    const src = isPreview ? localAvatarBase64 : `./avatar.png`;
+    md += `  <img src="${src}" alt="${name}" width="150" height="150" style="border-radius: 50%; object-fit: cover;" />\n\n`;
+  } else if (avatarUrl) {
     md += `  <img src="${avatarUrl}" alt="${name}" width="150" height="150" style="border-radius: 50%; object-fit: cover;" />\n\n`;
   }
   md += `  <h1>Hi there, I'm ${name} 👋</h1>\n`;
@@ -164,70 +164,100 @@ function generateHero(block: HeroBlock): string {
   return md;
 }
 
-function generateBanner(block: BannerBlock, themeId: ThemeId): string {
-  const { bannerType, height, text, desc, section } = block.data;
+function generateBanner(block: BannerBlock): string {
+  const { bannerType, height, text, desc, section, color, fontColor } = block.data;
   const safeText = encodeURIComponent(text);
   const safeDesc = encodeURIComponent(desc);
-  const accent = getThemeAccent(themeId);
-  // Use theme color for the banner gradient; fontColor follows theme accent
-  const bannerColor = accent.color;
-  const bannerFontColor = accent.fontColor;
+  
+  const cleanColor = (color || '000000').replace('#', '');
+  const cleanFontColor = (fontColor || 'ffffff').replace('#', '');
+
   let md = `<div align="center">\n`;
-  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${bannerColor}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${bannerFontColor}&fontSize=80&descSize=22&fontAlignY=38&descAlignY=60" alt="Banner" />\n`;
+  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${cleanColor}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${cleanFontColor}&fontSize=80&descSize=22&fontAlignY=38&descAlignY=60" alt="Banner" />\n`;
   md += `</div>\n`;
   return md;
 }
 
-function generateTyping(block: TypingBlock, themeId: ThemeId): string {
-  const { lines, size, center, vCenter } = block.data;
+function generateTyping(block: TypingBlock): string {
+  const { lines, size, center, vCenter, color } = block.data;
   const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
-  // Override the typing color with the active theme accent color
-  const typingColor = getThemeTypingColor(themeId);
+  const cleanColor = (color || 'ff0000').replace('#', '');
   let md = `<div align="center">\n`;
   md += `  <a href="https://git.io/typing-svg">\n`;
-  md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${typingColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
+  md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${cleanColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
   md += `  </a>\n`;
   md += `</div>\n`;
   return md;
 }
 
-function generateAbout(block: AboutBlock): string {
-  const { paragraph, currentlyLearning, currentlyWorkingOn, askMeAbout } = block.data;
-  let md = `## About Me\n\n`;
+function generateAbout(block: AboutBlock, themeId: ThemeId): string {
+  const { sectionTitle, sectionTitleColor, iconColor, paragraph, currentlyLearning, currentlyWorkingOn, askMeAbout, bullets } = block.data;
+  let md = generateSectionTitle('About Me', sectionTitle, sectionTitleColor);
   if (paragraph) md += `${paragraph}\n\n`;
-  if (currentlyWorkingOn) md += `- 🔭 I’m currently working on **${currentlyWorkingOn}**\n`;
-  if (currentlyLearning) md += `- 🌱 I’m currently learning **${currentlyLearning}**\n`;
-  if (askMeAbout) md += `- 💬 Ask me about **${askMeAbout}**\n`;
+  
+  const themeAccent = getThemeAccent(themeId).color.replace('#', '');
+  const accentColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : themeAccent;
+  
+  if (bullets && bullets.length > 0) {
+    bullets.forEach(bullet => {
+      if (bullet.icon) {
+        md += `- <img src="https://api.iconify.design/lucide/${bullet.icon}.svg?color=%23${accentColor}" width="16" height="16" style="vertical-align: -3px;" /> ${bullet.text}\n`;
+      } else if (bullet.emoji) {
+        md += `- ${bullet.emoji} ${bullet.text}\n`;
+      } else {
+        md += `- ${bullet.text}\n`;
+      }
+    });
+  } else {
+    if (currentlyWorkingOn) md += `- <img src="https://api.iconify.design/lucide/telescope.svg?color=%23${accentColor}" width="16" height="16" style="vertical-align: -3px;" /> I’m currently working on **${currentlyWorkingOn}**\n`;
+    if (currentlyLearning) md += `- <img src="https://api.iconify.design/lucide/sprout.svg?color=%23${accentColor}" width="16" height="16" style="vertical-align: -3px;" /> I’m currently learning **${currentlyLearning}**\n`;
+    if (askMeAbout) md += `- <img src="https://api.iconify.design/lucide/message-square.svg?color=%23${accentColor}" width="16" height="16" style="vertical-align: -3px;" /> Ask me about **${askMeAbout}**\n`;
+  }
+  
   md += `\n`;
   return md;
 }
 
 function generateSkills(block: TechnicalSkillsBlock, themeId: ThemeId): string {
-  const { skills, style } = block.data;
-  if (skills.length === 0) return '';
+  const { sectionTitle, sectionTitleColor, skills, groups, style } = block.data;
+  let md = generateSectionTitle('Technical Skills', sectionTitle, sectionTitleColor);
   
-  // Use per-skill color if defined, otherwise fall back to the active theme color
+  if ((!skills || skills.length === 0) && (!groups || groups.length === 0)) return '';
+  
   const themeBadgeColor = getThemeBadgeColor(themeId);
+  const badgeLogoColor = block.data.iconColor ? block.data.iconColor.replace('#', '') : 'white';
+  if (groups && groups.length > 0) {
+    groups.forEach(group => {
+      if (!group.skills || group.skills.length === 0) return;
+      md += `### ${group.name}\n\n`;
+      md += `<div align="left">\n`;
+      group.skills.forEach(skill => {
+        const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
+        const safeSkillName = encodeURIComponent(skill);
+        const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
+        const badgeColor = skillDef?.color || themeBadgeColor;
+        md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${skill}" />\n`;
+      });
+      md += `</div>\n\n`;
+    });
+  } else if (skills && skills.length > 0) {
+    md += `<div align="left">\n`;
+    skills.forEach(skill => {
+      const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
+      const safeSkillName = encodeURIComponent(skill);
+      const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
+      const badgeColor = skillDef?.color || themeBadgeColor;
+      md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${skill}" />\n`;
+    });
+    md += `</div>\n\n`;
+  }
   
-  let md = `## Technical Skills\n\n`;
-  md += `<div align="left">\n`;
-  
-  skills.forEach(skill => {
-    const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
-    const safeSkillName = encodeURIComponent(skill);
-    const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
-    // Use per-skill brand color if available; otherwise use the active theme badge color
-    const badgeColor = skillDef?.color || themeBadgeColor;
-    md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=white" alt="${skill}" />\n`;
-  });
-  
-  md += `</div>\n\n`;
-  return md;
+  return md.trim() + '\n\n';
 }
 
 function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPreview: boolean): string {
-  const { username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, showProfileViews, useCustomColors, customColors } = block.data;
-  let md = `## GitHub Statistics\n\n`;
+  const { sectionTitle, sectionTitleColor, username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, showProfileViews, useCustomColors, customColors } = block.data;
+  let md = generateSectionTitle('GitHub Statistics', sectionTitle, sectionTitleColor);
   md += `<div align="center">\n`;
   
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
@@ -235,7 +265,12 @@ function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPrevie
   
   let colorParams = '';
   if (useCustomColors && customColors) {
-    colorParams = `&bg_color=${customColors.bg}&title_color=${customColors.title}&text_color=${customColors.text}&icon_color=${customColors.icon}&border_color=${customColors.border}`;
+    const bg = (customColors.bg || '').replace('#', '');
+    const title = (customColors.title || '').replace('#', '');
+    const text = (customColors.text || '').replace('#', '');
+    const icon = (customColors.icon || '').replace('#', '');
+    const border = (customColors.border || '').replace('#', '');
+    colorParams = `&bg_color=${bg}&title_color=${title}&text_color=${text}&icon_color=${icon}&border_color=${border}`;
   } else {
     colorParams = getThemeColorParams(themeId);
   }
@@ -305,15 +340,20 @@ function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPrevie
 }
 
 function generateActivityGraph(block: ActivityGraphBlock, themeId: ThemeId, isPreview: boolean): string {
-  const { username, useCustomColors, customColors } = block.data;
-  let md = `<div align="center">\n`;
+  const { sectionTitle, sectionTitleColor, username, useCustomColors, customColors } = block.data;
+  let md = generateSectionTitle('Activity Graph', sectionTitle, sectionTitleColor);
+  md += `<div align="center">\n`;
   
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
   const previewUsername = isPreview ? 'torvalds' : targetUsername;
   
   let colorParams = '';
   if (useCustomColors && customColors) {
-    colorParams = `&bg_color=${customColors.bg}&color=${customColors.color}&line=${customColors.line}&point=${customColors.point}`;
+    const bg = (customColors.bg || '').replace('#', '');
+    const color = (customColors.color || '').replace('#', '');
+    const line = (customColors.line || '').replace('#', '');
+    const point = (customColors.point || '').replace('#', '');
+    colorParams = `&bg_color=${bg}&color=${color}&line=${line}&point=${point}`;
   } else {
     colorParams = getActivityGraphColorParams(themeId);
   }
@@ -359,11 +399,12 @@ function generatePacman(block: PacmanBlock, isPreview: boolean): string {
   return md;
 }
 
-function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId): string {
-  const { projects, style, useCustomColors, theme, customColors } = block.data;
+function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId, isPreview: boolean): string {
+  const { sectionTitle, sectionTitleColor, iconColor, style, useCustomColors, customColors, projects } = block.data;
   if (!projects || projects.length === 0) return '';
-  
-  let md = `## Featured Projects\n\n`;
+
+  const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
+  let md = generateSectionTitle('Featured Projects', sectionTitle, sectionTitleColor);
   
   if (style === 'cards') {
     md += `<div align="center">\n`;
@@ -376,7 +417,6 @@ function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId): strin
     
     projects.forEach(project => {
       if (project.githubUrl) {
-        // extract username and repo from github URL
         const parts = project.githubUrl.replace(/\/$/, '').split('/');
         const repo = parts.pop();
         const user = parts.pop();
@@ -390,11 +430,26 @@ function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId): strin
     md += `</div>\n\n`;
   } else {
     projects.forEach(project => {
-      md += `### ${project.name}\n`;
-      md += `${project.description}\n\n`;
-      if (project.techStack && project.techStack.length > 0) {
-        md += `**Tech Stack:** ${project.techStack.join(', ')}\n\n`;
+      md += `### ${project.name}\n\n`;
+      
+      if (project.localImageBase64) {
+        const src = isPreview ? project.localImageBase64 : `./project-${project.id}.png`;
+        md += `<img src="${src}" alt="${project.name}" width="400" style="border-radius: 8px;" />\n\n`;
       }
+      
+      md += `${project.description}\n\n`;
+      
+      if (project.techStack && project.techStack.length > 0) {
+        md += `<div align="left">\n`;
+        const badgeColor = getThemeBadgeColor(themeId);
+        project.techStack.forEach(tech => {
+          const safeName = encodeURIComponent(tech).replace(/-/g, '--');
+          const iconName = tech.toLowerCase().replace(/[^a-z0-9]/g, '');
+          md += `  <img src="https://img.shields.io/badge/-${safeName}-${badgeColor}?style=flat-square&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${tech}" />\n`;
+        });
+        md += `</div>\n\n`;
+      }
+      
       if (project.githubUrl) {
         md += `[GitHub Repository](${project.githubUrl}) `;
       }
@@ -408,32 +463,57 @@ function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId): strin
 }
 
 function generateSocials(block: SocialLinksBlock): string {
-  const { github, linkedin, twitter, portfolio, email } = block.data;
-  let md = `## Connect With Me\n\n`;
+  const { sectionTitle, sectionTitleColor, iconColor, links, badgeStyle, github, linkedin, twitter, portfolio, email } = block.data;
+  const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
+  
+  const finalLinks = links || [];
+  
+  if (finalLinks.length === 0) {
+    if (github) finalLinks.push({ id: 'legacy-github', platform: 'github', url: github, color: '181717', icon: 'github' });
+    if (linkedin) finalLinks.push({ id: 'legacy-linkedin', platform: 'linkedin', url: linkedin, color: '0A66C2', icon: 'linkedin' });
+    if (twitter) finalLinks.push({ id: 'legacy-twitter', platform: 'twitter', url: twitter, color: '1DA1F2', icon: 'twitter' });
+    if (portfolio) finalLinks.push({ id: 'legacy-portfolio', platform: 'portfolio', url: portfolio, color: '2563EB', icon: 'globe' });
+    if (email) finalLinks.push({ id: 'legacy-email', platform: 'email', url: email, color: 'D14836', icon: 'gmail' });
+  }
+
+  if (finalLinks.length === 0) return '';
+
+  let md = generateSectionTitle('Connect With Me', sectionTitle, sectionTitleColor);
   md += `<p align="left">\n`;
   
-  if (github) md += `  <a href="${github}"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>\n`;
-  if (linkedin) md += `  <a href="${linkedin}"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>\n`;
-  if (twitter) md += `  <a href="${twitter}"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>\n`;
-  if (portfolio) md += `  <a href="${portfolio}"><img src="https://img.shields.io/badge/Portfolio-2563EB?style=for-the-badge&logo=globe&logoColor=white" alt="Portfolio" /></a>\n`;
-  if (email) md += `  <a href="mailto:${email}"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>\n`;
+  const style = badgeStyle || 'for-the-badge';
+
+  if (finalLinks && finalLinks.length > 0) {
+    finalLinks.forEach(link => {
+      const plat = PLATFORMS.find(p => p.id === link.platform);
+      const name = plat ? plat.name : link.platform;
+      const safeName = encodeURIComponent(name).replace(/-/g, '--');
+      const href = link.platform === 'email' ? `mailto:${link.url}` : link.url;
+      if (link.url) {
+        md += `  <a href="${href}"><img src="https://img.shields.io/badge/${safeName}-${link.color}?style=${style}&logo=${link.icon}&logoColor=${badgeLogoColor}" alt="${name}" /></a>\n`;
+      }
+    });
+  }
   
   md += `</p>\n\n`;
   return md;
 }
 
 function generateContact(block: ContactBlock): string {
-  const { email, message } = block.data;
-  let md = `## Contact\n\n`;
-  md += `${message}\n\n`;
+  const { sectionTitle, sectionTitleColor, email, message } = block.data;
+  let md = generateSectionTitle('Contact', sectionTitle, sectionTitleColor);
+  if (message) {
+    md += `${message}\n\n`;
+  }
   md += `You can reach me at: [${email}](mailto:${email})\n\n`;
   return md;
 }
 
 function generateBlogPosts(block: BlogPostsBlock, isPreview: boolean): string {
-  const { platform } = block.data;
-  let md = `## ✍️ Latest Blog Posts\n\n`;
+  const { sectionTitle, sectionTitleColor } = block.data;
+  let md = generateSectionTitle('✍️ Latest Blog Posts', sectionTitle, sectionTitleColor);
   md += `<!-- NOTE: You need to set up the gautamkrishnar/blog-post-workflow GitHub Action for this to work -->\n`;
+  
   if (isPreview) {
     md += `- [Building scalable web applications with React](https://example.com)\n`;
     md += `- [10 things you didn't know about TypeScript](https://example.com)\n`;
@@ -447,8 +527,8 @@ function generateBlogPosts(block: BlogPostsBlock, isPreview: boolean): string {
 }
 
 function generateTrophies(block: TrophiesBlock, isPreview: boolean): string {
-  const { username, theme, columns, noFrame, noBg } = block.data;
-  let md = `## 🏆 GitHub Trophies\n\n`;
+  const { sectionTitle, sectionTitleColor, username, theme, columns, noFrame, noBg } = block.data;
+  let md = generateSectionTitle('🏆 GitHub Trophies', sectionTitle, sectionTitleColor);
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
   const previewUsername = isPreview ? 'torvalds' : targetUsername;
   
@@ -465,8 +545,8 @@ function generateTrophies(block: TrophiesBlock, isPreview: boolean): string {
 }
 
 function generateSpotify(block: SpotifyBlock): string {
-  const { spotifyUrl, theme } = block.data;
-  let md = `## 🎧 Currently Listening\n\n`;
+  const { sectionTitle, sectionTitleColor, spotifyUrl, theme } = block.data;
+  let md = generateSectionTitle('🎧 Currently Listening', sectionTitle, sectionTitleColor);
   md += `<div align="center">\n`;
   
   // Just use novatorem for demo since user won't have it set up unless they deploy vercel.
@@ -480,62 +560,85 @@ function generateSpotify(block: SpotifyBlock): string {
 }
 
 function generateSupport(block: SupportBlock, isPreview: boolean): string {
-  const { buyMeACoffee, patreon, kofi, github, qrCodeBase64, qrCodeLabel } = block.data;
-  let md = `## ☕ Support Me\n\n`;
+  const { sectionTitle, sectionTitleColor, iconColor, supportMode, buyMeACoffee, patreon, kofi, github, qrCodeBase64, qrCodeLabel } = block.data;
+  const mode = supportMode || 'international';
+  const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
+  let md = generateSectionTitle('☕ Support Me', sectionTitle, sectionTitleColor);
   md += `<div align="center">\n`;
   
-  if (buyMeACoffee) {
-    md += `  <a href="https://www.buymeacoffee.com/${buyMeACoffee}">\n`;
-    md += `    <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />\n`;
-    md += `  </a>\n`;
-  }
-  if (patreon) {
-    md += `  <a href="https://patreon.com/${patreon}">\n`;
-    md += `    <img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Patreon" />\n`;
-    md += `  </a>\n`;
-  }
-  if (kofi) {
-    md += `  <a href="https://ko-fi.com/${kofi}">\n`;
-    md += `    <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi" />\n`;
-    md += `  </a>\n`;
-  }
-  if (github) {
-    md += `  <a href="https://github.com/sponsors/${github}">\n`;
-    md += `    <img src="https://img.shields.io/badge/GitHub_Sponsors-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white" alt="GitHub Sponsors" />\n`;
-    md += `  </a>\n`;
-  }
-  
-  if (qrCodeBase64) {
-    const src = isPreview ? qrCodeBase64 : './support-qr.png';
-    md += `  <br /><br />\n`;
-    if (qrCodeLabel) {
-      md += `  <p><strong>${qrCodeLabel}</strong></p>\n`;
+  if (mode === 'international') {
+    if (buyMeACoffee) {
+      md += `  <a href="https://www.buymeacoffee.com/${buyMeACoffee}">\n`;
+      md += `    <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />\n`;
+      md += `  </a>\n`;
     }
-    md += `  <img src="${src}" alt="${qrCodeLabel || 'QR Code'}" width="200" style="border-radius: 8px; border: 1px solid #e1e4e8;" />\n`;
+    if (patreon) {
+      md += `  <a href="https://patreon.com/${patreon}">\n`;
+      md += `    <img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=${badgeLogoColor}" alt="Patreon" />\n`;
+      md += `  </a>\n`;
+    }
+    if (kofi) {
+      md += `  <a href="https://ko-fi.com/${kofi}">\n`;
+      md += `    <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=${badgeLogoColor}" alt="Ko-fi" />\n`;
+      md += `  </a>\n`;
+    }
+    if (github) {
+      md += `  <a href="https://github.com/sponsors/${github}">\n`;
+      md += `    <img src="https://img.shields.io/badge/GitHub_Sponsors-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=${badgeLogoColor}" alt="GitHub Sponsors" />\n`;
+      md += `  </a>\n`;
+    }
+  } else if (mode === 'local') {
+    if (qrCodeBase64) {
+      const src = isPreview ? qrCodeBase64 : './support-qr.png';
+      if (qrCodeLabel) {
+        md += `  <p><strong>${qrCodeLabel}</strong></p>\n`;
+      }
+      md += `  <img src="${src}" alt="${qrCodeLabel || 'QR Code'}" width="200" style="border-radius: 8px; border: 1px solid #e1e4e8;" />\n`;
+    }
   }
   
   md += `</div>\n\n`;
   return md;
 }
 
-function generateExperience(block: ExperienceBlock): string {
-  const { jobs } = block.data;
+function generateExperience(block: ExperienceBlock, themeId: ThemeId, isPreview: boolean): string {
+  const { sectionTitle, sectionTitleColor, iconColor, jobs } = block.data;
   if (!jobs || jobs.length === 0) return '';
+  const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
 
-  let md = `## 💼 Work Experience\n\n`;
+  let md = generateSectionTitle('💼 Work Experience', sectionTitle, sectionTitleColor);
   jobs.forEach(job => {
     md += `### ${job.title} at ${job.company}\n`;
+    
+    if (job.companyLogoBase64) {
+      const src = isPreview ? job.companyLogoBase64 : `./company-${job.id}.png`;
+      md += `<img src="${src}" alt="${job.company} Logo" height="64" style="border-radius: 4px;" />\n\n`;
+    }
+
     md += `🗓️ _${job.duration}_\n\n`;
+    
     if (job.description) {
-      // Split description by newlines to make sure blockquotes are handled well, or just output text
       md += `${job.description}\n\n`;
     }
+
+    if (job.techStack && job.techStack.length > 0) {
+      md += `<div align="left">\n`;
+      job.techStack.forEach(tech => {
+        const skillDef = POPULAR_SKILLS.find(s => s.name.toLowerCase() === tech.toLowerCase());
+        const safeName = encodeURIComponent(tech);
+        const iconName = skillDef ? skillDef.icon : tech.toLowerCase().replace(/\s+/g, '');
+        const badgeColor = skillDef?.color || getThemeBadgeColor(themeId);
+        md += `  <img src="https://img.shields.io/badge/-${safeName}-${badgeColor}?style=flat-square&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${tech}" />\n`;
+      });
+      md += `</div>\n\n`;
+    }
+
     md += `---\n\n`;
   });
   return md;
 }
 
-function generateQuote(block: QuoteBlock, isPreview: boolean): string {
+function generateQuote(block: QuoteBlock): string {
   const { theme, layout } = block.data;
   let md = `<div align="center">\n`;
   md += `  <img src="https://quotes-github-readme.vercel.app/api?type=${layout}&theme=${theme}" alt="Random Quote" />\n`;

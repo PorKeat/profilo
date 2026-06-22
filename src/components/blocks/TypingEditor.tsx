@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ColorPicker } from '@/components/ui/color-picker';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 
@@ -36,10 +37,10 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Text Color (Hex)</Label>
-          <Input 
+          <ColorPicker 
             value={data.color} 
-            onChange={(e) => handleChange('color', e.target.value)} 
-            placeholder="e.g. ff003c" 
+            onChange={(v) => handleChange('color', v)} 
+            placeholder="ff003c" 
           />
         </div>
         <div className="space-y-2">

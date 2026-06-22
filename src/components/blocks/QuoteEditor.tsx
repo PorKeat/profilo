@@ -22,7 +22,7 @@ export function QuoteEditor({ block }: { block: QuoteBlock }) {
     <div className="space-y-4 text-left">
       <div className="space-y-2">
         <Label>Theme</Label>
-        <Select value={data.theme} onValueChange={(v) => handleChange('theme', v)}>
+        <Select value={data.theme} onValueChange={(v) => v && handleChange('theme', v)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
             {QUOTE_THEMES.map(t => (
@@ -33,7 +33,7 @@ export function QuoteEditor({ block }: { block: QuoteBlock }) {
       </div>
       <div className="space-y-2">
         <Label>Layout</Label>
-        <Select value={data.layout} onValueChange={(v) => handleChange('layout', v)}>
+        <Select value={data.layout} onValueChange={(v) => v && handleChange('layout', v)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="horizontal">Horizontal</SelectItem>

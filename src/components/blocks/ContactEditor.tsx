@@ -5,7 +5,8 @@ import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { MarkdownTextarea } from '@/components/ui/markdown-input';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 export function ContactEditor({ block }: { block: ContactBlock }) {
   const dispatch = useAppDispatch();
@@ -16,7 +17,13 @@ export function ContactEditor({ block }: { block: ContactBlock }) {
   };
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="Contact" 
+        color={data.sectionTitleColor} 
+        onChange={handleChange} 
+      />
       <div className="space-y-2">
         <Label>Email Address</Label>
         <Input 
@@ -28,9 +35,9 @@ export function ContactEditor({ block }: { block: ContactBlock }) {
       </div>
       <div className="space-y-2">
         <Label>Message</Label>
-        <Textarea 
+        <MarkdownTextarea 
           value={data.message} 
-          onChange={(e) => handleChange('message', e.target.value)} 
+          onChange={(val) => handleChange('message', val)} 
           placeholder="Feel free to reach out to me!" 
         />
       </div>

@@ -54,9 +54,9 @@ export function Canvas() {
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-muted/10">
+    <div className="flex-1 flex flex-col bg-transparent relative z-10">
       {/* ── Header ── */}
-      <div className="p-4 border-b bg-background flex items-center justify-between gap-4">
+      <div className="px-8 py-5 border-b border-white/5 bg-background/40 backdrop-blur-md flex items-center justify-between gap-4">
         <div>
           <h2 className="font-semibold">Editor Canvas</h2>
           <p className="text-xs text-muted-foreground">Drag and drop sections to reorder them.</p>
@@ -94,8 +94,12 @@ export function Canvas() {
           </DndContext>
 
           {blocks.length === 0 && (
-            <div className="text-center p-12 border-2 border-dashed rounded-lg bg-background text-muted-foreground">
-              No sections added yet. Click a section in the sidebar to add it.
+            <div className="text-center p-12 border border-dashed border-primary/20 rounded-2xl bg-background/40 backdrop-blur-md shadow-xl text-muted-foreground flex flex-col items-center justify-center min-h-[300px]">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-8 h-8 text-primary/60" />
+              </div>
+              <h3 className="text-lg font-bold text-foreground mb-1">Your canvas is empty</h3>
+              <p className="text-sm max-w-sm">Click any section in the sidebar to add it to your README canvas.</p>
             </div>
           )}
         </div>

@@ -54,16 +54,17 @@ export function SortableBlock({ block }: SortableBlockProps) {
       ref={setNodeRef}
       style={style}
       className={cn(
-        "relative group bg-background shadow-sm border-muted-foreground/20 scroll-mt-6",
-        isDragging && "opacity-80 ring-2 ring-primary shadow-xl"
+        "relative group shadow-lg border-white/5 scroll-mt-6 rounded-xl transition-all duration-300",
+        expanded ? "bg-background/80 backdrop-blur-xl ring-1 ring-primary/20" : "bg-background/40 backdrop-blur-md hover:bg-background/60",
+        isDragging && "opacity-80 ring-2 ring-primary shadow-2xl scale-[1.02]"
       )}
     >
       <CardHeader className="p-3 border-b flex flex-row items-center justify-between space-y-0 cursor-default bg-muted/30">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div
             {...attributes}
             {...listeners}
-            className="cursor-grab active:cursor-grabbing p-1.5 hover:bg-muted rounded text-muted-foreground transition-colors"
+            className="cursor-grab active:cursor-grabbing p-1.5 hover:bg-primary/20 hover:text-primary rounded-md text-muted-foreground transition-all"
           >
             <GripVertical className="h-4 w-4" />
           </div>
@@ -80,7 +81,7 @@ export function SortableBlock({ block }: SortableBlockProps) {
       </CardHeader>
       
       {expanded && (
-        <CardContent className="p-4 bg-muted/5">
+        <CardContent className="p-6 bg-transparent">
           <BlockEditor block={block} />
         </CardContent>
       )}

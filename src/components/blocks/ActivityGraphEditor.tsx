@@ -6,6 +6,8 @@ import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { ColorPicker } from '@/components/ui/color-picker';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function ActivityGraphEditor({ block }: { block: ActivityGraphBlock }) {
@@ -18,6 +20,12 @@ export function ActivityGraphEditor({ block }: { block: ActivityGraphBlock }) {
 
   return (
     <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="Activity Graph" 
+        color={data.sectionTitleColor} 
+        onChange={handleChange} 
+      />
       <div className="space-y-2">
         <Label>GitHub Username</Label>
         <Input 
@@ -40,7 +48,7 @@ export function ActivityGraphEditor({ block }: { block: ActivityGraphBlock }) {
         {!data.useCustomColors ? (
           <div className="space-y-2">
             <Label>Widget Theme</Label>
-            <Select value={data.theme} onValueChange={(val) => handleChange('theme', val)}>
+            <Select value={data.theme} onValueChange={(val) => val && handleChange('theme', val)}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a theme" />
               </SelectTrigger>
@@ -62,33 +70,33 @@ export function ActivityGraphEditor({ block }: { block: ActivityGraphBlock }) {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Background (Hex)</Label>
-              <Input 
-                value={data.customColors?.bg} 
-                onChange={(e) => handleChange('customColors', { ...data.customColors, bg: e.target.value })} 
+              <ColorPicker 
+                value={data.customColors?.bg || ''} 
+                onChange={(v) => handleChange('customColors', { ...data.customColors, bg: v })} 
                 placeholder="000000" 
               />
             </div>
             <div className="space-y-2">
               <Label>Graph Line (Hex)</Label>
-              <Input 
-                value={data.customColors?.line} 
-                onChange={(e) => handleChange('customColors', { ...data.customColors, line: e.target.value })} 
+              <ColorPicker 
+                value={data.customColors?.line || ''} 
+                onChange={(v) => handleChange('customColors', { ...data.customColors, line: v })} 
                 placeholder="ff003c" 
               />
             </div>
             <div className="space-y-2">
               <Label>Data Points (Hex)</Label>
-              <Input 
-                value={data.customColors?.point} 
-                onChange={(e) => handleChange('customColors', { ...data.customColors, point: e.target.value })} 
+              <ColorPicker 
+                value={data.customColors?.point || ''} 
+                onChange={(v) => handleChange('customColors', { ...data.customColors, point: v })} 
                 placeholder="ffffff" 
               />
             </div>
             <div className="space-y-2">
               <Label>Text Color (Hex)</Label>
-              <Input 
-                value={data.customColors?.color} 
-                onChange={(e) => handleChange('customColors', { ...data.customColors, color: e.target.value })} 
+              <ColorPicker 
+                value={data.customColors?.color || ''} 
+                onChange={(v) => handleChange('customColors', { ...data.customColors, color: v })} 
                 placeholder="ff003c" 
               />
             </div>

@@ -6,6 +6,7 @@ import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 export function SpotifyEditor({ block }: { block: SpotifyBlock }) {
   const dispatch = useAppDispatch();
@@ -16,7 +17,13 @@ export function SpotifyEditor({ block }: { block: SpotifyBlock }) {
   };
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="🎧 Currently Listening" 
+        color={data.sectionTitleColor} 
+        onChange={handleChange} 
+      />
       <div className="space-y-2">
         <Label>Spotify Profile URL or UID</Label>
         <Input 
@@ -30,7 +37,7 @@ export function SpotifyEditor({ block }: { block: SpotifyBlock }) {
       </div>
       <div className="space-y-2">
         <Label>Widget Theme</Label>
-        <Select value={data.theme} onValueChange={(v) => handleChange('theme', v)}>
+        <Select value={data.theme} onValueChange={(v) => v && handleChange('theme', v)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="novatorem">Novatorem (Default)</SelectItem>

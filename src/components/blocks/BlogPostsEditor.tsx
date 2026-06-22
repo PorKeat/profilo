@@ -6,6 +6,7 @@ import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 export function BlogPostsEditor({ block }: { block: BlogPostsBlock }) {
   const dispatch = useAppDispatch();
@@ -16,10 +17,16 @@ export function BlogPostsEditor({ block }: { block: BlogPostsBlock }) {
   };
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="✍️ Latest Blog Posts" 
+        color={data.sectionTitleColor} 
+        onChange={handleChange} 
+      />
       <div className="space-y-2">
         <Label>Platform</Label>
-        <Select value={data.platform} onValueChange={(v) => handleChange('platform', v)}>
+        <Select value={data.platform} onValueChange={(v) => v && handleChange('platform', v)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>

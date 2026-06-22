@@ -5,6 +5,8 @@ import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ColorPicker } from '@/components/ui/color-picker';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -18,6 +20,12 @@ export function GitHubStatsEditor({ block }: { block: GitHubStatsBlock }) {
 
   return (
     <div className="space-y-6 text-left">
+      <SectionTitleInput 
+        title={data.sectionTitle} 
+        defaultTitle="GitHub Statistics" 
+        color={data.sectionTitleColor} 
+        onChange={handleChange} 
+      />
       <div className="space-y-2">
         <Label>GitHub Username</Label>
         <Input 
@@ -77,7 +85,7 @@ export function GitHubStatsEditor({ block }: { block: GitHubStatsBlock }) {
           {!data.useCustomColors ? (
             <div className="space-y-2">
               <Label>Widget Theme</Label>
-              <Select value={data.theme} onValueChange={(val) => handleChange('theme', val)}>
+              <Select value={data.theme} onValueChange={(val) => val && handleChange('theme', val)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a theme" />
                 </SelectTrigger>
@@ -99,41 +107,41 @@ export function GitHubStatsEditor({ block }: { block: GitHubStatsBlock }) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Background (Hex)</Label>
-                <Input 
-                  value={data.customColors?.bg} 
-                  onChange={(e) => handleChange('customColors', { ...data.customColors, bg: e.target.value })} 
+                <ColorPicker 
+                  value={data.customColors?.bg || ''} 
+                  onChange={(v) => handleChange('customColors', { ...data.customColors, bg: v })} 
                   placeholder="000000" 
                 />
               </div>
               <div className="space-y-2">
                 <Label>Title (Hex)</Label>
-                <Input 
-                  value={data.customColors?.title} 
-                  onChange={(e) => handleChange('customColors', { ...data.customColors, title: e.target.value })} 
+                <ColorPicker 
+                  value={data.customColors?.title || ''} 
+                  onChange={(v) => handleChange('customColors', { ...data.customColors, title: v })} 
                   placeholder="ff003c" 
                 />
               </div>
               <div className="space-y-2">
                 <Label>Text (Hex)</Label>
-                <Input 
-                  value={data.customColors?.text} 
-                  onChange={(e) => handleChange('customColors', { ...data.customColors, text: e.target.value })} 
+                <ColorPicker 
+                  value={data.customColors?.text || ''} 
+                  onChange={(v) => handleChange('customColors', { ...data.customColors, text: v })} 
                   placeholder="ffffff" 
                 />
               </div>
               <div className="space-y-2">
                 <Label>Icon (Hex)</Label>
-                <Input 
-                  value={data.customColors?.icon} 
-                  onChange={(e) => handleChange('customColors', { ...data.customColors, icon: e.target.value })} 
+                <ColorPicker 
+                  value={data.customColors?.icon || ''} 
+                  onChange={(v) => handleChange('customColors', { ...data.customColors, icon: v })} 
                   placeholder="ff003c" 
                 />
               </div>
               <div className="space-y-2 col-span-2">
                 <Label>Border (Hex)</Label>
-                <Input 
-                  value={data.customColors?.border} 
-                  onChange={(e) => handleChange('customColors', { ...data.customColors, border: e.target.value })} 
+                <ColorPicker 
+                  value={data.customColors?.border || ''} 
+                  onChange={(v) => handleChange('customColors', { ...data.customColors, border: v })} 
                   placeholder="ff003c" 
                 />
               </div>
