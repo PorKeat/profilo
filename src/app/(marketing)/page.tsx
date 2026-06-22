@@ -73,8 +73,10 @@ export default function Home() {
             variants={fadeUpStagger}
             initial="hidden"
             animate="show"
-            className="flex flex-col items-start space-y-7"
+            className="flex flex-col items-start space-y-7 relative z-10"
           >
+            {/* Seamless Glassmorphism Backdrop for Readability */}
+            <div className="absolute -inset-x-16 -inset-y-16 bg-background/60 dark:bg-background/40 backdrop-blur-xl rounded-[4rem] -z-10 [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)] pointer-events-none" />
             <motion.div variants={fadeUp} className="flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-full px-4 py-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span className="text-primary text-xs font-bold tracking-widest uppercase">Build Your Developer Identity</span>
