@@ -285,7 +285,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
 
   return (
     <div className={`${isFullscreen ? 'w-full' : 'w-[500px] xl:w-[600px] border-l border-white/5'} bg-background/60 backdrop-blur-xl flex flex-col h-full hidden lg:flex z-10 shadow-2xl transition-all duration-300`}>
-      <Tabs defaultValue="preview" className="flex flex-col h-full">
+      <Tabs defaultValue="preview" className="flex flex-col h-full gap-0">
         <div className="p-3 border-b flex items-center justify-between bg-muted/10 gap-2">
           <TabsList className="h-8">
             <TabsTrigger value="preview" className="gap-1.5 text-xs h-7">
