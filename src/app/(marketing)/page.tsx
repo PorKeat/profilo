@@ -65,7 +65,7 @@ export default function Home() {
         {/* ══════════════════════════════════════════
             HERO
         ══════════════════════════════════════════ */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[75vh]">
+        <section className="flex flex-col items-center justify-center text-center min-h-[85vh] pt-20 relative z-20">
 
           {/* Left */}
           <motion.div
@@ -73,10 +73,10 @@ export default function Home() {
             variants={fadeUpStagger}
             initial="hidden"
             animate="show"
-            className="flex flex-col items-start space-y-7 relative z-10"
+            className="flex flex-col items-center space-y-8 relative z-10 max-w-4xl mx-auto"
           >
             {/* Seamless Glassmorphism Backdrop for Readability */}
-            <div className="absolute -inset-x-16 -inset-y-16 bg-background/60 dark:bg-background/40 backdrop-blur-xl rounded-[4rem] -z-10 [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)] pointer-events-none" />
+            <div className="absolute -inset-x-24 -inset-y-24 bg-background/60 dark:bg-background/40 backdrop-blur-3xl rounded-[6rem] -z-10 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] pointer-events-none" />
             <motion.div variants={fadeUp} className="flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-full px-4 py-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span className="text-primary text-xs font-bold tracking-widest uppercase">Build Your Developer Identity</span>
@@ -90,11 +90,11 @@ export default function Home() {
               <span className="text-foreground/40">for your future.</span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="text-muted-foreground text-base leading-relaxed max-w-sm">
+            <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/70 text-lg md:text-xl leading-relaxed max-w-2xl text-center">
               Drag-and-drop beautiful blocks, see live previews, and export pure markdown — no code, no backend, no cost.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="flex items-center gap-4 pt-2">
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
               <Link href="/builder">
                 <Button className="bg-primary text-black hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.35)] transition-all duration-300 hover:shadow-[0_0_50px_rgba(75,134,247,0.55)] hover:scale-105">
                   Start Building <ArrowRight className="w-4 h-4 ml-2" />
@@ -106,117 +106,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Right — 3D card */}
-          <div className="relative h-[540px] w-full hidden lg:flex items-center justify-center">
-            {/* Ambient blobs */}
-            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/15 dark:bg-primary/20 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/4 right-1/4 w-52 h-52 bg-blue-400/10 rounded-full blur-[80px]" />
-
-            {/* 3D card */}
-            <motion.div
-              initial={{ opacity: 0, y: 60, rotateX: 18, rotateY: -14 }}
-              animate={{ opacity: 1, y: 0,  rotateX: 6,  rotateY: -8  }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              style={{ perspective: 1200, transformStyle: 'preserve-3d' }}
-              className="relative w-[390px] z-20"
-            >
-              <div className="absolute inset-0 rounded-2xl bg-primary/15 blur-3xl translate-y-8 scale-95" />
-              <div className="relative rounded-2xl border border-black/10 dark:border-white/10 bg-white/95 dark:bg-[#0d1117]/95 backdrop-blur-2xl shadow-[0_40px_100px_rgba(0,0,0,0.15)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.7)] overflow-hidden">
-
-                {/* chrome */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.025]">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
-                  <span className="ml-3 text-[11px] text-foreground/25 font-mono">README.md — profilo</span>
-                </div>
-
-                {/* profile */}
-                <div className="p-5 flex items-center gap-4 border-b border-black/5 dark:border-white/5">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-primary/30 shrink-0">A</div>
-                  <div>
-                    <div className="font-bold text-foreground text-sm">alex-nguyen</div>
-                    <div className="text-[11px] text-foreground/80 dark:text-foreground/70 font-mono mt-0.5">Full-Stack · Open Source · Since Jan 2025</div>
-                    <div className="flex gap-1 mt-1.5">
-                      {['Next.js','TypeScript','Rust'].map(t => (
-                        <span key={t} className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/20 font-mono">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* stats */}
-                <div className="grid grid-cols-3 divide-x divide-black/5 dark:divide-white/5 border-b border-black/5 dark:border-white/5">
-                  {[{ l:'Commits',v:'1,847' },{ l:'Stars',v:'423' },{ l:'PRs',v:'94' }].map(s => (
-                    <div key={s.l} className="py-3 text-center">
-                      <div className="text-sm font-bold text-foreground">{s.v}</div>
-                      <div className="text-[9px] text-foreground/80 dark:text-foreground/70 mt-0.5">{s.l}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* activity */}
-                <div className="px-5 py-4 border-b border-black/5 dark:border-white/5">
-                  <div className="text-[9px] text-foreground/80 dark:text-foreground/70 mb-2.5 font-mono uppercase tracking-widest">Contribution Activity</div>
-                  <svg width="100%" height="44" viewBox="0 0 320 44" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#4B86F7" stopOpacity="0.45"/>
-                        <stop offset="100%" stopColor="#4B86F7" stopOpacity="0"/>
-                      </linearGradient>
-                    </defs>
-                    <path d="M0 36 C40 26,60 8,80 18 S120 32,140 12 S180 2,200 14 S240 26,260 8 S295 4,320 16 L320 44 L0 44Z" fill="url(#g1)"/>
-                    <path d="M0 36 C40 26,60 8,80 18 S120 32,140 12 S180 2,200 14 S240 26,260 8 S295 4,320 16" fill="none" stroke="#4B86F7" strokeWidth="1.8"/>
-                  </svg>
-                </div>
-
-                {/* languages */}
-                <div className="px-5 py-4">
-                  <div className="text-[9px] text-foreground/80 dark:text-foreground/70 mb-2.5 font-mono uppercase tracking-widest">Top Languages</div>
-                  <div className="space-y-2">
-                    {[{ l:'TypeScript',p:68,c:'#3178c6' },{ l:'Python',p:21,c:'#3572A5' },{ l:'Go',p:11,c:'#00acd7' }].map((l,i) => (
-                      <div key={l.l} className="flex items-center gap-2.5">
-                        <span className="text-[9px] text-foreground/80 dark:text-foreground/70 w-20 shrink-0">{l.l}</span>
-                        <div className="flex-1 h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${l.p}%` }}
-                            transition={{ duration: 1.3, delay: 0.8 + i * 0.15, ease: 'easeOut' }}
-                            className="h-full rounded-full"
-                            style={{ backgroundColor: l.c }}
-                          />
-                        </div>
-                        <span className="text-[9px] text-foreground/80 dark:text-foreground/70 w-6 text-right">{l.p}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Floating chips */}
-            {[
-              { text: 'Theme: Cyberpunk',  dot: 'bg-green-400', pos: 'top-[6%]  right-[2%]',    delay: 0,   dur: 4   },
-              { text: 'Live Preview',      dot: 'bg-primary',   pos: 'top-[42%] right-[-3%]',   delay: 0.8, dur: 3.5 },
-              { text: 'Export Markdown',   dot: 'bg-blue-400',  pos: 'bottom-[16%] left-[-2%]', delay: 1.5, dur: 5   },
-            ].map((c, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + i * 0.25, duration: 0.5 }}
-              >
-                <motion.div
-                  animate={{ y: [0, i % 2 === 0 ? -8 : 8, 0] }}
-                  transition={{ duration: c.dur, repeat: Infinity, ease: 'easeInOut', delay: c.delay }}
-                  className={`absolute ${c.pos} z-30 flex items-center gap-2 bg-white/90 dark:bg-[#0d1117]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-xl px-3 py-1.5 shadow-lg dark:shadow-2xl`}
-                >
-                  <div className={`w-1.5 h-1.5 rounded-full ${c.dot} animate-pulse`} />
-                  <span className="text-[11px] text-foreground/65 font-mono">{c.text}</span>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Right side removed to center the hero section */}
         </section>
 
         {/* ══════════════════════════════════════════
