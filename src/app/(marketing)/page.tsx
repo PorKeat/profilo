@@ -242,7 +242,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`relative group p-10 ${c.featured ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'bg-white dark:bg-[#0e0e18] shadow-sm'} overflow-hidden cursor-default`}
+                className={`relative group p-10 ${c.featured ? 'bg-primary/90 backdrop-blur-md text-white shadow-xl shadow-primary/20' : 'bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm'} overflow-hidden cursor-default`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 <div className={`relative z-10 ${c.featured ? 'text-white' : 'text-primary'} mb-6 flex items-center gap-3`}>
@@ -276,7 +276,7 @@ export default function Home() {
               whileHover={{ rotateX: 0, rotateY: 0, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
               style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
-              className="relative z-10 bg-gray-50 dark:bg-[#0e0e18] border border-black/8 dark:border-white/10 rounded-2xl p-6 w-72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
+              className="relative z-10 bg-white/60 dark:bg-black/20 backdrop-blur-xl border border-black/8 dark:border-white/10 rounded-2xl p-6 w-72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
             >
               <div className="flex items-center gap-2 mb-4">
                 <Terminal className="w-4 h-4 text-primary" />
@@ -378,7 +378,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.2 } }}
-                className="group relative bg-white dark:bg-[#0e0e18] border border-black/8 dark:border-white/5 hover:border-primary/30 p-8 rounded-2xl flex flex-col items-center text-center transition-colors duration-300 cursor-default shadow-sm"
+                className="group relative bg-white/60 dark:bg-black/20 backdrop-blur-md border border-black/8 dark:border-white/5 hover:border-primary/30 p-8 rounded-2xl flex flex-col items-center text-center transition-colors duration-300 cursor-default shadow-sm"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500" />
                 <div className="relative z-10 w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
@@ -407,7 +407,7 @@ export default function Home() {
             <motion.div
               variants={fadeUp}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group bg-white dark:bg-[#0e0e18] border border-black/8 dark:border-white/5 hover:border-primary/20 p-7 rounded-2xl col-span-1 lg:col-span-2 row-span-2 transition-colors duration-300 relative overflow-hidden shadow-sm"
+              className="group bg-white/60 dark:bg-black/20 backdrop-blur-md border border-black/8 dark:border-white/5 hover:border-primary/20 p-7 rounded-2xl col-span-1 lg:col-span-2 row-span-2 transition-colors duration-300 relative overflow-hidden shadow-sm"
             >
               <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-5">
@@ -443,7 +443,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
-                className="group bg-white dark:bg-[#0e0e18] shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 relative overflow-hidden"
+                className="group bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
                 <div className="relative z-10 w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-4">
@@ -457,7 +457,7 @@ export default function Home() {
             <motion.div
               variants={fadeUp}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group bg-white dark:bg-[#0e0e18] shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl lg:col-span-2 transition-all duration-300 relative overflow-hidden"
+              className="group bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl lg:col-span-2 transition-all duration-300 relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               <div className="relative z-10 flex items-start gap-4">
@@ -493,7 +493,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ x: 4, transition: { duration: 0.15 } }}
-                className="group bg-white dark:bg-[#0e0e18] shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 cursor-default"
+                className="group bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 cursor-default"
               >
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0 group-hover:scale-150 transition-transform" />
@@ -513,7 +513,7 @@ export default function Home() {
         <Section className="py-32 mb-12">
           <motion.div
             variants={fadeUp}
-            className="relative text-center bg-gradient-to-b from-primary/8 dark:from-primary/10 to-transparent border border-primary/20 dark:border-primary/15 rounded-[3rem] overflow-hidden p-20"
+            className="relative text-center bg-white/40 dark:bg-black/20 backdrop-blur-2xl border border-primary/20 dark:border-primary/15 rounded-[3rem] overflow-hidden p-20 shadow-2xl"
           >
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#4B86F7_0%,transparent_55%)] opacity-10 dark:opacity-15 pointer-events-none" />
             <div className="absolute -top-px left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
