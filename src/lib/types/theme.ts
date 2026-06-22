@@ -2,7 +2,6 @@ import { Block } from './blocks';
 
 export type ThemeId = 
   | 'clean-light' 
-  | 'devops-blue' 
   | 'cyberpunk' 
   | 'github-classic' 
   | 'purple-gradient';

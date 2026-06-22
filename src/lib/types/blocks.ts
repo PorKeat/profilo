@@ -1,4 +1,4 @@
-export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman';
+export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote';
 
 export interface BaseBlock {
   id: string;
@@ -156,6 +156,68 @@ export interface ContactBlock extends BaseBlock {
   };
 }
 
+export interface BlogPostsBlock extends BaseBlock {
+  type: 'blog-posts';
+  data: {
+    platform: 'dev.to' | 'medium' | 'hashnode';
+    username: string;
+  };
+}
+
+export interface TrophiesBlock extends BaseBlock {
+  type: 'trophies';
+  data: {
+    username: string;
+    theme: string;
+    columns: number;
+    noFrame: boolean;
+    noBg: boolean;
+  };
+}
+
+export interface SpotifyBlock extends BaseBlock {
+  type: 'spotify';
+  data: {
+    spotifyUrl: string;
+    theme: string;
+  };
+}
+
+export interface SupportBlock extends BaseBlock {
+  type: 'support';
+  data: {
+    buyMeACoffee?: string;
+    patreon?: string;
+    kofi?: string;
+    github?: string;
+    qrCodeBase64?: string;
+    qrCodeLabel?: string;
+  };
+}
+
+export interface Experience {
+  id: string;
+  title: string;
+  company: string;
+  duration: string;
+  description: string;
+}
+
+export interface ExperienceBlock extends BaseBlock {
+  type: 'experience';
+  data: {
+    jobs: Experience[];
+  };
+}
+
+export interface QuoteBlock extends BaseBlock {
+  type: 'quote';
+  data: {
+    theme: string;
+    layout: 'horizontal' | 'vertical';
+  };
+}
+
 export type Block =
   | HeroBlock
   | BannerBlock
@@ -168,4 +230,10 @@ export type Block =
   | GitHubStatsBlock
   | FeaturedProjectsBlock
   | SocialLinksBlock
-  | ContactBlock;
+  | ContactBlock
+  | BlogPostsBlock
+  | TrophiesBlock
+  | SpotifyBlock
+  | SupportBlock
+  | ExperienceBlock
+  | QuoteBlock;

@@ -25,7 +25,7 @@ export const TEMPLATES: Template[] = [
           height: 250,
           text: 'Seng Porkeat',
           desc: 'DevOps Engineer | Cloud and Automation Enthusiast',
-          color: '0:4a0000,50:b30000,100:ff003c',
+          color: '0:4a0000,50:b30000,100:4b86f7',
           fontColor: 'ffffff',
           section: 'header',
         }
@@ -35,7 +35,7 @@ export const TEMPLATES: Template[] = [
         type: 'typing',
         data: {
           lines: ['Automating the Future', 'Building Scalable Infrastructure', 'Cloud Native | CI/CD | Containers', 'Turning Coffee into Pipelines'],
-          color: 'ff003c',
+          color: '4b86f7',
           size: 24,
           center: true,
           vCenter: true
@@ -74,7 +74,7 @@ export const TEMPLATES: Template[] = [
           showProfileViews: true,
           useCustomColors: true,
           theme: 'radical',
-          customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' }
+          customColors: { bg: '000000', title: '4b86f7', text: 'ffffff', icon: '4b86f7', border: '4b86f7' }
         }
       },
       {
@@ -84,7 +84,7 @@ export const TEMPLATES: Template[] = [
           style: 'cards',
           useCustomColors: true,
           theme: 'radical',
-          customColors: { bg: '000000', title: 'ff003c', text: 'ffffff', icon: 'ff003c', border: 'ff003c' },
+          customColors: { bg: '000000', title: '4b86f7', text: 'ffffff', icon: '4b86f7', border: '4b86f7' },
           projects: [
             { id: uuidv4(), name: 'K8s Cluster Autoscaler', description: 'Custom controller for scaling nodes based on custom metrics.', githubUrl: 'https://github.com/PorKeat', demoUrl: '', techStack: ['Go', 'Kubernetes'] },
             { id: uuidv4(), name: 'Terraform AWS Modules', description: 'Production-ready IaC modules for AWS VPC, EKS, and RDS.', githubUrl: 'https://github.com/PorKeat', demoUrl: '', techStack: ['Terraform', 'AWS'] }
@@ -98,7 +98,7 @@ export const TEMPLATES: Template[] = [
           username: 'PorKeat',
           theme: 'react',
           useCustomColors: false,
-          customColors: { bg: '000000', color: 'ff003c', line: 'ff003c', point: 'ffffff' }
+          customColors: { bg: '000000', color: '4b86f7', line: '4b86f7', point: 'ffffff' }
         }
       },
       {

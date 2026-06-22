@@ -23,10 +23,11 @@ export default function TemplatesPage() {
 
           return (
             <Card key={template.id} className="overflow-hidden group hover:shadow-2xl transition-all border-muted-foreground/20 bg-background/50 backdrop-blur-sm flex flex-col">
-              <div className="h-64 bg-background border-b relative overflow-hidden flex justify-center p-0">
+              {/* Preview — always dark regardless of page theme */}
+              <div className="dark h-64 bg-[#0d1117] border-b border-white/5 relative overflow-hidden flex justify-center p-0">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 duration-500 pointer-events-none" />
                 <div className="absolute top-0 w-[1000px] origin-top transform scale-[0.4] flex flex-col items-center pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="prose prose-sm dark:prose-invert max-w-none w-full">
+                  <div className="prose prose-sm prose-invert max-w-none w-full">
                     <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                       {markdownPreview}
                     </ReactMarkdown>

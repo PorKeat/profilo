@@ -50,10 +50,11 @@ export function SortableBlock({ block }: SortableBlockProps) {
 
   return (
     <Card
+      id={`block-${block.id}`}
       ref={setNodeRef}
       style={style}
       className={cn(
-        "relative group bg-background shadow-sm border-muted-foreground/20",
+        "relative group bg-background shadow-sm border-muted-foreground/20 scroll-mt-6",
         isDragging && "opacity-80 ring-2 ring-primary shadow-xl"
       )}
     >

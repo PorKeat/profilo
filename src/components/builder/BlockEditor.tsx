@@ -12,8 +12,14 @@ import { BannerEditor } from '../blocks/BannerEditor';
 import { TypingEditor } from '../blocks/TypingEditor';
 import { ActivityGraphEditor } from '../blocks/ActivityGraphEditor';
 import { SnakeEditor } from '../blocks/SnakeEditor';
-import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock } from '@/lib/types/blocks';
+import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock } from '@/lib/types/blocks';
 import { PacmanEditor } from '../blocks/PacmanEditor';
+import { BlogPostsEditor } from '../blocks/BlogPostsEditor';
+import { TrophiesEditor } from '../blocks/TrophiesEditor';
+import { SpotifyEditor } from '../blocks/SpotifyEditor';
+import { SupportEditor } from '../blocks/SupportEditor';
+import { ExperienceEditor } from '../blocks/ExperienceEditor';
+import { QuoteEditor } from '../blocks/QuoteEditor';
 
 interface BlockEditorProps {
   block: Block;
@@ -45,6 +51,18 @@ export function BlockEditor({ block }: BlockEditorProps) {
       return <SnakeEditor block={block as SnakeBlock} />;
     case 'pacman':
       return <PacmanEditor block={block as PacmanBlock} />;
+    case 'blog-posts':
+      return <BlogPostsEditor block={block as BlogPostsBlock} />;
+    case 'trophies':
+      return <TrophiesEditor block={block as TrophiesBlock} />;
+    case 'spotify':
+      return <SpotifyEditor block={block as SpotifyBlock} />;
+    case 'support':
+      return <SupportEditor block={block as SupportBlock} />;
+    case 'experience':
+      return <ExperienceEditor block={block as ExperienceBlock} />;
+    case 'quote':
+      return <QuoteEditor block={block as QuoteBlock} />;
     default:
       return <div>Unknown block type</div>;
   }

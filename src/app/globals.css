@@ -10,6 +10,11 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
+  --color-blue-primary: #4B86F7;
+  --color-blue-light: #75A8F6;
+  --color-blue-soft: #B3CBEE;
+  --color-blue-muted: #8BA5CB;
+  --color-gray-shadow: #798BB0;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -55,7 +60,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #4B86F7;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -84,13 +89,13 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #050a16;
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: #080d1b;
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: #080d1b;
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: #4B86F7;
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -129,33 +134,73 @@
   }
 }
 
-/* Custom Themes */
-[data-theme="devops-blue"] {
-  --primary: oklch(0.5 0.2 250);
-}
-.dark[data-theme="devops-blue"] {
-  --primary: oklch(0.6 0.2 250);
+/* Removed Profile Theme Overrides (app now has a single, consistent blue UI theme) */
+
+/* ── Theme transition strategy ──────────────────────────────────────────── */
+
+/* 1. During VT ripple: kill ALL CSS transitions so colours don't
+      animate independently while the clip-path wipe is running.           */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: none !important;
+  animation-play-state: paused !important;
 }
 
-[data-theme="cyberpunk"] {
-  --primary: oklch(0.65 0.3 340);
-  --background: oklch(0.15 0.05 300);
-  --foreground: oklch(0.95 0.1 150);
-  --card: oklch(0.2 0.05 300);
+/* 2. Non-VT fallback (older browsers): smooth body-level fade only.       */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-[data-theme="purple-gradient"] {
-  --primary: oklch(0.6 0.2 300);
-}
-.dark[data-theme="purple-gradient"] {
-  --primary: oklch(0.7 0.2 300);
+/* 3. Hover/interactive micro-transitions (unrelated to theme swap).        */
+a, button {
+  transition:
+    color            0.18s ease,
+    background-color 0.18s ease,
+    border-color     0.18s ease,
+    box-shadow       0.18s ease,
+    opacity          0.18s ease,
+    transform        0.18s ease;
 }
 
-[data-theme="github-classic"] {
-  --primary: oklch(0.45 0.15 150);
-  --background: oklch(0.98 0 0);
+/* ── View Transitions API — circular ripple wipe ─────────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
-.dark[data-theme="github-classic"] {
-  --primary: oklch(0.6 0.15 150);
-  --background: oklch(0.15 0 0);
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+/* Dark→Light: new (light) page grows from click point */
+.theme-transitioning::view-transition-new(root) {
+  clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  animation: ripple-expand 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Light→Dark: new (dark) page grows from click point */
+.dark .theme-transitioning::view-transition-new(root) {
+  clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  animation: ripple-expand 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes ripple-expand {
+  from { clip-path: circle(0%   at var(--ripple-x, 50%) var(--ripple-y, 50%)); }
+  to   { clip-path: circle(150% at var(--ripple-x, 50%) var(--ripple-y, 50%)); }
+}
+
+/* ── Light mode marketing page overrides ────────────────────────────────── */
+:root {
+  --page-bg: #ffffff;
+  --grid-line: #00000006;
+}
+.dark {
+  --page-bg: #080810;
+  --grid-line: #ffffff04;
 }

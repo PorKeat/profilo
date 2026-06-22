@@ -1,4 +1,4 @@
-import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock } from '../types/blocks';
+import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock } from '../types/blocks';
 import { ThemeId } from '../types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 
@@ -11,22 +11,22 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         markdown += generateHero(block);
         break;
       case 'banner':
-        markdown += generateBanner(block);
+        markdown += generateBanner(block, themeId);
         break;
       case 'typing':
-        markdown += generateTyping(block);
+        markdown += generateTyping(block, themeId);
         break;
       case 'about':
         markdown += generateAbout(block);
         break;
       case 'skills':
-        markdown += generateSkills(block);
+        markdown += generateSkills(block, themeId);
         break;
       case 'github-stats':
-        markdown += generateGitHubStats(block, isPreview);
+        markdown += generateGitHubStats(block, themeId, isPreview);
         break;
       case 'activity-graph':
-        markdown += generateActivityGraph(block, isPreview);
+        markdown += generateActivityGraph(block, themeId, isPreview);
         break;
       case 'snake':
         markdown += generateSnake(block, isPreview);
@@ -35,13 +35,31 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         markdown += generatePacman(block, isPreview);
         break;
       case 'projects':
-        markdown += generateProjects(block);
+        markdown += generateProjects(block, themeId);
         break;
       case 'socials':
         markdown += generateSocials(block);
         break;
       case 'contact':
         markdown += generateContact(block);
+        break;
+      case 'blog-posts':
+        markdown += generateBlogPosts(block, isPreview);
+        break;
+      case 'trophies':
+        markdown += generateTrophies(block, isPreview);
+        break;
+      case 'spotify':
+        markdown += generateSpotify(block);
+        break;
+      case 'support':
+        markdown += generateSupport(block, isPreview);
+        break;
+      case 'experience':
+        markdown += generateExperience(block);
+        break;
+      case 'quote':
+        markdown += generateQuote(block, isPreview);
         break;
     }
     
@@ -52,6 +70,85 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
   });
 
   return markdown.trim();
+}
+
+function getThemeColorParams(themeId: ThemeId): string {
+  switch (themeId) {
+    case 'cyberpunk':
+      return `&bg_color=0b0314&title_color=00ff9f&text_color=ffffff&icon_color=d300c5&border_color=d300c5`;
+    case 'purple-gradient':
+      return `&bg_color=150a24&title_color=a855f7&text_color=e9d5ff&icon_color=d8b4fe&border_color=a855f7`;
+    case 'clean-light':
+      return `&bg_color=ffffff&title_color=24292e&text_color=24292e&icon_color=24292e&border_color=e1e4e8`;
+    case 'github-classic':
+    default:
+      return `&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9&icon_color=58a6ff&border_color=30363d`;
+  }
+}
+
+function getStreakThemeColorParams(themeId: ThemeId): string {
+  switch (themeId) {
+    case 'cyberpunk':
+      return `&background=0b0314&border=d300c5&ring=00ff9f&fire=d300c5&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=00ff9f&sideLabels=00ff9f&dates=ffffff`;
+    case 'purple-gradient':
+      return `&background=150a24&border=a855f7&ring=d8b4fe&fire=a855f7&currStreakNum=e9d5ff&sideNums=e9d5ff&currStreakLabel=a855f7&sideLabels=a855f7&dates=e9d5ff`;
+    case 'clean-light':
+      return `&background=ffffff&border=e1e4e8&ring=24292e&fire=24292e&currStreakNum=24292e&sideNums=24292e&currStreakLabel=24292e&sideLabels=24292e&dates=24292e`;
+    case 'github-classic':
+    default:
+      return `&background=0d1117&border=30363d&ring=58a6ff&fire=58a6ff&currStreakNum=c9d1d9&sideNums=c9d1d9&currStreakLabel=58a6ff&sideLabels=58a6ff&dates=c9d1d9`;
+  }
+}
+
+function getActivityGraphColorParams(themeId: ThemeId): string {
+  switch (themeId) {
+    case 'cyberpunk':
+      return `&bg_color=0b0314&color=00ff9f&line=d300c5&point=ffffff`;
+    case 'purple-gradient':
+      return `&bg_color=150a24&color=a855f7&line=d8b4fe&point=ffffff`;
+    case 'clean-light':
+      return `&bg_color=ffffff&color=24292e&line=24292e&point=24292e`;
+    case 'github-classic':
+    default:
+      return `&bg_color=0d1117&color=58a6ff&line=58a6ff&point=ffffff`;
+  }
+}
+
+// Returns the primary accent hex (no #) for a given theme used in widget URLs
+function getThemeAccent(themeId: ThemeId): { color: string; bg: string; fontColor: string } {
+  switch (themeId) {
+    case 'cyberpunk':
+      return { color: '0b0314', bg: '0b0314', fontColor: '00ff9f' };
+    case 'purple-gradient':
+      return { color: '150a24', bg: '150a24', fontColor: 'd8b4fe' };
+    case 'clean-light':
+      return { color: 'f0f6ff', bg: 'f0f6ff', fontColor: '0366d6' };
+    case 'github-classic':
+    default:
+      return { color: '0d1117', bg: '0d1117', fontColor: '58a6ff' };
+  }
+}
+
+// Returns the typing SVG text color for a given theme
+function getThemeTypingColor(themeId: ThemeId): string {
+  switch (themeId) {
+    case 'cyberpunk':       return '00ff9f';
+    case 'purple-gradient': return 'd8b4fe';
+    case 'clean-light':     return '0366d6';
+    case 'github-classic':
+    default:                return '58a6ff';
+  }
+}
+
+// Returns a shields.io badge style color for skills
+function getThemeBadgeColor(themeId: ThemeId): string {
+  switch (themeId) {
+    case 'cyberpunk':       return '00b377';
+    case 'purple-gradient': return '7e22ce';
+    case 'clean-light':     return '0366d6';
+    case 'github-classic':
+    default:                return '1f6feb';
+  }
 }
 
 function generateHero(block: HeroBlock): string {
@@ -67,22 +164,28 @@ function generateHero(block: HeroBlock): string {
   return md;
 }
 
-function generateBanner(block: BannerBlock): string {
-  const { bannerType, height, text, desc, color, fontColor, section } = block.data;
+function generateBanner(block: BannerBlock, themeId: ThemeId): string {
+  const { bannerType, height, text, desc, section } = block.data;
   const safeText = encodeURIComponent(text);
   const safeDesc = encodeURIComponent(desc);
+  const accent = getThemeAccent(themeId);
+  // Use theme color for the banner gradient; fontColor follows theme accent
+  const bannerColor = accent.color;
+  const bannerFontColor = accent.fontColor;
   let md = `<div align="center">\n`;
-  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${color}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${fontColor}&fontSize=80&descSize=22&fontAlignY=38&descAlignY=60" alt="Banner" />\n`;
+  md += `  <img src="https://capsule-render.vercel.app/api?type=${bannerType}&color=${bannerColor}&height=${height}&section=${section}&text=${safeText}&desc=${safeDesc}&fontColor=${bannerFontColor}&fontSize=80&descSize=22&fontAlignY=38&descAlignY=60" alt="Banner" />\n`;
   md += `</div>\n`;
   return md;
 }
 
-function generateTyping(block: TypingBlock): string {
-  const { lines, color, size, center, vCenter } = block.data;
+function generateTyping(block: TypingBlock, themeId: ThemeId): string {
+  const { lines, size, center, vCenter } = block.data;
   const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
+  // Override the typing color with the active theme accent color
+  const typingColor = getThemeTypingColor(themeId);
   let md = `<div align="center">\n`;
   md += `  <a href="https://git.io/typing-svg">\n`;
-  md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${color}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
+  md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${typingColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
   md += `  </a>\n`;
   md += `</div>\n`;
   return md;
@@ -99,9 +202,12 @@ function generateAbout(block: AboutBlock): string {
   return md;
 }
 
-function generateSkills(block: TechnicalSkillsBlock): string {
+function generateSkills(block: TechnicalSkillsBlock, themeId: ThemeId): string {
   const { skills, style } = block.data;
   if (skills.length === 0) return '';
+  
+  // Use per-skill color if defined, otherwise fall back to the active theme color
+  const themeBadgeColor = getThemeBadgeColor(themeId);
   
   let md = `## Technical Skills\n\n`;
   md += `<div align="left">\n`;
@@ -110,9 +216,8 @@ function generateSkills(block: TechnicalSkillsBlock): string {
     const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
     const safeSkillName = encodeURIComponent(skill);
     const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
-    const badgeColor = skillDef?.color || '2bbc8a'; // Use brand color or fallback
-    
-    // Format: -Message-Color (empty label, so it's just one solid colored block)
+    // Use per-skill brand color if available; otherwise use the active theme badge color
+    const badgeColor = skillDef?.color || themeBadgeColor;
     md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=white" alt="${skill}" />\n`;
   });
   
@@ -120,8 +225,8 @@ function generateSkills(block: TechnicalSkillsBlock): string {
   return md;
 }
 
-function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): string {
-  const { username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, showProfileViews, useCustomColors, customColors, theme } = block.data;
+function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPreview: boolean): string {
+  const { username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, showProfileViews, useCustomColors, customColors } = block.data;
   let md = `## GitHub Statistics\n\n`;
   md += `<div align="center">\n`;
   
@@ -132,11 +237,11 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
   if (useCustomColors && customColors) {
     colorParams = `&bg_color=${customColors.bg}&title_color=${customColors.title}&text_color=${customColors.text}&icon_color=${customColors.icon}&border_color=${customColors.border}`;
   } else {
-    colorParams = `&theme=${theme}`;
+    colorParams = getThemeColorParams(themeId);
   }
   
   if (showProfileViews) {
-    const vcColor = useCustomColors && customColors ? customColors.title : 'ff003c';
+    const vcColor = useCustomColors && customColors ? customColors.title : (themeId === 'cyberpunk' ? '00ff9f' : (themeId === 'purple-gradient' ? 'a855f7' : '4b86f7'));
     md += `  <img src="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColor}&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />\n  <br /><br />\n`;
   }
   
@@ -151,14 +256,15 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
     if (useCustomColors && customColors) {
       streakParams = `&background=${customColors.bg}&border=${customColors.border}&ring=${customColors.icon}&fire=${customColors.icon}&currStreakNum=${customColors.text}&sideNums=${customColors.text}&currStreakLabel=${customColors.title}&sideLabels=${customColors.title}&dates=${customColors.text}`;
     } else {
-      streakParams = `&theme=${theme}`;
+      streakParams = getStreakThemeColorParams(themeId);
     }
     md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${streakParams}" alt="GitHub Streak" />\n`;
   }
   
   if (showActivityGraph) {
     md += `  <br />\n`;
-    md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}&bg_color=1F222E&color=F8D866&line=F8D866&point=FFFFFF&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+    const activityParams = getActivityGraphColorParams(themeId);
+    md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${activityParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
   }
   if (showSnake) {
     md += `  <br />\n`;
@@ -198,18 +304,18 @@ function generateGitHubStats(block: GitHubStatsBlock, isPreview: boolean): strin
   return md;
 }
 
-function generateActivityGraph(block: ActivityGraphBlock, isPreview: boolean): string {
-  const { username, theme, useCustomColors, customColors } = block.data;
+function generateActivityGraph(block: ActivityGraphBlock, themeId: ThemeId, isPreview: boolean): string {
+  const { username, useCustomColors, customColors } = block.data;
   let md = `<div align="center">\n`;
   
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
-  const previewUsername = isPreview ? 'ashutosh00710' : targetUsername;
+  const previewUsername = isPreview ? 'torvalds' : targetUsername;
   
   let colorParams = '';
   if (useCustomColors && customColors) {
     colorParams = `&bg_color=${customColors.bg}&color=${customColors.color}&line=${customColors.line}&point=${customColors.point}`;
   } else {
-    colorParams = `&theme=${theme}`;
+    colorParams = getActivityGraphColorParams(themeId);
   }
   
   md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${colorParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
@@ -253,7 +359,7 @@ function generatePacman(block: PacmanBlock, isPreview: boolean): string {
   return md;
 }
 
-function generateProjects(block: FeaturedProjectsBlock): string {
+function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId): string {
   const { projects, style, useCustomColors, theme, customColors } = block.data;
   if (!projects || projects.length === 0) return '';
   
@@ -265,7 +371,7 @@ function generateProjects(block: FeaturedProjectsBlock): string {
     if (useCustomColors && customColors) {
       colorParams = `&bg_color=${customColors.bg}&title_color=${customColors.title}&text_color=${customColors.text}&icon_color=${customColors.icon}&border_color=${customColors.border}`;
     } else {
-      colorParams = `&theme=${theme}`;
+      colorParams = getThemeColorParams(themeId);
     }
     
     projects.forEach(project => {
@@ -321,5 +427,118 @@ function generateContact(block: ContactBlock): string {
   let md = `## Contact\n\n`;
   md += `${message}\n\n`;
   md += `You can reach me at: [${email}](mailto:${email})\n\n`;
+  return md;
+}
+
+function generateBlogPosts(block: BlogPostsBlock, isPreview: boolean): string {
+  const { platform } = block.data;
+  let md = `## ✍️ Latest Blog Posts\n\n`;
+  md += `<!-- NOTE: You need to set up the gautamkrishnar/blog-post-workflow GitHub Action for this to work -->\n`;
+  if (isPreview) {
+    md += `- [Building scalable web applications with React](https://example.com)\n`;
+    md += `- [10 things you didn't know about TypeScript](https://example.com)\n`;
+    md += `- [My journey transitioning to a DevOps role](https://example.com)\n`;
+    md += `- [A deep dive into Tailwind CSS v4](https://example.com)\n`;
+    md += `- [Why open source matters more than ever](https://example.com)\n\n`;
+  } else {
+    md += `<!-- BLOG-POST-LIST:START -->\n<!-- BLOG-POST-LIST:END -->\n\n`;
+  }
+  return md;
+}
+
+function generateTrophies(block: TrophiesBlock, isPreview: boolean): string {
+  const { username, theme, columns, noFrame, noBg } = block.data;
+  let md = `## 🏆 GitHub Trophies\n\n`;
+  const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
+  const previewUsername = isPreview ? 'torvalds' : targetUsername;
+  
+  let params = `username=${previewUsername}&theme=${theme}&column=${columns}`;
+  if (noFrame) params += '&no-frame=true';
+  if (noBg) params += '&no-bg=true';
+
+  md += `<div align="center">\n`;
+  md += `  <a href="https://github.com/ryo-ma/github-profile-trophy">\n`;
+  md += `    <img src="https://github-profile-trophy.vercel.app/?${params}" alt="${username} trophies" />\n`;
+  md += `  </a>\n`;
+  md += `</div>\n\n`;
+  return md;
+}
+
+function generateSpotify(block: SpotifyBlock): string {
+  const { spotifyUrl, theme } = block.data;
+  let md = `## 🎧 Currently Listening\n\n`;
+  md += `<div align="center">\n`;
+  
+  // Just use novatorem for demo since user won't have it set up unless they deploy vercel.
+  // We provide the standard readme snippet.
+  md += `  <!-- NOTE: This Spotify widget requires setting up novatorem/novatorem in Vercel. -->\n`;
+  md += `  <a href="${spotifyUrl || 'https://spotify.com'}">\n`;
+  md += `    <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=123456789&cover_image=true&theme=${theme}&show_offline=false&background_color=121212&interchange=true&bar_color_cover=false" alt="Spotify" />\n`;
+  md += `  </a>\n`;
+  md += `</div>\n\n`;
+  return md;
+}
+
+function generateSupport(block: SupportBlock, isPreview: boolean): string {
+  const { buyMeACoffee, patreon, kofi, github, qrCodeBase64, qrCodeLabel } = block.data;
+  let md = `## ☕ Support Me\n\n`;
+  md += `<div align="center">\n`;
+  
+  if (buyMeACoffee) {
+    md += `  <a href="https://www.buymeacoffee.com/${buyMeACoffee}">\n`;
+    md += `    <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />\n`;
+    md += `  </a>\n`;
+  }
+  if (patreon) {
+    md += `  <a href="https://patreon.com/${patreon}">\n`;
+    md += `    <img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Patreon" />\n`;
+    md += `  </a>\n`;
+  }
+  if (kofi) {
+    md += `  <a href="https://ko-fi.com/${kofi}">\n`;
+    md += `    <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi" />\n`;
+    md += `  </a>\n`;
+  }
+  if (github) {
+    md += `  <a href="https://github.com/sponsors/${github}">\n`;
+    md += `    <img src="https://img.shields.io/badge/GitHub_Sponsors-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white" alt="GitHub Sponsors" />\n`;
+    md += `  </a>\n`;
+  }
+  
+  if (qrCodeBase64) {
+    const src = isPreview ? qrCodeBase64 : './support-qr.png';
+    md += `  <br /><br />\n`;
+    if (qrCodeLabel) {
+      md += `  <p><strong>${qrCodeLabel}</strong></p>\n`;
+    }
+    md += `  <img src="${src}" alt="${qrCodeLabel || 'QR Code'}" width="200" style="border-radius: 8px; border: 1px solid #e1e4e8;" />\n`;
+  }
+  
+  md += `</div>\n\n`;
+  return md;
+}
+
+function generateExperience(block: ExperienceBlock): string {
+  const { jobs } = block.data;
+  if (!jobs || jobs.length === 0) return '';
+
+  let md = `## 💼 Work Experience\n\n`;
+  jobs.forEach(job => {
+    md += `### ${job.title} at ${job.company}\n`;
+    md += `🗓️ _${job.duration}_\n\n`;
+    if (job.description) {
+      // Split description by newlines to make sure blockquotes are handled well, or just output text
+      md += `${job.description}\n\n`;
+    }
+    md += `---\n\n`;
+  });
+  return md;
+}
+
+function generateQuote(block: QuoteBlock, isPreview: boolean): string {
+  const { theme, layout } = block.data;
+  let md = `<div align="center">\n`;
+  md += `  <img src="https://quotes-github-readme.vercel.app/api?type=${layout}&theme=${theme}" alt="Random Quote" />\n`;
+  md += `</div>\n\n`;
   return md;
 }
