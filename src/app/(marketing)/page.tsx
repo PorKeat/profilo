@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Zap, Shield, Layers, Code2, GitBranch, Sparkles, Terminal, ChevronDown } from 'lucide-react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import FloatingLines from '@/components/ui/FloatingLines';
+import FaqAccordion from '@/components/ui/FaqAccordion';
 import { useRef } from 'react';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
@@ -367,34 +368,16 @@ export default function Home() {
             FAQ
         ══════════════════════════════════════════ */}
         <Section className="py-32 border-t border-black/5 dark:border-white/5">
-          <motion.div variants={fadeUp} className="text-center mb-16">
-            <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Questions</span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground">Frequently Asked Questions</h2>
+          <motion.div variants={fadeUp} className="text-center mb-16 flex flex-col items-center">
+            <div className="bg-white/60 dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full px-4 py-1.5 flex items-center gap-3 mb-6 shadow-sm">
+              <span className="text-foreground/40 text-[10px] font-mono font-bold tracking-wider">04</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-foreground/20" />
+              <span className="text-foreground/80 text-[10px] font-bold tracking-widest uppercase">FAQS</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">Frequently Asked Questions</h2>
           </motion.div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              { q:'Is Profilo completely free?', a:'Yes! Profilo is a 100% free, open-source tool built for the developer community. There are no paid tiers and no hidden features.' },
-              { q:'Do I need to sign in with GitHub?', a:"Nope! We don't require OAuth permissions. Profilo relies on your public GitHub username to generate URLs for open-source stat APIs (like anuraghazra/github-readme-stats)." },
-              { q:'Where is my profile data saved?', a:"Your in-progress profile is saved locally in your browser's local storage. We have no backend database, meaning your data never leaves your computer until you push the Markdown to GitHub." },
-              { q:'Can I use my own theme colors?', a:'Absolutely. Beyond the built-in themes, individual blocks like GitHub Stats and Activity Graphs support fully custom hex color inputs for maximum personalization.' },
-            ].map((f, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                whileHover={{ x: 4, transition: { duration: 0.15 } }}
-                className="group bg-white/80 dark:bg-black/60 backdrop-blur-2xl shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 cursor-default"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0 group-hover:scale-150 transition-transform" />
-                  <div>
-                    <h3 className="font-bold mb-2 text-primary">{f.q}</h3>
-                    <p className="text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">{f.a}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <FaqAccordion />
         </Section>
 
         {/* ══════════════════════════════════════════
