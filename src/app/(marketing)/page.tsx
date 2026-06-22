@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Zap, Shield, Layers, Code2, GitBranch, Sparkles, Terminal, ChevronDown } from 'lucide-react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import GridDistortion from '@/components/ui/GridDistortion';
 import { useRef } from 'react';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
@@ -44,27 +45,16 @@ export default function Home() {
   return (
     <div ref={containerRef} className="flex flex-col items-center bg-white dark:bg-[#080810] min-h-screen text-foreground overflow-x-hidden relative font-sans transition-colors duration-300">
 
-      {/* ── Modern Animated Background ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Ambient Animated Glows */}
-        <motion.div
-          animate={{ x: [0, 100, 0], y: [0, -50, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-primary/20 dark:bg-primary/20 blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70"
+      {/* ── React Bits Grid Distortion Background ── */}
+      <div className="fixed inset-0 z-0 opacity-40 dark:opacity-50 pointer-events-none">
+        <GridDistortion
+          imageSrc="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+          grid={15}
+          mouse={0.1}
+          strength={0.15}
+          relaxation={0.9}
+          className="w-full h-full object-cover"
         />
-        <motion.div
-          animate={{ x: [0, -100, 0], y: [0, 100, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-500/20 dark:bg-blue-600/20 blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-60"
-        />
-        <motion.div
-          animate={{ x: [0, 50, 0], y: [0, 50, 0], scale: [1, 1.3, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[20%] right-[20%] w-[30vw] h-[30vw] rounded-full bg-purple-500/20 dark:bg-purple-600/20 blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-60"
-        />
-
-        {/* Premium Grid with Mask */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808015_1px,transparent_1px),linear-gradient(to_bottom,#80808015_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_110%)]" />
       </div>
 
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-14">
