@@ -415,7 +415,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-bold mb-2 text-foreground">Real-time GitHub Stats</h3>
               <p className="text-foreground/80 dark:text-foreground/70 text-sm mb-6 leading-relaxed">Showcase commits, stars, PRs, and top languages pulling directly from GitHub APIs. Always up-to-date, always accurate.</p>
-              <div className="w-full rounded-xl border border-black/5 dark:border-white/5 bg-white dark:bg-[#0d1117] p-4 space-y-3">
+              <div className="w-full rounded-xl border border-black/5 dark:border-white/5 bg-white/60 dark:bg-white/5 backdrop-blur-md p-4 space-y-3 shadow-inner">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-xs font-bold text-white">G</div>
                   <div>
@@ -426,7 +426,7 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {[['Stars','423'],['Commits','1,847'],['PRs','94']].map(([l,v]) => (
-                    <div key={l} className="bg-black/5 dark:bg-white/5 rounded-lg p-2 text-center">
+                    <div key={l} className="bg-black/5 dark:bg-white/10 rounded-lg p-2 text-center shadow-sm">
                       <div className="text-xs font-bold text-foreground">{v}</div>
                       <div className="text-[9px] text-foreground/80 dark:text-foreground/70">{l}</div>
                     </div>
