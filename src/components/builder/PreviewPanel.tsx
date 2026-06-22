@@ -357,11 +357,11 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
           </div>
         </div>
 
-        {/* Preview — bg stays unchanged, only markdown element colors change per theme */}
-        <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col p-0 transition-colors duration-500" style={{ backgroundColor: isLight ? '#f6f8fa' : 'rgba(var(--background), 0.4)' }}>
+        {/* Preview — matches GitHub background exactly */}
+        <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col p-0 transition-colors duration-500" style={{ backgroundColor: isLight ? '#ffffff' : '#0d1117' }}>
           <div className="min-h-full w-full flex flex-col">
             {activeMarkdown ? (
-              <div className={`w-full h-full overflow-hidden flex flex-col transition-colors duration-500`} style={{ backgroundColor: isLight ? '#ffffff' : '#0d1117' }}>
+              <div className={`w-full flex-1 flex flex-col`}>
                 {/* Markdown Content */}
                 <div className="p-8 md:p-10">
                   <ReactMarkdown
