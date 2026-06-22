@@ -66,7 +66,7 @@ export default function Home() {
         {/* ══════════════════════════════════════════
             HERO
         ══════════════════════════════════════════ */}
-        <section className="flex flex-col items-center justify-center text-center min-h-[85vh] pt-20 relative z-20">
+        <section className="flex flex-col items-center justify-center text-center pt-16 pb-32 relative z-20">
 
           {/* Left */}
           <motion.div
