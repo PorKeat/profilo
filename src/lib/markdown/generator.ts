@@ -3,7 +3,7 @@ import { ThemeId } from '../types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 import { PLATFORMS } from '../constants/platforms';
 
-export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: boolean = false): string {
+export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: boolean = false, previewMode?: 'dark' | 'light'): string {
   let markdown = '';
 
   blocks.forEach((block, index) => {
@@ -24,10 +24,10 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         markdown += generateSkills(block, themeId);
         break;
       case 'github-stats':
-        markdown += generateGitHubStats(block, themeId, isPreview);
+        markdown += generateGitHubStats(block, themeId, isPreview, previewMode);
         break;
       case 'activity-graph':
-        markdown += generateActivityGraph(block, themeId, isPreview);
+        markdown += generateActivityGraph(block, themeId, isPreview, previewMode);
         break;
       case 'snake':
         markdown += generateSnake(block, isPreview);
@@ -48,7 +48,7 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
         markdown += generateBlogPosts(block, isPreview);
         break;
       case 'trophies':
-        markdown += generateTrophies(block, isPreview);
+        markdown += generateTrophies(block, isPreview, previewMode);
         break;
       case 'spotify':
         markdown += generateSpotify(block);
@@ -255,7 +255,7 @@ function generateSkills(block: TechnicalSkillsBlock, themeId: ThemeId): string {
   return md.trim() + '\n\n';
 }
 
-function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPreview: boolean): string {
+function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
   const { sectionTitle, sectionTitleColor, username, showStats, showTopLanguages, showStreak, showActivityGraph, showSnake, show3dContrib, showProfileViews, useCustomColors, customColors } = block.data;
   let md = generateSectionTitle('GitHub Statistics', sectionTitle, sectionTitleColor);
   md += `<div align="center">\n`;
@@ -264,6 +264,10 @@ function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPrevie
   const previewUsername = isPreview ? targetUsername : username;
   
   let colorParams = '';
+  let lightColorParams = '';
+  let darkColorParams = '';
+  const isDynamic = !useCustomColors;
+
   if (useCustomColors && customColors) {
     const bg = (customColors.bg || '').replace('#', '');
     const title = (customColors.title || '').replace('#', '');
@@ -272,64 +276,147 @@ function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPrevie
     const border = (customColors.border || '').replace('#', '');
     colorParams = `&bg_color=${bg}&title_color=${title}&text_color=${text}&icon_color=${icon}&border_color=${border}`;
   } else {
-    colorParams = getThemeColorParams(themeId);
+    // For dynamic output
+    lightColorParams = getThemeColorParams('clean-light');
+    darkColorParams = getThemeColorParams(themeId);
+    if (isPreview) {
+      colorParams = previewMode === 'light' ? lightColorParams : darkColorParams;
+    } else {
+      colorParams = darkColorParams; // fallback
+    }
   }
   
   if (showProfileViews) {
-    const vcColor = useCustomColors && customColors ? customColors.title : (themeId === 'cyberpunk' ? '00ff9f' : (themeId === 'purple-gradient' ? 'a855f7' : '4b86f7'));
-    md += `  <img src="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColor}&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />\n  <br /><br />\n`;
+    const vcColorDark = useCustomColors && customColors ? customColors.title : (themeId === 'cyberpunk' ? '00ff9f' : (themeId === 'purple-gradient' ? 'a855f7' : '4b86f7'));
+    const vcColorLight = useCustomColors && customColors ? customColors.title : '0366d6';
+    
+    if (isDynamic && !isPreview) {
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColorDark}&style=for-the-badge&label=PROFILE+VIEWS" />\n`;
+      md += `    <source media="(prefers-color-scheme: light)" srcset="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColorLight}&style=for-the-badge&label=PROFILE+VIEWS" />\n`;
+      md += `    <img src="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColorDark}&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />\n`;
+      md += `  </picture>\n  <br /><br />\n`;
+    } else {
+      const vcColor = (isPreview && previewMode === 'light') ? vcColorLight : vcColorDark;
+      md += `  <img src="https://komarev.com/ghpvc/?username=${previewUsername}&color=${vcColor}&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />\n  <br /><br />\n`;
+    }
   }
   
   if (showStats) {
-    md += `  <img src="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true${colorParams}" alt="${username}'s GitHub stats" />\n`;
+    if (isDynamic && !isPreview) {
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true${darkColorParams}" />\n`;
+      md += `    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true${lightColorParams}" />\n`;
+      md += `    <img src="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true${darkColorParams}" alt="${username}'s GitHub stats" />\n`;
+      md += `  </picture>\n`;
+    } else {
+      md += `  <img src="https://github-readme-stats.vercel.app/api?username=${previewUsername}&show_icons=true${colorParams}" alt="${username}'s GitHub stats" />\n`;
+    }
   }
   if (showTopLanguages) {
-    md += `  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact${colorParams}" alt="Top Languages" />\n`;
+    if (isDynamic && !isPreview) {
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact${darkColorParams}" />\n`;
+      md += `    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact${lightColorParams}" />\n`;
+      md += `    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact${darkColorParams}" alt="Top Languages" />\n`;
+      md += `  </picture>\n`;
+    } else {
+      md += `  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${previewUsername}&layout=compact${colorParams}" alt="Top Languages" />\n`;
+    }
   }
   if (showStreak) {
     let streakParams = '';
+    let darkStreakParams = '';
+    let lightStreakParams = '';
+
     if (useCustomColors && customColors) {
       streakParams = `&background=${customColors.bg}&border=${customColors.border}&ring=${customColors.icon}&fire=${customColors.icon}&currStreakNum=${customColors.text}&sideNums=${customColors.text}&currStreakLabel=${customColors.title}&sideLabels=${customColors.title}&dates=${customColors.text}`;
+      md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${streakParams}" alt="GitHub Streak" />\n`;
     } else {
-      streakParams = getStreakThemeColorParams(themeId);
+      darkStreakParams = getStreakThemeColorParams(themeId);
+      lightStreakParams = getStreakThemeColorParams('clean-light');
+      if (isPreview) {
+        streakParams = previewMode === 'light' ? lightStreakParams : darkStreakParams;
+        md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${streakParams}" alt="GitHub Streak" />\n`;
+      } else {
+        md += `  <picture>\n`;
+        md += `    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${darkStreakParams}" />\n`;
+        md += `    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${lightStreakParams}" />\n`;
+        md += `    <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${darkStreakParams}" alt="GitHub Streak" />\n`;
+        md += `  </picture>\n`;
+      }
     }
-    md += `  <img src="https://github-readme-streak-stats.herokuapp.com/?user=${previewUsername}${streakParams}" alt="GitHub Streak" />\n`;
   }
   
   if (showActivityGraph) {
     md += `  <br />\n`;
-    const activityParams = getActivityGraphColorParams(themeId);
-    md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${activityParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+    let actParams = '';
+    let darkActParams = '';
+    let lightActParams = '';
+
+    if (useCustomColors && customColors) {
+      actParams = `&bg_color=${customColors.bg}&color=${customColors.title}&line=${customColors.icon}&point=${customColors.text}`;
+      md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${actParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+    } else {
+      darkActParams = getActivityGraphColorParams(themeId);
+      lightActParams = getActivityGraphColorParams('clean-light');
+      if (isPreview) {
+        actParams = previewMode === 'light' ? lightActParams : darkActParams;
+        md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${actParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+      } else {
+        md += `  <picture>\n`;
+        md += `    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${darkActParams}&area=true&hide_border=true" />\n`;
+        md += `    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${lightActParams}&area=true&hide_border=true" />\n`;
+        md += `    <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${darkActParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+        md += `  </picture>\n`;
+      }
+    }
   }
   if (showSnake) {
     md += `  <br />\n`;
     md += `  <!-- Note: The snake animation requires setting up the Platane/snk GitHub Action. -->\n`;
     if (isPreview) {
-      md += `  <img src="https://raw.githubusercontent.com/Platane/Platane/output/github-contribution-grid-snake.svg" alt="GitHub Snake Animation Preview" />\n`;
+      // In preview, we just show the static light or dark snake preview
+      const previewUrl = previewMode === 'light' 
+        ? "https://raw.githubusercontent.com/Platane/Platane/output/github-contribution-grid-snake.svg"
+        : "https://raw.githubusercontent.com/Platane/Platane/output/github-contribution-grid-snake-dark.svg";
+      md += `  <img src="${previewUrl}" alt="GitHub Snake Animation Preview" />\n`;
     } else {
-      md += `  <img src="https://raw.githubusercontent.com/${username}/${username}/output/github-contribution-grid-snake.svg" alt="GitHub Snake Animation" />\n`;
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/${username}/${username}/output/github-contribution-grid-snake-dark.svg" />\n`;
+      md += `    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/${username}/${username}/output/github-contribution-grid-snake.svg" />\n`;
+      md += `    <img src="https://raw.githubusercontent.com/${username}/${username}/output/github-contribution-grid-snake.svg" alt="GitHub Snake Animation" />\n`;
+      md += `  </picture>\n`;
     }
   }
   if (show3dContrib) {
     md += `  <br />\n`;
     md += `  <!-- Note: The 3D contribution graph requires setting up the yoshi389111/github-profile-3d-contrib Action. -->\n`;
     if (isPreview) {
-      md += `  <img src="https://raw.githubusercontent.com/yoshi389111/yoshi389111/main/profile-3d-contrib/profile-night-rainbow.svg" alt="3D Contribution Graph Preview" />\n`;
+      const previewUrl = previewMode === 'light'
+        ? "https://raw.githubusercontent.com/yoshi389111/yoshi389111/main/profile-3d-contrib/profile-green-animate.svg"
+        : "https://raw.githubusercontent.com/yoshi389111/yoshi389111/main/profile-3d-contrib/profile-night-rainbow.svg";
+      md += `  <img src="${previewUrl}" alt="3D Contribution Graph Preview" />\n`;
     } else {
-      md += `  <img src="https://raw.githubusercontent.com/${username}/${username}/main/profile-3d-contrib/profile-night-rainbow.svg" alt="3D Contribution Graph" />\n`;
+      md += `  <picture>\n`;
+      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/${username}/${username}/main/profile-3d-contrib/profile-night-rainbow.svg" />\n`;
+      md += `    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/${username}/${username}/main/profile-3d-contrib/profile-green-animate.svg" />\n`;
+      md += `    <img src="https://raw.githubusercontent.com/${username}/${username}/main/profile-3d-contrib/profile-night-rainbow.svg" alt="3D Contribution Graph" />\n`;
+      md += `  </picture>\n`;
     }
   }
   if (block.data.showPacman) {
     md += `  <br />\n`;
     md += `  <!-- Note: The Pacman animation requires setting up the abozanona/pacman-contribution-graph Action. -->\n`;
     if (isPreview) {
-      md += `  <picture>\n`;
-      md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake-dark.svg" />\n`;
-      md += `    <img src="https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake.svg" alt="Pacman Animation Preview" />\n`;
-      md += `  </picture>\n`;
+      const previewUrl = previewMode === 'light'
+        ? "https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake.svg"
+        : "https://raw.githubusercontent.com/abozanona/abozanona/main/images/github-snake-dark.svg";
+      md += `  <img src="${previewUrl}" alt="Pacman Animation Preview" />\n`;
     } else {
       md += `  <picture>\n`;
       md += `    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/${username}/${username}/output/pacman-contribution-graph-dark.svg" />\n`;
+      md += `    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/${username}/${username}/output/pacman-contribution-graph.svg" />\n`;
       md += `    <img src="https://raw.githubusercontent.com/${username}/${username}/output/pacman-contribution-graph.svg" alt="Pacman Animation" />\n`;
       md += `  </picture>\n`;
     }
@@ -339,7 +426,7 @@ function generateGitHubStats(block: GitHubStatsBlock, themeId: ThemeId, isPrevie
   return md;
 }
 
-function generateActivityGraph(block: ActivityGraphBlock, themeId: ThemeId, isPreview: boolean): string {
+function generateActivityGraph(block: ActivityGraphBlock, themeId: ThemeId, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
   const { sectionTitle, sectionTitleColor, username, useCustomColors, customColors } = block.data;
   let md = generateSectionTitle('Activity Graph', sectionTitle, sectionTitleColor);
   md += `<div align="center">\n`;
@@ -348,6 +435,10 @@ function generateActivityGraph(block: ActivityGraphBlock, themeId: ThemeId, isPr
   const previewUsername = isPreview ? 'torvalds' : targetUsername;
   
   let colorParams = '';
+  let darkColorParams = '';
+  let lightColorParams = '';
+  const isDynamic = !useCustomColors;
+
   if (useCustomColors && customColors) {
     const bg = (customColors.bg || '').replace('#', '');
     const color = (customColors.color || '').replace('#', '');
@@ -355,10 +446,22 @@ function generateActivityGraph(block: ActivityGraphBlock, themeId: ThemeId, isPr
     const point = (customColors.point || '').replace('#', '');
     colorParams = `&bg_color=${bg}&color=${color}&line=${line}&point=${point}`;
   } else {
-    colorParams = getActivityGraphColorParams(themeId);
+    darkColorParams = getActivityGraphColorParams(themeId);
+    lightColorParams = getActivityGraphColorParams('clean-light');
+    if (isPreview) {
+      colorParams = previewMode === 'light' ? lightColorParams : darkColorParams;
+    }
   }
   
-  md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${colorParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+  if (isDynamic && !isPreview) {
+    md += `  <picture>\n`;
+    md += `    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${darkColorParams}&area=true&hide_border=true" />\n`;
+    md += `    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${lightColorParams}&area=true&hide_border=true" />\n`;
+    md += `    <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${darkColorParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+    md += `  </picture>\n`;
+  } else {
+    md += `  <img src="https://github-readme-activity-graph.vercel.app/graph?username=${previewUsername}${colorParams}&area=true&hide_border=true" alt="GitHub Activity Graph" />\n`;
+  }
   md += `</div>\n`;
   return md;
 }
@@ -399,7 +502,7 @@ function generatePacman(block: PacmanBlock, isPreview: boolean): string {
   return md;
 }
 
-function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId, isPreview: boolean): string {
+function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
   const { sectionTitle, sectionTitleColor, iconColor, style, useCustomColors, customColors, projects } = block.data;
   if (!projects || projects.length === 0) return '';
 
@@ -409,10 +512,18 @@ function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId, isPrev
   if (style === 'cards') {
     md += `<div align="center">\n`;
     let colorParams = '';
+    let darkColorParams = '';
+    let lightColorParams = '';
+    const isDynamic = !useCustomColors;
+
     if (useCustomColors && customColors) {
       colorParams = `&bg_color=${customColors.bg}&title_color=${customColors.title}&text_color=${customColors.text}&icon_color=${customColors.icon}&border_color=${customColors.border}`;
     } else {
-      colorParams = getThemeColorParams(themeId);
+      darkColorParams = getThemeColorParams(themeId);
+      lightColorParams = getThemeColorParams('clean-light');
+      if (isPreview) {
+        colorParams = previewMode === 'light' ? lightColorParams : darkColorParams;
+      }
     }
     
     projects.forEach(project => {
@@ -422,7 +533,15 @@ function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId, isPrev
         const user = parts.pop();
         if (user && repo) {
           md += `  <a href="${project.githubUrl}">\n`;
-          md += `    <img src="https://github-readme-stats.vercel.app/api/pin/?username=${user}&repo=${repo}${colorParams}" width="400" />\n`;
+          if (isDynamic && !isPreview) {
+            md += `    <picture>\n`;
+            md += `      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=${user}&repo=${repo}${darkColorParams}" />\n`;
+            md += `      <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=${user}&repo=${repo}${lightColorParams}" />\n`;
+            md += `      <img src="https://github-readme-stats.vercel.app/api/pin/?username=${user}&repo=${repo}${darkColorParams}" width="400" />\n`;
+            md += `    </picture>\n`;
+          } else {
+            md += `    <img src="https://github-readme-stats.vercel.app/api/pin/?username=${user}&repo=${repo}${colorParams}" width="400" />\n`;
+          }
           md += `  </a>\n`;
         }
       }
@@ -526,19 +645,30 @@ function generateBlogPosts(block: BlogPostsBlock, isPreview: boolean): string {
   return md;
 }
 
-function generateTrophies(block: TrophiesBlock, isPreview: boolean): string {
+function generateTrophies(block: TrophiesBlock, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
   const { sectionTitle, sectionTitleColor, username, theme, columns, noFrame, noBg } = block.data;
   let md = generateSectionTitle('🏆 GitHub Trophies', sectionTitle, sectionTitleColor);
   const targetUsername = username && username !== 'yourusername' ? username : 'torvalds';
   const previewUsername = isPreview ? 'torvalds' : targetUsername;
   
-  let params = `username=${previewUsername}&theme=${theme}&column=${columns}`;
-  if (noFrame) params += '&no-frame=true';
-  if (noBg) params += '&no-bg=true';
+  let darkParams = `username=${previewUsername}&theme=${theme}&column=${columns}`;
+  let lightParams = `username=${previewUsername}&theme=flat&column=${columns}`;
+  if (noFrame) { darkParams += '&no-frame=true'; lightParams += '&no-frame=true'; }
+  if (noBg) { darkParams += '&no-bg=true'; lightParams += '&no-bg=true'; }
 
   md += `<div align="center">\n`;
   md += `  <a href="https://github.com/ryo-ma/github-profile-trophy">\n`;
-  md += `    <img src="https://github-profile-trophy.vercel.app/?${params}" alt="${username} trophies" />\n`;
+  
+  if (isPreview) {
+    const params = previewMode === 'light' ? lightParams : darkParams;
+    md += `    <img src="https://github-profile-trophy.vercel.app/?${params}" alt="${username} trophies" />\n`;
+  } else {
+    md += `    <picture>\n`;
+    md += `      <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-trophy.vercel.app/?${darkParams}" />\n`;
+    md += `      <source media="(prefers-color-scheme: light)" srcset="https://github-profile-trophy.vercel.app/?${lightParams}" />\n`;
+    md += `      <img src="https://github-profile-trophy.vercel.app/?${darkParams}" alt="${username} trophies" />\n`;
+    md += `    </picture>\n`;
+  }
   md += `  </a>\n`;
   md += `</div>\n\n`;
   return md;

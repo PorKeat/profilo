@@ -30,12 +30,12 @@ export function ColorPicker({ value, onChange, className, ...props }: ColorPicke
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <div className="relative w-10 h-10 rounded-md overflow-hidden shrink-0 border border-input shadow-sm">
+      <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-white/20 shadow-md transition-transform hover:scale-110">
         <input
           type="color"
           value={safeValue}
           onChange={handleColorChange}
-          className="absolute -top-2 -left-2 w-16 h-16 cursor-pointer opacity-0"
+          className="absolute -top-4 -left-4 w-16 h-16 cursor-pointer opacity-0"
           title="Pick a color"
         />
         <div 

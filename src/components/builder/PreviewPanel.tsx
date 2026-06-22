@@ -18,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Copy, Download, Eye, Code2, ChevronDown, Check, Zap, Bot, Sparkles, Sun, AlertTriangle, FileText } from 'lucide-react';
+import { Copy, Download, Eye, Code2, ChevronDown, Check, Zap, Bot, Sparkles, Sun, Moon, AlertTriangle, FileText } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { setTheme as setProfileTheme } from '@/store/builderSlice';
 import { ThemeId } from '@/lib/types/theme';
@@ -101,19 +101,26 @@ const THEME_STYLES: Record<ThemeId, ThemeStyles> = {
 
 const THEME_ORDER: ThemeId[] = ['github-classic', 'cyberpunk', 'purple-gradient', 'clean-light'];
 // ─────────────────────────────────────────────────────────────────────────────
+interface PreviewPanelProps {
+  isFullscreen?: boolean;
+}
 
-export function PreviewPanel() {
+export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
   const dispatch = useAppDispatch();
   const { blocks, themeId } = useAppSelector((state) => state.builder);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [copyWarningOpen, setCopyWarningOpen] = useState(false);
+  const [previewMode, setPreviewMode] = useState<'dark' | 'light'>('dark');
 
-  const markdown = generateMarkdown(blocks, themeId, false);
-  const previewMarkdown = generateMarkdown(blocks, themeId, true);
+  const markdown = generateMarkdown(blocks, themeId, false, previewMode);
+  const previewMarkdown = generateMarkdown(blocks, themeId, true, previewMode);
 
-  const s = THEME_STYLES[themeId];
+  // If user selected clean-light, preview is light by default, but let's just use previewMode explicitly
+  const isLight = previewMode === 'light';
+  // Fallback to light or dark styles based on toggle
+  const s = isLight ? THEME_STYLES['clean-light'] : THEME_STYLES[themeId] || THEME_STYLES['github-classic'];
   const meta = THEME_META[themeId];
 
   useEffect(() => {
@@ -271,7 +278,7 @@ export function PreviewPanel() {
   };
 
   return (
-    <div className="w-[500px] xl:w-[600px] border-l border-white/5 bg-background/60 backdrop-blur-xl flex flex-col h-full hidden lg:flex z-10 shadow-2xl">
+    <div className={`${isFullscreen ? 'w-full' : 'w-[500px] xl:w-[600px] border-l border-white/5'} bg-background/60 backdrop-blur-xl flex flex-col h-full hidden lg:flex z-10 shadow-2xl transition-all duration-300`}>
       <Tabs defaultValue="preview" className="flex flex-col h-full">
         <div className="p-3 border-b flex items-center justify-between bg-muted/10 gap-2">
           <TabsList className="h-8">
@@ -284,6 +291,15 @@ export function PreviewPanel() {
           </TabsList>
 
           <div className="flex gap-2 items-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setPreviewMode(isLight ? 'dark' : 'light')}
+                className="h-8 w-8 text-muted-foreground hover:text-foreground border border-transparent hover:border-border/50"
+                title={`Switch to ${isLight ? 'Dark' : 'Light'} Mode`}
+              >
+                {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+              </Button>
             {/* ─── Custom Theme Switcher ──────────────────────── */}
             <div ref={dropdownRef} className="relative">
               <button
@@ -336,19 +352,10 @@ export function PreviewPanel() {
         </div>
 
         {/* Preview — bg stays unchanged, only markdown element colors change per theme */}
-        <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col bg-background/40 p-6 xl:p-10">
-          <div className="min-h-full w-full max-w-3xl mx-auto flex flex-col">
+        <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col p-0 transition-colors duration-500" style={{ backgroundColor: isLight ? '#f6f8fa' : 'rgba(var(--background), 0.4)' }}>
+          <div className="min-h-full w-full flex flex-col">
             {markdown ? (
-              <div className="w-full bg-[#0d1117] rounded-xl border border-white/10 shadow-2xl overflow-hidden flex flex-col transition-all">
-                {/* Browser Mockup Top Bar */}
-                <div className="h-10 bg-[#161b22] border-b border-white/5 flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm" />
-                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm" />
-                  <div className="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm" />
-                  <div className="mx-auto bg-[#0d1117] px-4 py-1 text-[10px] text-white/40 rounded-md border border-white/5">
-                    github.com/profile/README.md
-                  </div>
-                </div>
+              <div className={`w-full h-full overflow-hidden flex flex-col transition-colors duration-500`} style={{ backgroundColor: isLight ? '#ffffff' : '#0d1117' }}>
                 {/* Markdown Content */}
                 <div className="p-8 md:p-10">
                   <ReactMarkdown

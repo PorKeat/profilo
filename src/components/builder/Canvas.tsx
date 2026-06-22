@@ -54,7 +54,7 @@ export function Canvas() {
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-transparent relative z-10">
+    <div className="flex-1 flex flex-col min-h-0 min-w-0 bg-transparent relative z-10">
       {/* ── Header ── */}
       <div className="px-8 py-5 border-b border-white/5 bg-background/40 backdrop-blur-md flex items-center justify-between gap-4">
         <div>

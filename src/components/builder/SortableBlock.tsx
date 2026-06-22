@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BlockEditor } from './BlockEditor';
+import { motion } from 'framer-motion';
 
 interface SortableBlockProps {
   block: Block;
@@ -49,16 +50,28 @@ export function SortableBlock({ block }: SortableBlockProps) {
   };
 
   return (
-    <Card
-      id={`block-${block.id}`}
-      ref={setNodeRef}
-      style={style}
-      className={cn(
-        "relative group shadow-lg border-white/5 scroll-mt-6 rounded-xl transition-all duration-300",
-        expanded ? "bg-background/80 backdrop-blur-xl ring-1 ring-primary/20" : "bg-background/40 backdrop-blur-md hover:bg-background/60",
-        isDragging && "opacity-80 ring-2 ring-primary shadow-2xl scale-[1.02]"
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+      className="relative"
     >
+      {/* Animated Glowing Border for expanded state */}
+      {expanded && (
+        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-primary/40 via-blue-500/40 to-primary/40 opacity-70 z-0 animate-pulse pointer-events-none" />
+      )}
+      
+      <Card
+        id={`block-${block.id}`}
+        ref={setNodeRef}
+        style={style}
+        className={cn(
+          "relative z-10 group shadow-lg border-white/5 scroll-mt-6 rounded-xl transition-all duration-300",
+          expanded ? "bg-background/90 backdrop-blur-2xl ring-1 ring-primary/20" : "bg-background/40 backdrop-blur-md hover:bg-background/60",
+          isDragging && "opacity-80 ring-2 ring-primary shadow-2xl scale-[1.02] z-50"
+        )}
+      >
       <CardHeader className="p-3 border-b flex flex-row items-center justify-between space-y-0 cursor-default bg-muted/30">
         <div className="flex items-center gap-3">
           <div
@@ -86,5 +99,6 @@ export function SortableBlock({ block }: SortableBlockProps) {
         </CardContent>
       )}
     </Card>
+    </motion.div>
   );
 }

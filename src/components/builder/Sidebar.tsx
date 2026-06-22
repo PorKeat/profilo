@@ -310,7 +310,7 @@ export function Sidebar() {
                 {cat.blocks.map(({ type, label, icon: Icon }) => (
                   <HoverCard key={type}>
                     <HoverCardTrigger 
-                      className={buttonVariants({ variant: "outline", size: "sm" }) + " w-full justify-start text-left text-xs cursor-pointer border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all"}
+                      className={buttonVariants({ variant: "outline", size: "sm" }) + " w-full justify-start text-left text-xs cursor-pointer border-border hover:border-primary/50 hover:bg-primary/10 hover:text-foreground transition-all"}
                       onClick={() => handleAddBlock(type as BlockType)}
                     >
                       <Icon className="w-3 h-3 mr-2" />
@@ -321,7 +321,7 @@ export function Sidebar() {
                         <span>Preview: {label}</span>
                         <span className="text-[10px] opacity-50">Click to add</span>
                       </div>
-                      <div className="py-4 max-h-[350px] overflow-y-auto overflow-x-hidden flex justify-center bg-[#0d1117]">
+                      <div className="py-4 max-h-[350px] overflow-y-auto overflow-x-hidden flex justify-center bg-card">
                         <div className="prose prose-sm dark:prose-invert max-w-none transform scale-[0.75] origin-top w-[500px]">
                           <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                             {generateMarkdown([createDefaultBlock(type as BlockType)], currentTheme, true)}
@@ -340,7 +340,7 @@ export function Sidebar() {
   );
 }
 
-function createDefaultBlock(type: BlockType): Block {
+export function createDefaultBlock(type: BlockType): Block {
   const id = uuidv4();
   switch (type) {
     case 'hero':
