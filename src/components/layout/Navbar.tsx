@@ -93,7 +93,7 @@ export function Navbar() {
               className="flex items-center justify-center -mr-1"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.svg" alt="Profilo" className="w-6 h-6 sm:w-7 sm:h-7" />
+              <img src="/logo.png" alt="Profilo" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
             </motion.div>
             <span className="font-extrabold text-base tracking-tight text-foreground group-hover:text-primary transition-colors duration-200">
               Profilo
