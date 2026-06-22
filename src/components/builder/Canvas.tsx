@@ -94,12 +94,15 @@ export function Canvas() {
           </DndContext>
 
           {blocks.length === 0 && (
-            <div className="text-center p-12 border border-dashed border-primary/20 rounded-2xl bg-background/40 backdrop-blur-md shadow-xl text-muted-foreground flex flex-col items-center justify-center min-h-[300px]">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-8 h-8 text-primary/60" />
+            <div className="text-center p-12 border-2 border-dashed border-primary/30 rounded-3xl bg-primary/[0.02] shadow-[inset_0_0_50px_rgba(75,134,247,0.05)] text-muted-foreground flex flex-col items-center justify-center min-h-[400px] relative overflow-hidden group transition-all duration-500 hover:border-primary/50">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-primary/5 opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="relative z-10 w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(75,134,247,0.2)] animate-pulse">
+                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                  <span className="text-3xl">✨</span>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-1">Your canvas is empty</h3>
-              <p className="text-sm max-w-sm">Click any section in the sidebar to add it to your README canvas.</p>
+              <h3 className="relative z-10 text-2xl font-bold text-foreground mb-2 tracking-tight">Your Canvas is Empty</h3>
+              <p className="relative z-10 text-base max-w-sm text-muted-foreground">Click any widget in the sidebar to drop it into your canvas and start building your perfect profile.</p>
             </div>
           )}
         </div>

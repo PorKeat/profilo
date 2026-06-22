@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { BlockEditor } from './BlockEditor';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface SortableBlockProps {
   block: Block;
@@ -95,12 +95,21 @@ export function SortableBlock({ block }: SortableBlockProps) {
           </Button>
         </div>
       </CardHeader>
-      
-      {expanded && (
-        <CardContent className="p-6 bg-transparent">
-          <BlockEditor block={block} />
-        </CardContent>
-      )}
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <CardContent className="p-6 bg-transparent">
+              <BlockEditor block={block} />
+            </CardContent>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Card>
     </motion.div>
   );
