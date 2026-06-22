@@ -409,8 +409,14 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
               className="flex-1 w-full h-full py-6 pr-6 pl-16 text-[13px] font-mono leading-[1.8rem] text-[#c9d1d9] bg-transparent resize-none focus:outline-none selection:bg-primary/30"
               value={isManuallyEdited ? (manualMarkdown ?? '') : generatedMarkdown}
               onChange={(e) => {
-                setIsManuallyEdited(true);
-                setManualMarkdown(e.target.value);
+                const newValue = e.target.value;
+                if (newValue === generatedMarkdown) {
+                  setIsManuallyEdited(false);
+                  setManualMarkdown(null);
+                } else {
+                  setIsManuallyEdited(true);
+                  setManualMarkdown(newValue);
+                }
               }}
               spellCheck={false}
               placeholder="<!-- Your markdown will appear here -->"
