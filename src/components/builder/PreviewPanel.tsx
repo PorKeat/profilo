@@ -114,8 +114,14 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
   const [copyWarningOpen, setCopyWarningOpen] = useState(false);
   const [previewMode, setPreviewMode] = useState<'dark' | 'light'>('dark');
 
-  const markdown = generateMarkdown(blocks, themeId, false, previewMode);
+  const generatedMarkdown = generateMarkdown(blocks, themeId, false, previewMode);
   const previewMarkdown = generateMarkdown(blocks, themeId, true, previewMode);
+
+  const [manualMarkdown, setManualMarkdown] = useState<string | null>(null);
+  const [isManuallyEdited, setIsManuallyEdited] = useState(false);
+
+  // Use the active markdown for copying/downloading
+  const activeMarkdown = isManuallyEdited ? (manualMarkdown ?? generatedMarkdown) : generatedMarkdown;
 
   // If user selected clean-light, preview is light by default, but let's just use previewMode explicitly
   const isLight = previewMode === 'light';
@@ -138,7 +144,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
     if (workflows.length > 0) {
       setCopyWarningOpen(true);
     } else {
-      navigator.clipboard.writeText(markdown);
+      navigator.clipboard.writeText(activeMarkdown);
     }
   };
 
@@ -163,7 +169,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
     
     if (workflows.length > 0 || qrCodeBase64 || projectImages.length > 0 || experienceLogos.length > 0 || localAvatarBase64) {
       const zip = new JSZip();
-      zip.file('README.md', markdown);
+      zip.file('README.md', activeMarkdown);
       
       if (workflows.length > 0) {
         const workflowsFolder = zip.folder('.github/workflows');
@@ -215,7 +221,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } else {
-      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const blob = new Blob([activeMarkdown], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -354,7 +360,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
         {/* Preview — bg stays unchanged, only markdown element colors change per theme */}
         <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col p-0 transition-colors duration-500" style={{ backgroundColor: isLight ? '#f6f8fa' : 'rgba(var(--background), 0.4)' }}>
           <div className="min-h-full w-full flex flex-col">
-            {markdown ? (
+            {activeMarkdown ? (
               <div className={`w-full h-full overflow-hidden flex flex-col transition-colors duration-500`} style={{ backgroundColor: isLight ? '#ffffff' : '#0d1117' }}>
                 {/* Markdown Content */}
                 <div className="p-8 md:p-10">
@@ -364,7 +370,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
                     urlTransform={(value) => value}
                     components={markdownComponents}
                   >
-                    {previewMarkdown}
+                    {isManuallyEdited ? (manualMarkdown ?? previewMarkdown) : previewMarkdown}
                   </ReactMarkdown>
                 </div>
               </div>
@@ -378,10 +384,35 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
         </TabsContent>
 
         <TabsContent value="code" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col bg-muted/30">
-          <div className="p-6">
-            <pre className="text-xs font-mono whitespace-pre-wrap text-muted-foreground">
-              {markdown || '<!-- Your markdown will appear here -->'}
-            </pre>
+          {isManuallyEdited && (
+            <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 flex items-center justify-between">
+              <span className="text-xs text-amber-500 font-medium">
+                Manual override active. Builder changes won&apos;t apply here.
+              </span>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="h-6 text-[10px] bg-background"
+                onClick={() => {
+                  setIsManuallyEdited(false);
+                  setManualMarkdown(null);
+                }}
+              >
+                Reset to Builder
+              </Button>
+            </div>
+          )}
+          <div className="p-0 flex-1 flex flex-col relative group">
+            <textarea
+              className="flex-1 w-full p-6 text-xs font-mono whitespace-pre-wrap text-muted-foreground bg-transparent resize-none focus:outline-none focus:ring-inset focus:ring-2 focus:ring-primary/20"
+              value={isManuallyEdited ? (manualMarkdown ?? '') : generatedMarkdown}
+              onChange={(e) => {
+                setIsManuallyEdited(true);
+                setManualMarkdown(e.target.value);
+              }}
+              spellCheck={false}
+              placeholder="<!-- Your markdown will appear here -->"
+            />
           </div>
         </TabsContent>
       </Tabs>
@@ -406,7 +437,7 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
               variant="outline" 
               onClick={() => {
                 setCopyWarningOpen(false);
-                navigator.clipboard.writeText(markdown);
+                navigator.clipboard.writeText(activeMarkdown);
               }}
             >
               Copy Markdown Anyway
