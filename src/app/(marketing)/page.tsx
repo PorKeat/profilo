@@ -46,9 +46,9 @@ export default function Home() {
     <div ref={containerRef} className="flex flex-col items-center bg-white dark:bg-[#080810] min-h-screen text-foreground overflow-x-hidden relative font-sans transition-colors duration-300">
 
       {/* ── React Bits Grid Distortion Background ── */}
-      <div className="fixed inset-0 z-0 opacity-40 dark:opacity-50 pointer-events-none">
+      <div className="fixed inset-0 z-0 opacity-20 dark:opacity-40 mix-blend-multiply dark:mix-blend-screen pointer-events-none">
         <GridDistortion
-          imageSrc="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+          imageSrc="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2929&auto=format&fit=crop"
           grid={15}
           mouse={0.1}
           strength={0.15}
