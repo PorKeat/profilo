@@ -3,10 +3,10 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Block } from '@/lib/types/blocks';
-import { GripVertical, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { GripVertical, Trash2, ChevronDown, ChevronUp, Columns, Maximize } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/store/hooks';
-import { removeBlock } from '@/store/builderSlice';
+import { removeBlock, toggleBlockLayout } from '@/store/builderSlice';
 import { useState } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -55,7 +55,7 @@ export function SortableBlock({ block }: SortableBlockProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
-      className="relative"
+      className={`relative ${block.layout === 'half' ? 'w-[calc(50%-0.5rem)] inline-block mx-1 align-top' : 'w-full block mb-4'}`}
     >
       {/* Animated Glowing Border for expanded state */}
       {expanded && (
@@ -84,6 +84,9 @@ export function SortableBlock({ block }: SortableBlockProps) {
           <span className="font-medium text-sm">{getBlockTitle()}</span>
         </div>
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => dispatch(toggleBlockLayout(block.id))} title={block.layout === 'half' ? 'Make Full Width' : 'Make Half Width'}>
+            {block.layout === 'half' ? <Maximize className="h-4 w-4" /> : <Columns className="h-4 w-4" />}
+          </Button>
           <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setExpanded(!expanded)}>
             {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </Button>

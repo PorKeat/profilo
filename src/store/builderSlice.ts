@@ -44,6 +44,12 @@ export const builderSlice = createSlice({
         block.data = { ...block.data, ...action.payload.data };
       }
     },
+    toggleBlockLayout: (state, action: PayloadAction<string>) => {
+      const block = state.blocks.find(b => b.id === action.payload);
+      if (block) {
+        block.layout = block.layout === 'half' ? 'full' : 'half';
+      }
+    },
     removeBlock: (state, action: PayloadAction<string>) => {
       state.blocks = state.blocks.filter(b => b.id !== action.payload);
     },
@@ -76,6 +82,7 @@ export const {
   setBlocks,
   addBlock,
   updateBlock,
+  toggleBlockLayout,
   removeBlock,
   reorderBlocks,
   setTheme,

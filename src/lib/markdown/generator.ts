@@ -6,71 +6,82 @@ import { PLATFORMS } from '../constants/platforms';
 export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: boolean = false, previewMode?: 'dark' | 'light'): string {
   let markdown = '';
 
-  blocks.forEach((block, index) => {
-    switch (block.type) {
-      case 'hero':
-        markdown += generateHero(block, isPreview);
-        break;
-      case 'banner':
-        markdown += generateBanner(block);
-        break;
-      case 'typing':
-        markdown += generateTyping(block);
-        break;
-      case 'about':
-        markdown += generateAbout(block, themeId);
-        break;
-      case 'skills':
-        markdown += generateSkills(block, themeId);
-        break;
-      case 'github-stats':
-        markdown += generateGitHubStats(block, themeId, isPreview, previewMode);
-        break;
-      case 'activity-graph':
-        markdown += generateActivityGraph(block, themeId, isPreview, previewMode);
-        break;
-      case 'snake':
-        markdown += generateSnake(block, isPreview);
-        break;
-      case 'pacman':
-        markdown += generatePacman(block, isPreview);
-        break;
-      case 'projects':
-        markdown += generateProjects(block, themeId, isPreview);
-        break;
-      case 'socials':
-        markdown += generateSocials(block);
-        break;
-      case 'contact':
-        markdown += generateContact(block);
-        break;
-      case 'blog-posts':
-        markdown += generateBlogPosts(block, isPreview);
-        break;
-      case 'trophies':
-        markdown += generateTrophies(block, isPreview, previewMode);
-        break;
-      case 'spotify':
-        markdown += generateSpotify(block);
-        break;
-      case 'support':
-        markdown += generateSupport(block, isPreview);
-        break;
-      case 'experience':
-        markdown += generateExperience(block, themeId, isPreview);
-        break;
-      case 'quote':
-        markdown += generateQuote(block);
-        break;
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i];
+    
+    if (block.layout === 'half') {
+      const nextBlock = blocks[i + 1];
+      if (nextBlock && nextBlock.layout === 'half') {
+        // Render both side-by-side in a table
+        markdown += `<table width="100%">\n`;
+        markdown += `  <tr>\n`;
+        markdown += `    <td width="50%" valign="top">\n`;
+        markdown += generateBlockMarkdown(block, themeId, isPreview, previewMode);
+        markdown += `    </td>\n`;
+        markdown += `    <td width="50%" valign="top">\n`;
+        markdown += generateBlockMarkdown(nextBlock, themeId, isPreview, previewMode);
+        markdown += `    </td>\n`;
+        markdown += `  </tr>\n`;
+        markdown += `</table>\n`;
+        i++; // Skip the next block since it's already rendered
+      } else {
+        // Render normally if it's a half block but no partner
+        markdown += generateBlockMarkdown(block, themeId, isPreview, previewMode);
+      }
+    } else {
+      markdown += generateBlockMarkdown(block, themeId, isPreview, previewMode);
     }
     
     // Add separator if it's not the last block
-    if (index < blocks.length - 1) {
+    if (i < blocks.length - 1) {
       markdown += '\n<br />\n\n';
     }
-  });
+  }
 
   return markdown.trim();
+}
+
+function generateBlockMarkdown(block: Block, themeId: ThemeId, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
+  switch (block.type) {
+    case 'hero':
+      return generateHero(block, isPreview);
+    case 'banner':
+      return generateBanner(block);
+    case 'typing':
+      return generateTyping(block);
+    case 'about':
+      return generateAbout(block, themeId);
+    case 'skills':
+      return generateSkills(block, themeId);
+    case 'github-stats':
+      return generateGitHubStats(block, themeId, isPreview, previewMode);
+    case 'activity-graph':
+      return generateActivityGraph(block, themeId, isPreview, previewMode);
+    case 'snake':
+      return generateSnake(block, isPreview);
+    case 'pacman':
+      return generatePacman(block, isPreview);
+    case 'projects':
+      return generateProjects(block, themeId, isPreview);
+    case 'socials':
+      return generateSocials(block);
+    case 'contact':
+      return generateContact(block);
+    case 'blog-posts':
+      return generateBlogPosts(block, isPreview);
+    case 'trophies':
+      return generateTrophies(block, isPreview, previewMode);
+    case 'spotify':
+      return generateSpotify(block);
+    case 'support':
+      return generateSupport(block, isPreview);
+    case 'experience':
+      return generateExperience(block, themeId, isPreview);
+    case 'quote':
+      return generateQuote(block);
+    default:
+      return '';
+  }
 }
 
 function getThemeColorParams(themeId: ThemeId): string {

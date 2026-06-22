@@ -15,7 +15,7 @@ import {
 import {
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
+  rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortableBlock } from './SortableBlock';
 import { Trash2, AlertTriangle } from 'lucide-react';
@@ -77,7 +77,7 @@ export function Canvas() {
 
       {/* ── Blocks ── */}
       <div className="flex-1 overflow-y-auto p-6">
-        <div className="max-w-2xl mx-auto space-y-4 pb-20">
+        <div className="max-w-2xl mx-auto pb-20">
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -85,7 +85,7 @@ export function Canvas() {
           >
             <SortableContext
               items={blocks.map(b => b.id)}
-              strategy={verticalListSortingStrategy}
+              strategy={rectSortingStrategy}
             >
               {blocks.map((block) => (
                 <SortableBlock key={block.id} block={block} />

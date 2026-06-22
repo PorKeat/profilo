@@ -3,6 +3,7 @@ export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects
 export interface BaseBlock {
   id: string;
   type: BlockType;
+  layout?: 'full' | 'half';
 }
 
 export interface HeroBlock extends BaseBlock {
