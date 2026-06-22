@@ -158,104 +158,118 @@ export default function Home() {
         <Section className="py-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center border-t border-black/5 dark:border-white/5">
 
           {/* Left — 3D floating cards */}
-          <motion.div variants={fadeIn} className="relative h-[420px] flex items-center justify-center w-full max-w-md mx-auto lg:max-w-none">
-            <div className="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-full blur-[100px] -z-10" />
+          <motion.div variants={fadeIn} className="relative h-[450px] flex items-center justify-center w-full max-w-md mx-auto lg:max-w-none">
+            {/* Primary color ambient glow */}
+            <div className="absolute inset-0 bg-primary/15 dark:bg-primary/10 rounded-full blur-[120px] -z-10" />
 
-            {/* Main card */}
+            {/* Base layer - sleek profile card */}
             <motion.div
-              initial={{ rotateX: 8, rotateY: 12 }}
-              whileHover={{ rotateX: 0, rotateY: 0, scale: 1.05 }}
+              initial={{ rotateX: 10, rotateY: 15 }}
+              whileHover={{ rotateX: 5, rotateY: 5, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
               style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
-              className="relative z-10 bg-white/90 dark:bg-[#0d1117]/80 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-3xl p-7 w-80 shadow-[0_30px_80px_rgba(0,0,0,0.15)] dark:shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+              className="relative z-10 bg-white/70 dark:bg-[#09090b]/85 backdrop-blur-3xl border border-primary/15 dark:border-primary/10 rounded-3xl p-6 w-[340px] shadow-[0_30px_80px_rgba(75,134,247,0.12)] dark:shadow-[0_30px_80px_rgba(75,134,247,0.08)]"
             >
-              <div className="flex items-center gap-2 mb-4">
-                <Terminal className="w-4 h-4 text-primary" />
-                <span className="text-xs text-foreground/80 dark:text-foreground/70 font-mono">profilo_output.md</span>
+              {/* Header */}
+              <div className="flex items-center gap-4 border-b border-primary/10 pb-4 mb-4">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-primary font-black text-xl shadow-[0_0_20px_rgba(75,134,247,0.2)]">A</div>
+                <div>
+                  <div className="font-bold text-foreground text-lg">Alex Nguyen</div>
+                  <div className="text-xs text-primary/70 mt-0.5 font-mono">Full-Stack Developer</div>
+                </div>
               </div>
-              <div className="space-y-1.5 font-mono text-xs">
-                <div className="text-primary/70"># Hi there 👋</div>
-                <div className="text-foreground/80 dark:text-foreground/70">![Typing SVG](...)</div>
-                <div className="text-blue-500/70">## GitHub Stats</div>
-                <div className="text-foreground/80 dark:text-foreground/70/60">![Stats](github-stats...)</div>
-                <div className="text-blue-500/70">## Skills</div>
-                <div className="text-green-600/70 dark:text-green-400/50">![TypeScript] ![Rust] ...</div>
+              
+              {/* Stats row */}
+              <div className="grid grid-cols-2 gap-3 mb-5">
+                <div className="bg-primary/8 dark:bg-primary/10 border border-primary/10 rounded-xl p-3">
+                  <div className="text-[10px] text-primary/70 uppercase tracking-wider mb-1 font-mono">Total Stars</div>
+                  <div className="text-foreground font-black text-xl">423</div>
+                </div>
+                <div className="bg-primary/8 dark:bg-primary/10 border border-primary/10 rounded-xl p-3">
+                  <div className="text-[10px] text-primary/70 uppercase tracking-wider mb-1 font-mono">Commits</div>
+                  <div className="text-foreground font-black text-xl">1,847</div>
+                </div>
+              </div>
+
+              {/* Contribution Graph */}
+              <div>
+                <div className="text-[10px] text-primary/70 uppercase tracking-wider mb-2 font-mono">Activity</div>
+                <div className="grid grid-cols-7 gap-1">
+                  {[...Array(21)].map((_, i) => (
+                    <div key={i} className={`h-2.5 rounded-sm ${
+                      [1, 7, 10, 16].includes(i) ? 'bg-primary' :
+                      [0, 3, 5, 8, 12, 14, 15, 18, 19].includes(i) ? 'bg-primary/40' :
+                      'bg-primary/10'
+                    }`} />
+                  ))}
+                </div>
               </div>
             </motion.div>
 
-            {/* Floating cards */}
+            {/* Floating Top Card */}
             <motion.div
               animate={{ y: [-8, 8, -8] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-[8%] left-[2%] bg-white/95 dark:bg-[#1a1f2e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-2xl p-4.5 shadow-2xl z-20"
+              className="absolute top-[5%] left-[0%] bg-white/90 dark:bg-[#0d1117]/90 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 shadow-[0_8px_32px_rgba(75,134,247,0.15)] z-20"
             >
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <div className="text-primary font-bold text-xs uppercase tracking-wider">Live Preview</div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/15 border border-primary/20 flex items-center justify-center">
+                  <Star className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold text-primary/70 uppercase tracking-widest font-mono">Rank</div>
+                  <div className="text-foreground font-extrabold text-sm">S+ Tier</div>
+                </div>
               </div>
-              <div className="text-foreground font-extrabold text-sm">See changes instantly</div>
             </motion.div>
 
+            {/* Floating Bottom Card */}
             <motion.div
               animate={{ y: [8, -8, 8] }}
               transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute bottom-[8%] right-[0%] bg-white/95 dark:bg-[#1a1f2e]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-2xl p-5 shadow-2xl z-20 w-48"
+              className="absolute bottom-[10%] right-[-5%] bg-white/90 dark:bg-[#0d1117]/90 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 shadow-[0_8px_32px_rgba(75,134,247,0.15)] z-20 w-44"
             >
-              <div className="text-[11px] font-bold text-foreground/60 dark:text-foreground/50 uppercase tracking-widest mb-1">Top Language</div>
-              <div className="text-foreground font-black text-lg mb-3">TypeScript</div>
-              <div className="w-full h-2 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden shadow-inner">
-                <motion.div
-                  animate={{ width: ['0%', '68%', '68%'] }}
-                  transition={{ duration: 2.5, delay: 0.5, repeat: Infinity, repeatDelay: 3 }}
-                  className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full"
-                />
-              </div>
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [-4, 8, -4] }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              className="absolute top-[50%] right-[-4%] bg-primary/10 border border-primary/30 backdrop-blur rounded-xl px-3 py-2 z-20"
-            >
-              <div className="flex items-center gap-2">
-                <GitBranch className="w-3 h-3 text-primary" />
-                <span className="text-xs text-primary font-mono">4 themes</span>
+              <div className="text-[10px] font-bold text-primary/70 uppercase tracking-widest mb-2 font-mono">Live Preview</div>
+              <div className="flex items-center justify-between">
+                <div className="text-foreground font-black text-xs">Syncing...</div>
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(75,134,247,0.8)]" />
               </div>
             </motion.div>
           </motion.div>
 
           {/* Right */}
           <motion.div variants={fadeUpStagger} className="flex flex-col items-start space-y-6 relative z-10 p-2 md:p-6">
-            {/* Added Glassmorphism Backdrop for Readability */}
-            <div className="absolute -inset-4 md:-inset-8 bg-white/80 dark:bg-black/60 backdrop-blur-2xl rounded-[2.5rem] -z-10 border border-black/5 dark:border-white/5 shadow-2xl" />
+            {/* Glassmorphism Backdrop */}
+            <div className="absolute -inset-4 md:-inset-8 bg-white/80 dark:bg-black/60 backdrop-blur-2xl rounded-[2.5rem] -z-10 border border-primary/8 dark:border-primary/5 shadow-2xl" />
             
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-2">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
               <span className="text-[10px] text-primary font-bold tracking-widest uppercase">Built for developers</span>
             </motion.div>
             
             <motion.h2 variants={fadeUp} className="text-4xl md:text-[3.25rem] font-extrabold tracking-tight text-foreground leading-[1.05]">
               Create your README<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-purple-400">in minutes, not hours.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">in minutes, not hours.</span>
             </motion.h2>
             
-            <motion.div variants={fadeUp} className="flex items-center gap-3 bg-black/5 dark:bg-white/5 py-2 px-4 rounded-full w-fit">
-              <div className="flex gap-1">
+            <motion.div variants={fadeUp} className="flex items-center gap-3 bg-primary/8 dark:bg-primary/10 border border-primary/15 py-2 px-4 rounded-full w-fit">
+              <div className="flex gap-0.5">
                 {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />)}
               </div>
               <span className="text-[11px] font-bold text-foreground/80">Loved by 10k+ devs</span>
             </motion.div>
             
-            <motion.p variants={fadeUp} className="text-base text-foreground/90 dark:text-foreground/80 leading-relaxed max-w-lg">
+            <motion.p variants={fadeUp} className="text-base text-foreground/80 dark:text-foreground/70 leading-relaxed max-w-lg">
               Profilo integrates with popular open-source statistics APIs to display live commit graphs, profile views, and top languages — completely client-side without any backend setup.
             </motion.p>
             
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
               <Link href="/builder" className="w-full sm:w-auto">
-                <Button className="w-full sm:w-auto bg-primary text-black hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.35)] hover:shadow-[0_0_50px_rgba(75,134,247,0.55)] hover:scale-105 transition-all duration-300">
+                <Button className="w-full sm:w-auto bg-primary text-black hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.4)] hover:shadow-[0_0_50px_rgba(75,134,247,0.6)] hover:scale-105 transition-all duration-300">
                   Start Building <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Link href="/about" className="w-full sm:w-auto flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-sm font-bold text-foreground transition-colors border border-black/5 dark:border-white/5">
+              <Link href="/about" className="w-full sm:w-auto flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-primary/8 dark:bg-primary/10 hover:bg-primary/15 text-sm font-bold text-primary transition-colors border border-primary/20">
                 How it works <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
