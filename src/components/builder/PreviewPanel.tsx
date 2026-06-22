@@ -383,16 +383,16 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
           </div>
         </TabsContent>
 
-        <TabsContent value="code" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex flex-col bg-muted/30">
+        <TabsContent value="code" className="flex-1 overflow-hidden m-0 data-[state=active]:flex flex-col bg-[#0d1117]">
           {isManuallyEdited && (
-            <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 flex items-center justify-between">
+            <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 flex items-center justify-between shrink-0">
               <span className="text-xs text-amber-500 font-medium">
                 Manual override active. Builder changes won&apos;t apply here.
               </span>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="h-6 text-[10px] bg-background"
+                className="h-6 text-[10px] bg-background text-foreground border-border/50 hover:bg-muted"
                 onClick={() => {
                   setIsManuallyEdited(false);
                   setManualMarkdown(null);
@@ -402,9 +402,11 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
               </Button>
             </div>
           )}
-          <div className="p-0 flex-1 flex flex-col relative group">
+          <div className="p-0 flex-1 flex flex-col relative group h-full min-h-0">
+            {/* Editor Gutter (Visual Only) */}
+            <div className="absolute left-0 top-0 bottom-0 w-12 border-r border-white/10 bg-white/[0.02] pointer-events-none" />
             <textarea
-              className="flex-1 w-full p-6 text-xs font-mono whitespace-pre-wrap text-muted-foreground bg-transparent resize-none focus:outline-none focus:ring-inset focus:ring-2 focus:ring-primary/20"
+              className="flex-1 w-full h-full py-6 pr-6 pl-16 text-[13px] font-mono leading-[1.8rem] text-[#c9d1d9] bg-transparent resize-none focus:outline-none selection:bg-primary/30"
               value={isManuallyEdited ? (manualMarkdown ?? '') : generatedMarkdown}
               onChange={(e) => {
                 setIsManuallyEdited(true);
