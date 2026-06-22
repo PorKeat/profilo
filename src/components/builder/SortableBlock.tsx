@@ -67,12 +67,12 @@ export function SortableBlock({ block }: SortableBlockProps) {
         ref={setNodeRef}
         style={style}
         className={cn(
-          "relative z-10 group shadow-lg border-white/5 scroll-mt-6 rounded-xl transition-all duration-300",
+          "relative z-10 group shadow-lg border-white/5 scroll-mt-6 rounded-xl transition-all duration-300 p-0",
           expanded ? "bg-background/90 backdrop-blur-2xl ring-1 ring-primary/20" : "bg-background/40 backdrop-blur-md hover:bg-background/60",
           isDragging && "opacity-80 ring-2 ring-primary shadow-2xl scale-[1.02] z-50"
         )}
       >
-      <CardHeader className="p-3 border-b flex flex-row items-center justify-between space-y-0 cursor-default bg-muted/30">
+      <CardHeader className={cn("p-3 border-b flex flex-row items-center justify-between space-y-0 cursor-default bg-muted/30", !expanded && "border-none")}>
         <div className="flex items-center gap-3">
           <div
             {...attributes}
