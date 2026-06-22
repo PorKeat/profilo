@@ -136,7 +136,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-primary/30 shrink-0">A</div>
                   <div>
                     <div className="font-bold text-foreground text-sm">alex-nguyen</div>
-                    <div className="text-[11px] text-muted-foreground font-mono mt-0.5">Full-Stack · Open Source · Since Jan 2025</div>
+                    <div className="text-[11px] text-foreground/80 dark:text-foreground/70 font-mono mt-0.5">Full-Stack · Open Source · Since Jan 2025</div>
                     <div className="flex gap-1 mt-1.5">
                       {['Next.js','TypeScript','Rust'].map(t => (
                         <span key={t} className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/20 font-mono">{t}</span>
@@ -150,14 +150,14 @@ export default function Home() {
                   {[{ l:'Commits',v:'1,847' },{ l:'Stars',v:'423' },{ l:'PRs',v:'94' }].map(s => (
                     <div key={s.l} className="py-3 text-center">
                       <div className="text-sm font-bold text-foreground">{s.v}</div>
-                      <div className="text-[9px] text-muted-foreground mt-0.5">{s.l}</div>
+                      <div className="text-[9px] text-foreground/80 dark:text-foreground/70 mt-0.5">{s.l}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* activity */}
                 <div className="px-5 py-4 border-b border-black/5 dark:border-white/5">
-                  <div className="text-[9px] text-muted-foreground mb-2.5 font-mono uppercase tracking-widest">Contribution Activity</div>
+                  <div className="text-[9px] text-foreground/80 dark:text-foreground/70 mb-2.5 font-mono uppercase tracking-widest">Contribution Activity</div>
                   <svg width="100%" height="44" viewBox="0 0 320 44" preserveAspectRatio="none">
                     <defs>
                       <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
@@ -172,11 +172,11 @@ export default function Home() {
 
                 {/* languages */}
                 <div className="px-5 py-4">
-                  <div className="text-[9px] text-muted-foreground mb-2.5 font-mono uppercase tracking-widest">Top Languages</div>
+                  <div className="text-[9px] text-foreground/80 dark:text-foreground/70 mb-2.5 font-mono uppercase tracking-widest">Top Languages</div>
                   <div className="space-y-2">
                     {[{ l:'TypeScript',p:68,c:'#3178c6' },{ l:'Python',p:21,c:'#3572A5' },{ l:'Go',p:11,c:'#00acd7' }].map((l,i) => (
                       <div key={l.l} className="flex items-center gap-2.5">
-                        <span className="text-[9px] text-muted-foreground w-20 shrink-0">{l.l}</span>
+                        <span className="text-[9px] text-foreground/80 dark:text-foreground/70 w-20 shrink-0">{l.l}</span>
                         <div className="flex-1 h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
@@ -186,7 +186,7 @@ export default function Home() {
                             style={{ backgroundColor: l.c }}
                           />
                         </div>
-                        <span className="text-[9px] text-muted-foreground w-6 text-right">{l.p}%</span>
+                        <span className="text-[9px] text-foreground/80 dark:text-foreground/70 w-6 text-right">{l.p}%</span>
                       </div>
                     ))}
                   </div>
@@ -229,7 +229,7 @@ export default function Home() {
               Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">ultimate toolkit</span><br />
               <span className="text-foreground/40">for GitHub READMEs.</span>
             </h2>
-            <p className="text-muted-foreground text-sm max-w-md mx-auto">No databases. No paid tiers. Just a pure, client-side markdown generation engine.</p>
+            <p className="text-foreground/80 dark:text-foreground/70 text-sm max-w-md mx-auto">No databases. No paid tiers. Just a pure, client-side markdown generation engine.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/5 dark:bg-white/5 rounded-2xl overflow-hidden border border-black/5 dark:border-white/5">
@@ -242,7 +242,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`relative group p-10 ${c.featured ? 'bg-primary/90 backdrop-blur-md text-white shadow-xl shadow-primary/20' : 'bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm'} overflow-hidden cursor-default`}
+                className={`relative group p-10 ${c.featured ? 'bg-primary/90 backdrop-blur-md text-white shadow-xl shadow-primary/20' : 'bg-white/80 dark:bg-black/60 backdrop-blur-2xl shadow-sm'} overflow-hidden cursor-default`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 <div className={`relative z-10 ${c.featured ? 'text-white' : 'text-primary'} mb-6 flex items-center gap-3`}>
@@ -250,7 +250,7 @@ export default function Home() {
                   <span className="text-sm font-bold tracking-widest opacity-80">{c.n}</span>
                 </div>
                 <h3 className={`relative z-10 text-xl font-black mb-3 ${c.featured ? 'text-white' : 'text-foreground'}`}>{c.title}</h3>
-                <p className={`relative z-10 text-sm leading-relaxed ${c.featured ? 'text-white/80' : 'text-muted-foreground'}`}>{c.desc}</p>
+                <p className={`relative z-10 text-sm leading-relaxed ${c.featured ? 'text-white/80' : 'text-foreground/80 dark:text-foreground/70'}`}>{c.desc}</p>
                 {c.featured && (
                   <Link href="/templates" className="relative z-10 mt-6 flex items-center gap-1 font-bold text-sm">
                     Explore Templates <ArrowRight className="w-4 h-4" />
@@ -276,17 +276,17 @@ export default function Home() {
               whileHover={{ rotateX: 0, rotateY: 0, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
               style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
-              className="relative z-10 bg-white/60 dark:bg-black/20 backdrop-blur-xl border border-black/8 dark:border-white/10 rounded-2xl p-6 w-72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
+              className="relative z-10 bg-white/80 dark:bg-black/60 backdrop-blur-2xl border border-black/8 dark:border-white/10 rounded-2xl p-6 w-72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
             >
               <div className="flex items-center gap-2 mb-4">
                 <Terminal className="w-4 h-4 text-primary" />
-                <span className="text-xs text-muted-foreground font-mono">profilo_output.md</span>
+                <span className="text-xs text-foreground/80 dark:text-foreground/70 font-mono">profilo_output.md</span>
               </div>
               <div className="space-y-1.5 font-mono text-xs">
                 <div className="text-primary/70"># Hi there 👋</div>
-                <div className="text-muted-foreground">![Typing SVG](...)</div>
+                <div className="text-foreground/80 dark:text-foreground/70">![Typing SVG](...)</div>
                 <div className="text-blue-500/70">## GitHub Stats</div>
-                <div className="text-muted-foreground/60">![Stats](github-stats...)</div>
+                <div className="text-foreground/80 dark:text-foreground/70/60">![Stats](github-stats...)</div>
                 <div className="text-blue-500/70">## Skills</div>
                 <div className="text-green-600/70 dark:text-green-400/50">![TypeScript] ![Rust] ...</div>
               </div>
@@ -307,7 +307,7 @@ export default function Home() {
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
               className="absolute bottom-[12%] right-[2%] bg-white dark:bg-[#0e0e18]/90 backdrop-blur border border-black/8 dark:border-white/10 rounded-xl p-4 shadow-lg dark:shadow-xl z-20 w-44"
             >
-              <div className="text-xs text-muted-foreground mb-1">Top Language</div>
+              <div className="text-xs text-foreground/80 dark:text-foreground/70 mb-1">Top Language</div>
               <div className="text-foreground font-bold text-base mb-2">TypeScript</div>
               <div className="w-full h-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
                 <motion.div
@@ -342,7 +342,7 @@ export default function Home() {
             <motion.div variants={fadeUp} className="flex gap-1">
               {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
             </motion.div>
-            <motion.p variants={fadeUp} className="text-sm text-muted-foreground leading-relaxed max-w-md">
+            <motion.p variants={fadeUp} className="text-sm text-foreground/80 dark:text-foreground/70 leading-relaxed max-w-md">
               Profilo integrates with popular open-source statistics APIs to display live commit graphs, profile views, and top languages — without any backend setup.
             </motion.p>
             <motion.div variants={fadeUp} className="flex items-center gap-4 pt-2">
@@ -351,7 +351,7 @@ export default function Home() {
                   Start Building <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">How it works →</Link>
+              <Link href="/about" className="text-sm text-foreground/80 dark:text-foreground/70 hover:text-foreground transition-colors">How it works →</Link>
             </motion.div>
           </motion.div>
         </Section>
@@ -363,7 +363,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="text-center mb-16">
             <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Simple process</span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-foreground">How it works</h2>
-            <p className="text-muted-foreground text-base max-w-xl mx-auto">Three simple steps to craft a standout GitHub profile README — no code required.</p>
+            <p className="text-foreground/80 dark:text-foreground/70 text-base max-w-xl mx-auto">Three simple steps to craft a standout GitHub profile README — no code required.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
@@ -378,7 +378,7 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.2 } }}
-                className="group relative bg-white/60 dark:bg-black/20 backdrop-blur-md border border-black/8 dark:border-white/5 hover:border-primary/30 p-8 rounded-2xl flex flex-col items-center text-center transition-colors duration-300 cursor-default shadow-sm"
+                className="group relative bg-white/80 dark:bg-black/60 backdrop-blur-2xl border border-black/8 dark:border-white/5 hover:border-primary/30 p-8 rounded-2xl flex flex-col items-center text-center transition-colors duration-300 cursor-default shadow-sm"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500" />
                 <div className="relative z-10 w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
@@ -386,7 +386,7 @@ export default function Home() {
                 </div>
                 <div className="absolute top-6 right-6 text-[10px] text-foreground/30 font-mono font-bold">{s.n}</div>
                 <h3 className="relative z-10 text-lg font-bold mb-3 text-foreground">{s.title}</h3>
-                <p className="relative z-10 text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                <p className="relative z-10 text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -399,7 +399,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mb-12">
             <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Everything included</span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 text-foreground">Everything you need</h2>
-            <p className="text-muted-foreground text-base max-w-xl">Profilo comes packed with dynamic blocks to show off your developer journey.</p>
+            <p className="text-foreground/80 dark:text-foreground/70 text-base max-w-xl">Profilo comes packed with dynamic blocks to show off your developer journey.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -407,20 +407,20 @@ export default function Home() {
             <motion.div
               variants={fadeUp}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group bg-white/60 dark:bg-black/20 backdrop-blur-md border border-black/8 dark:border-white/5 hover:border-primary/20 p-7 rounded-2xl col-span-1 lg:col-span-2 row-span-2 transition-colors duration-300 relative overflow-hidden shadow-sm"
+              className="group bg-white/80 dark:bg-black/60 backdrop-blur-2xl border border-black/8 dark:border-white/5 hover:border-primary/20 p-7 rounded-2xl col-span-1 lg:col-span-2 row-span-2 transition-colors duration-300 relative overflow-hidden shadow-sm"
             >
               <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-5">
                 <GitBranch className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-foreground">Real-time GitHub Stats</h3>
-              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">Showcase commits, stars, PRs, and top languages pulling directly from GitHub APIs. Always up-to-date, always accurate.</p>
+              <p className="text-foreground/80 dark:text-foreground/70 text-sm mb-6 leading-relaxed">Showcase commits, stars, PRs, and top languages pulling directly from GitHub APIs. Always up-to-date, always accurate.</p>
               <div className="w-full rounded-xl border border-black/5 dark:border-white/5 bg-white dark:bg-[#0d1117] p-4 space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-xs font-bold text-white">G</div>
                   <div>
                     <div className="text-xs font-bold text-foreground">GitHub Stats</div>
-                    <div className="text-[10px] text-muted-foreground">Connected · Live</div>
+                    <div className="text-[10px] text-foreground/80 dark:text-foreground/70">Connected · Live</div>
                   </div>
                   <div className="ml-auto w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 </div>
@@ -428,7 +428,7 @@ export default function Home() {
                   {[['Stars','423'],['Commits','1,847'],['PRs','94']].map(([l,v]) => (
                     <div key={l} className="bg-black/5 dark:bg-white/5 rounded-lg p-2 text-center">
                       <div className="text-xs font-bold text-foreground">{v}</div>
-                      <div className="text-[9px] text-muted-foreground">{l}</div>
+                      <div className="text-[9px] text-foreground/80 dark:text-foreground/70">{l}</div>
                     </div>
                   ))}
                 </div>
@@ -443,21 +443,21 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
-                className="group bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 relative overflow-hidden"
+                className="group bg-white/80 dark:bg-black/60 backdrop-blur-2xl shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
                 <div className="relative z-10 w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-4">
                   {c.icon}
                 </div>
                 <h3 className="relative z-10 font-bold mb-2 text-foreground">{c.title}</h3>
-                <p className="relative z-10 text-muted-foreground text-sm leading-relaxed">{c.desc}</p>
+                <p className="relative z-10 text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">{c.desc}</p>
               </motion.div>
             ))}
 
             <motion.div
               variants={fadeUp}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl lg:col-span-2 transition-all duration-300 relative overflow-hidden"
+              className="group bg-white/80 dark:bg-black/60 backdrop-blur-2xl shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl lg:col-span-2 transition-all duration-300 relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               <div className="relative z-10 flex items-start gap-4">
@@ -466,7 +466,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="font-bold mb-2 text-foreground">Animated Elements</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">Add typing SVGs, profile view counters, activity graphs, and streak stats — without wrestling with complex markdown syntax.</p>
+                  <p className="text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">Add typing SVGs, profile view counters, activity graphs, and streak stats — without wrestling with complex markdown syntax.</p>
                 </div>
               </div>
             </motion.div>
@@ -493,13 +493,13 @@ export default function Home() {
                 key={i}
                 variants={fadeUp}
                 whileHover={{ x: 4, transition: { duration: 0.15 } }}
-                className="group bg-white/60 dark:bg-black/20 backdrop-blur-md shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 cursor-default"
+                className="group bg-white/80 dark:bg-black/60 backdrop-blur-2xl shadow-sm border border-black/8 dark:border-white/5 hover:border-primary/20 p-6 rounded-2xl transition-all duration-300 cursor-default"
               >
                 <div className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0 group-hover:scale-150 transition-transform" />
                   <div>
                     <h3 className="font-bold mb-2 text-primary">{f.q}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{f.a}</p>
+                    <p className="text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">{f.a}</p>
                   </div>
                 </div>
               </motion.div>
@@ -513,7 +513,7 @@ export default function Home() {
         <Section className="py-32 mb-12">
           <motion.div
             variants={fadeUp}
-            className="relative text-center bg-white/40 dark:bg-black/20 backdrop-blur-2xl border border-primary/20 dark:border-primary/15 rounded-[3rem] overflow-hidden p-20 shadow-2xl"
+            className="relative text-center bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-primary/20 dark:border-primary/15 rounded-[3rem] overflow-hidden p-20 shadow-2xl"
           >
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#4B86F7_0%,transparent_55%)] opacity-10 dark:opacity-15 pointer-events-none" />
             <div className="absolute -top-px left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
@@ -538,7 +538,7 @@ export default function Home() {
               <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-foreground">
                 Ready to stand out?
               </motion.h2>
-              <motion.p variants={fadeUp} className="text-muted-foreground text-lg mb-10 max-w-md mx-auto">
+              <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/70 text-lg mb-10 max-w-md mx-auto">
                 Join thousands of developers crafting beautiful, dynamic GitHub profiles with Profilo.
               </motion.p>
               <motion.div variants={fadeUp}>
