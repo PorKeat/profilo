@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StoreProvider } from "@/store/Provider";
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from 'sonner';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,6 +51,18 @@ export default function RootLayout({
           enableSystem
         >
           <StoreProvider>{children}</StoreProvider>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              classNames: {
+                toast: 'bg-white/90 dark:bg-[#111]/90 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl rounded-xl',
+                title: 'text-foreground font-bold text-sm',
+                description: 'text-foreground/60 text-xs',
+                success: 'border-primary/30',
+                error: 'border-red-500/30',
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>
