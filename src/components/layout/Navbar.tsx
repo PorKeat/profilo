@@ -29,7 +29,7 @@ export function Navbar() {
 
   const isDark = theme === 'dark';
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function Navbar() {
   }, []);
 
   // Close mobile menu on route change
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const handleThemeToggle = async () => {

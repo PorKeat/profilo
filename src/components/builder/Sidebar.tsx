@@ -105,7 +105,7 @@ export function Sidebar() {
   
   const isDark = theme === 'dark';
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+
   useEffect(() => { setMounted(true); }, []);
 
   const handleThemeToggle = async () => {
