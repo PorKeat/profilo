@@ -160,7 +160,7 @@ const DotField = memo(({
       const grad = ctx?.createLinearGradient(0, 0, w, h);
       grad?.addColorStop(0, p.gradientFrom as string);
       grad?.addColorStop(1, p.gradientTo as string);
-      if (grad) ctx.fillStyle = grad;
+      if (grad && ctx) ctx.fillStyle = grad;
 
       const cr = p.cursorRadius as number;
       const crSq = cr * cr;
