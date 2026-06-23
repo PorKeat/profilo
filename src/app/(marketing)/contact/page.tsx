@@ -216,7 +216,7 @@ export default function ContactPage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                <div className="relative z-10 w-12 h-12 shrink-0 rounded-xl bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground/70 group-hover:bg-primary group-hover:text-black group-hover:border-primary group-hover:scale-110 transition-all duration-500 shadow-sm">
+                <div className="relative z-10 w-12 h-12 shrink-0 rounded-xl bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground/70 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500 shadow-sm">
                   {c.icon}
                 </div>
                 
