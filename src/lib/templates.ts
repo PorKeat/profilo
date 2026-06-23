@@ -129,20 +129,61 @@ export const TEMPLATES: Template[] = [
     blocks: [
       {
         id: uuidv4(),
+        type: 'banner',
+        data: {
+          bannerType: 'soft',
+          height: 120,
+          text: '',
+          desc: '',
+          color: '0:f8f9fa,100:e9ecef',
+          fontColor: '000000',
+          section: 'header',
+        }
+      },
+      {
+        id: uuidv4(),
         type: 'hero',
         data: {
-          name: 'Jane Doe',
-          title: 'Full Stack Developer',
-          shortIntro: 'Crafting beautiful, accessible web applications.',
+          name: 'Alex Developer',
+          title: 'Frontend Engineer',
+          shortIntro: 'Less is more. Focusing on performance and beautiful typography.',
           bannerStyle: 'none'
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'about',
+        data: {
+          paragraph: 'I am a software engineer with a passion for building clean, fast, and accessible user interfaces. I believe in minimalism in both code and design. When I am not coding, I enjoy reading about typography and architecture.',
+          currentlyLearning: 'Rust & WebAssembly',
+          currentlyWorkingOn: 'A minimal, distraction-free writing app',
+          askMeAbout: 'UI/UX Design, Performance optimization, Accessibility'
         }
       },
       {
         id: uuidv4(),
         type: 'skills',
         data: {
-          skills: ['React', 'TypeScript', 'Node.js', 'Next.js', 'TailwindCSS', 'PostgreSQL'],
-          style: 'flat'
+          skills: ['React', 'TypeScript', 'Next.js', 'TailwindCSS', 'Figma', 'Vercel'],
+          style: 'flat-square'
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'github-stats',
+        data: {
+          username: 'torvalds',
+          showStats: true,
+          showTopLanguages: true,
+          showStreak: false,
+          showActivityGraph: false,
+          showSnake: false,
+          showPacman: false,
+          show3dContrib: false,
+          showProfileViews: false,
+          useCustomColors: true,
+          theme: 'default',
+          customColors: { bg: 'f6f8fa', title: '0366d6', text: '24292f', icon: '0366d6', border: 'e1e4e8' }
         }
       },
       {
@@ -150,12 +191,12 @@ export const TEMPLATES: Template[] = [
         type: 'projects',
         data: {
           style: 'cards',
-          useCustomColors: false,
+          useCustomColors: true,
           theme: 'default',
-          customColors: { bg: 'ffffff', title: '000000', text: '333333', icon: '000000', border: 'e2e8f0' },
+          customColors: { bg: 'f6f8fa', title: '0366d6', text: '24292f', icon: '0366d6', border: 'e1e4e8' },
           projects: [
-            { id: uuidv4(), name: 'E-commerce Platform', description: 'A fully functional modern e-commerce application.', githubUrl: 'https://github.com/janedoe/ecommerce', demoUrl: '', techStack: ['React', 'Node.js'] },
-            { id: uuidv4(), name: 'Task Manager', description: 'A sleek productivity tool.', githubUrl: 'https://github.com/janedoe/task-manager', demoUrl: '', techStack: ['Next.js', 'Tailwind'] }
+            { id: uuidv4(), name: 'Minimalist Notes', description: 'A distraction-free markdown note taking application.', githubUrl: 'https://github.com/alex/notes', demoUrl: 'https://notes.app', techStack: ['React', 'TailwindCSS'] },
+            { id: uuidv4(), name: 'Typography System', description: 'An open-source design system focused purely on readability.', githubUrl: 'https://github.com/alex/type', demoUrl: '', techStack: ['CSS', 'Figma'] }
           ]
         }
       },
@@ -163,11 +204,11 @@ export const TEMPLATES: Template[] = [
         id: uuidv4(),
         type: 'socials',
         data: {
-          github: 'janedoe',
-          linkedin: 'janedoe',
-          twitter: 'janedoe',
-          portfolio: 'https://janedoe.com',
-          email: 'hello@janedoe.com'
+          github: 'alexdev',
+          linkedin: 'alexdev',
+          twitter: 'alexdev',
+          portfolio: 'https://alexdev.com',
+          email: 'hello@alexdev.com'
         }
       }
     ]
