@@ -73,7 +73,7 @@ export default function Home() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary/60">
                 Profile Builder
               </span><br />
-              <span className="text-foreground/40">for your future.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/70">for your future.</span>
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/70 text-lg md:text-xl leading-relaxed max-w-2xl text-center">
@@ -103,7 +103,7 @@ export default function Home() {
             <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Why Profilo</span>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-foreground">
               Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">ultimate toolkit</span><br />
-              <span className="text-foreground/40">for GitHub READMEs.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/70">for GitHub READMEs.</span>
             </h2>
             <p className="text-foreground/80 dark:text-foreground/70 text-sm max-w-md mx-auto">No databases. No paid tiers. Just a pure, client-side markdown generation engine.</p>
           </motion.div>
