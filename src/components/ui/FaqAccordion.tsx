@@ -25,20 +25,18 @@ export default function FaqAccordion() {
             onClick={() => setOpenIndex(isOpen ? null : i)}
           >
             {/* Closed state background */}
-            <div className={`absolute inset-0 bg-white/60 dark:bg-black/40 backdrop-blur-md rounded-full transition-all duration-500 ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 group-hover:bg-white/80 dark:group-hover:bg-black/60'}`} />
+            <div className={`absolute inset-0 bg-white/60 dark:bg-[#080810]/80 border border-black/10 dark:border-white/10 backdrop-blur-3xl rounded-[2rem] transition-all duration-500 ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 group-hover:border-primary/30 group-hover:bg-primary/5'}`} />
             
-            {/* Opened state background with gradient border */}
-            <div className={`absolute inset-0 p-[1.5px] rounded-[2rem] bg-gradient-to-r from-primary via-blue-400 to-purple-400 transition-all duration-500 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}>
-               <div className="w-full h-full bg-white dark:bg-[#0e0e18] rounded-[calc(2rem-1.5px)] shadow-[0_20px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.4)]" />
-            </div>
+            {/* Opened state background */}
+            <div className={`absolute inset-0 bg-white/80 dark:bg-[#080810]/95 border border-primary/40 backdrop-blur-3xl rounded-[2rem] shadow-[0_0_30px_rgba(75,134,247,0.15)] transition-all duration-500 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
 
-            <div className={`relative z-10 p-4 md:px-6 ${isOpen ? 'pt-8 pb-8' : 'py-4'} flex items-start gap-4 md:gap-6`}>
+            <div className={`relative z-10 p-4 md:px-6 ${isOpen ? 'pt-8 pb-8' : 'py-5'} flex items-start gap-4 md:gap-6`}>
               <div className="flex-1 pt-1">
                 <div className="flex items-center gap-4">
-                  <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 font-mono text-xs font-bold transition-colors duration-300 ${isOpen ? 'bg-primary/10 text-primary' : 'bg-black/5 dark:bg-white/10 text-foreground/50'}`}>
+                  <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 font-mono text-xs font-bold transition-colors duration-300 ${isOpen ? 'bg-primary/20 text-primary' : 'bg-black/5 dark:bg-white/10 text-foreground/50'}`}>
                     {i + 1}
                   </div>
-                  <h3 className={`text-base md:text-lg font-bold transition-colors duration-300 ${isOpen ? 'text-foreground' : 'text-foreground/80'}`}>
+                  <h3 className={`text-base md:text-lg font-bold transition-colors duration-300 ${isOpen ? 'text-foreground' : 'text-foreground/80 group-hover:text-foreground'}`}>
                     {faq.q}
                   </h3>
                 </div>
@@ -60,8 +58,8 @@ export default function FaqAccordion() {
                 </AnimatePresence>
               </div>
 
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 ${isOpen ? 'bg-white dark:bg-[#0d1117] border border-black/10 dark:border-white/10 shadow-sm rotate-90' : 'bg-[#111] text-white dark:bg-white dark:text-[#111] group-hover:scale-110'}`}>
-                {isOpen ? <X className="w-4 h-4 text-foreground" /> : <Plus className="w-5 h-5" />}
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 ${isOpen ? 'bg-primary text-black shadow-[0_0_15px_rgba(75,134,247,0.5)] rotate-90' : 'bg-black/5 dark:bg-white/5 text-foreground group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-110'}`}>
+                {isOpen ? <X className="w-5 h-5 text-black" /> : <Plus className="w-5 h-5" />}
               </div>
             </div>
           </motion.div>
