@@ -81,7 +81,7 @@ export default function AboutPage() {
               <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] mb-6 text-foreground tracking-tight">
                 Building Better<br />GitHub Profiles
               </h2>
-              <p className="text-foreground/70 leading-relaxed mb-8 max-w-lg text-lg">
+              <p className="text-foreground/80 leading-relaxed mb-8 max-w-lg text-lg">
                 Hi, I&apos;m Seng Porkeat. I am a passionate DevOps Engineer and Software Engineering student focused on building scalable, secure, and cloud-native systems. I realized developers spend too much time wrestling with Markdown just to make a decent GitHub profile, so I built Profilo to change that — making it frictionless to present your work beautifully.
               </p>
               
@@ -104,7 +104,7 @@ export default function AboutPage() {
             
             <motion.div variants={fadeUp} className="flex flex-col justify-center">
               <h2 className="text-3xl font-extrabold mb-4 text-foreground tracking-tight">Core Priorities</h2>
-              <p className="text-foreground/70 leading-relaxed mb-10 max-w-md">
+              <p className="text-foreground/80 leading-relaxed mb-10 max-w-md">
                 Profilo is designed with a strict focus on developer experience. No backends, no logins, just pure utility and creative freedom.
               </p>
 
@@ -162,7 +162,7 @@ export default function AboutPage() {
             <motion.div variants={fadeUp} className="text-center relative">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500/10 blur-[80px] rounded-full pointer-events-none" />
               <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-foreground tracking-tight">My Tech Stack</h2>
-              <p className="text-foreground/60 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-foreground/80 max-w-2xl mx-auto leading-relaxed">
                 The tools and technologies I use to build scalable cloud-native infrastructure, robust backend microservices, and seamless frontend experiences.
               </p>
             </motion.div>

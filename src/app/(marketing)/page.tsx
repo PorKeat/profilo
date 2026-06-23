@@ -76,7 +76,7 @@ export default function Home() {
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/70">for your future.</span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/70 text-lg md:text-xl leading-relaxed max-w-2xl text-center">
+            <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl text-center">
               Drag-and-drop beautiful blocks, see live previews, and export pure markdown — no code, no backend, no cost.
             </motion.p>
 
@@ -105,7 +105,7 @@ export default function Home() {
               Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">ultimate toolkit</span><br />
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/70">for GitHub READMEs.</span>
             </h2>
-            <p className="text-foreground/80 dark:text-foreground/70 text-sm max-w-md mx-auto">No databases. No paid tiers. Just a pure, client-side markdown generation engine.</p>
+            <p className="text-foreground/80 dark:text-foreground/80 text-sm max-w-md mx-auto">No databases. No paid tiers. Just a pure, client-side markdown generation engine.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/5 dark:bg-white/5 rounded-2xl overflow-hidden border border-black/5 dark:border-white/5">
@@ -126,7 +126,7 @@ export default function Home() {
                   <span className="text-sm font-bold tracking-widest opacity-80">{c.n}</span>
                 </div>
                 <h3 className={`relative z-10 text-xl font-black mb-3 ${c.featured ? 'text-white' : 'text-foreground'}`}>{c.title}</h3>
-                <p className={`relative z-10 text-sm leading-relaxed ${c.featured ? 'text-white/80' : 'text-foreground/80 dark:text-foreground/70'}`}>{c.desc}</p>
+                <p className={`relative z-10 text-sm leading-relaxed ${c.featured ? 'text-white/80' : 'text-foreground/80 dark:text-foreground/80'}`}>{c.desc}</p>
                 {c.featured && (
                   <Link href="/templates" className="relative z-10 mt-6 flex items-center gap-1 font-bold text-sm">
                     Explore Templates <ArrowRight className="w-4 h-4" />
@@ -150,7 +150,7 @@ export default function Home() {
               Create your README<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">in minutes, not hours.</span>
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/80 dark:text-foreground/70">
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/80 dark:text-foreground/80">
               Build a polished GitHub profile with live stats, clean sections, and export-ready Markdown. No backend, no login, no complicated setup.
             </p>
           </motion.div>
@@ -163,7 +163,7 @@ export default function Home() {
             ].map(([value, label]) => (
               <div key={label} className="bg-white/80 p-5 text-center backdrop-blur-xl dark:bg-[#080d1b]/80">
                 <div className="text-2xl font-black text-foreground">{value}</div>
-                <div className="mt-1 text-[10px] font-bold uppercase tracking-widest text-foreground/45">{label}</div>
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-widest text-foreground/80">{label}</div>
               </div>
             ))}
           </motion.div>
@@ -218,7 +218,7 @@ export default function Home() {
                   <div className="h-2.5 w-2.5 rounded-full bg-yellow-300/80" />
                   <div className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
                 </div>
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground/45">README.md</span>
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground/80">README.md</span>
               </div>
 
               <div className="space-y-6">
@@ -231,7 +231,7 @@ export default function Home() {
                     <div className="font-mono text-xs font-bold text-primary">{title}</div>
                     <div className="mt-3 h-2 w-full rounded-full bg-black/8 dark:bg-white/12" />
                     <div className="mt-2 h-2 w-2/3 rounded-full bg-black/8 dark:bg-white/12" />
-                    <p className="mt-3 text-sm leading-relaxed text-foreground/65">{text}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-foreground/80">{text}</p>
                   </div>
                 ))}
               </div>
@@ -250,7 +250,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="text-center mb-16">
             <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Simple process</span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-foreground">How it works</h2>
-            <p className="text-foreground/80 dark:text-foreground/70 text-base max-w-xl mx-auto">Three simple steps to craft a standout GitHub profile README — no code required.</p>
+            <p className="text-foreground/80 dark:text-foreground/80 text-base max-w-xl mx-auto">Three simple steps to craft a standout GitHub profile README — no code required.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
@@ -273,7 +273,7 @@ export default function Home() {
                 </div>
                 <div className="absolute top-6 right-6 text-[10px] text-foreground/30 font-mono font-bold">{s.n}</div>
                 <h3 className="relative z-10 text-lg font-bold mb-3 text-foreground">{s.title}</h3>
-                <p className="relative z-10 text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">{s.desc}</p>
+                <p className="relative z-10 text-foreground/80 dark:text-foreground/80 text-sm leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -286,7 +286,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="text-center mb-12">
             <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Everything included</span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 text-foreground">Everything you need</h2>
-            <p className="text-foreground/80 dark:text-foreground/70 text-base max-w-xl mx-auto">Profilo comes packed with dynamic blocks to show off your developer journey.</p>
+            <p className="text-foreground/80 dark:text-foreground/80 text-base max-w-xl mx-auto">Profilo comes packed with dynamic blocks to show off your developer journey.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -301,13 +301,13 @@ export default function Home() {
                 <GitBranch className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-foreground">Real-time GitHub Stats</h3>
-              <p className="text-foreground/80 dark:text-foreground/70 text-sm mb-6 leading-relaxed">Showcase commits, stars, PRs, and top languages pulling directly from GitHub APIs. Always up-to-date, always accurate.</p>
+              <p className="text-foreground/80 dark:text-foreground/80 text-sm mb-6 leading-relaxed">Showcase commits, stars, PRs, and top languages pulling directly from GitHub APIs. Always up-to-date, always accurate.</p>
               <div className="w-full rounded-xl border border-black/5 dark:border-white/5 bg-white/60 dark:bg-white/5 backdrop-blur-md p-4 space-y-3 shadow-inner">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-xs font-bold text-white">G</div>
                   <div>
                     <div className="text-xs font-bold text-foreground">GitHub Stats</div>
-                    <div className="text-[10px] text-foreground/80 dark:text-foreground/70">Connected · Live</div>
+                    <div className="text-[10px] text-foreground/80 dark:text-foreground/80">Connected · Live</div>
                   </div>
                   <div className="ml-auto w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 </div>
@@ -315,7 +315,7 @@ export default function Home() {
                   {[['Stars','423'],['Commits','1,847'],['PRs','94']].map(([l,v]) => (
                     <div key={l} className="bg-black/5 dark:bg-white/10 rounded-lg p-2 text-center shadow-sm">
                       <div className="text-xs font-bold text-foreground">{v}</div>
-                      <div className="text-[9px] text-foreground/80 dark:text-foreground/70">{l}</div>
+                      <div className="text-[9px] text-foreground/80 dark:text-foreground/80">{l}</div>
                     </div>
                   ))}
                 </div>
@@ -337,7 +337,7 @@ export default function Home() {
                   {c.icon}
                 </div>
                 <h3 className="relative z-10 font-bold mb-2 text-foreground">{c.title}</h3>
-                <p className="relative z-10 text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">{c.desc}</p>
+                <p className="relative z-10 text-foreground/80 dark:text-foreground/80 text-sm leading-relaxed">{c.desc}</p>
               </motion.div>
             ))}
 
@@ -353,7 +353,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="font-bold mb-2 text-foreground">Animated Elements</h3>
-                  <p className="text-foreground/80 dark:text-foreground/70 text-sm leading-relaxed">Add typing SVGs, profile view counters, activity graphs, and streak stats — without wrestling with complex markdown syntax.</p>
+                  <p className="text-foreground/80 dark:text-foreground/80 text-sm leading-relaxed">Add typing SVGs, profile view counters, activity graphs, and streak stats — without wrestling with complex markdown syntax.</p>
                 </div>
               </div>
             </motion.div>
@@ -367,7 +367,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-xs text-primary font-bold tracking-widest uppercase mb-4 block">Community</span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 text-foreground">Loved by developers</h2>
-            <p className="text-foreground/70 text-base max-w-md mx-auto">Join thousands of developers who already use Profilo to craft their GitHub identity.</p>
+            <p className="text-foreground/80 text-base max-w-md mx-auto">Join thousands of developers who already use Profilo to craft their GitHub identity.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -413,7 +413,7 @@ export default function Home() {
                 </div>
 
                 {/* Quote */}
-                <p className="relative z-10 text-sm text-foreground/80 dark:text-foreground/70 leading-relaxed flex-1">
+                <p className="relative z-10 text-sm text-foreground/80 dark:text-foreground/80 leading-relaxed flex-1">
                   &ldquo;{t.quote}&rdquo;
                 </p>
 
@@ -444,7 +444,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
               Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Questions</span>
             </h2>
-            <p className="text-foreground/60 max-w-xl mx-auto mt-4 leading-relaxed">
+            <p className="text-foreground/80 max-w-xl mx-auto mt-4 leading-relaxed">
               Everything you need to know about Profilo, pricing, and how your data is handled.
             </p>
           </motion.div>
@@ -483,7 +483,7 @@ export default function Home() {
               <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-foreground">
                 Ready to stand out?
               </motion.h2>
-              <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/70 text-lg mb-10 max-w-md mx-auto">
+              <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/80 text-lg mb-10 max-w-md mx-auto">
                 Join thousands of developers crafting beautiful, dynamic GitHub profiles with Profilo.
               </motion.p>
               <motion.div variants={fadeUp}>

@@ -102,7 +102,7 @@ export default function ContactPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">touch.</span>
           </h1>
           
-          <p className="text-lg text-foreground/60 max-w-lg mx-auto leading-relaxed">
+          <p className="text-lg text-foreground/80 max-w-lg mx-auto leading-relaxed">
             Have a question, an idea, or just want to say hi? Fill out the form below or reach out via social media.
           </p>
         </motion.div>
@@ -126,9 +126,9 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-5 flex-1">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-bold text-foreground/50 uppercase tracking-widest pl-1">Name</label>
+                    <label className="text-xs font-bold text-foreground/80 uppercase tracking-widest pl-1">Name</label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-foreground/40">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-foreground/80">
                         <User className="w-4 h-4" />
                       </div>
                       <input
@@ -144,9 +144,9 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-bold text-foreground/50 uppercase tracking-widest pl-1">Email</label>
+                    <label className="text-xs font-bold text-foreground/80 uppercase tracking-widest pl-1">Email</label>
                     <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-foreground/40">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-foreground/80">
                         <Mail className="w-4 h-4" />
                       </div>
                       <input
@@ -164,9 +164,9 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex flex-col gap-2 flex-1">
-                  <label className="text-xs font-bold text-foreground/50 uppercase tracking-widest pl-1">Message</label>
+                  <label className="text-xs font-bold text-foreground/80 uppercase tracking-widest pl-1">Message</label>
                   <div className="relative flex-1 flex flex-col">
-                    <div className="absolute top-4 left-0 pl-4 flex items-start pointer-events-none text-foreground/40 z-10">
+                    <div className="absolute top-4 left-0 pl-4 flex items-start pointer-events-none text-foreground/80 z-10">
                       <MessageSquare className="w-4 h-4" />
                     </div>
                     <textarea
@@ -203,7 +203,7 @@ export default function ContactPage() {
           <motion.div variants={fadeUp} className="lg:col-span-5 flex flex-col gap-5 pt-2 h-full">
             <div className="mb-2">
               <h3 className="text-xl font-bold text-foreground mb-2">Direct channels</h3>
-              <p className="text-sm text-foreground/60">Prefer to reach out directly? Choose your favorite platform below.</p>
+              <p className="text-sm text-foreground/80">Prefer to reach out directly? Choose your favorite platform below.</p>
             </div>
 
             {channels.map((c, i) => (
@@ -216,7 +216,7 @@ export default function ContactPage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                <div className="relative z-10 w-12 h-12 shrink-0 rounded-xl bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground/70 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500 shadow-sm">
+                <div className="relative z-10 w-12 h-12 shrink-0 rounded-xl bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground/80 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500 shadow-sm">
                   {c.icon}
                 </div>
                 
@@ -226,7 +226,7 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="relative z-10 w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shrink-0">
-                  <ArrowRight className="w-4 h-4 text-foreground/40 group-hover:text-primary group-hover:-rotate-45 transition-all duration-300" />
+                  <ArrowRight className="w-4 h-4 text-foreground/80 group-hover:text-primary group-hover:-rotate-45 transition-all duration-300" />
                 </div>
               </Link>
             ))}
@@ -235,7 +235,7 @@ export default function ContactPage() {
             <div className="mt-auto relative overflow-hidden bg-primary/5 dark:bg-primary/[0.02] border border-primary/20 rounded-2xl p-6 group hover:bg-primary/10 dark:hover:bg-primary/[0.04] transition-colors duration-500 backdrop-blur-3xl">
               <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors duration-500" />
               <h4 className="font-bold text-foreground mb-2 relative z-10">Want to contribute?</h4>
-              <p className="text-sm text-foreground/70 leading-relaxed mb-4 relative z-10">
+              <p className="text-sm text-foreground/80 leading-relaxed mb-4 relative z-10">
                 Profilo is open source. Join the community and help us build the best profile generator.
               </p>
               <Link

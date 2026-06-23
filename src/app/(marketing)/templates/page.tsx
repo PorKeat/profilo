@@ -14,7 +14,7 @@ export default function TemplatesPage() {
       <div className="mx-auto mb-16 max-w-3xl space-y-5 text-center">
         <span className="block text-xs font-bold uppercase tracking-widest text-primary">Template gallery</span>
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground md:text-6xl">Start with a premium template.</h1>
-        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-foreground/80 dark:text-foreground/70">
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-foreground/80 dark:text-foreground/80">
           Skip the blank page. Choose a starting point tailored to your role. You can customize every detail in the builder.
         </p>
       </div>
@@ -38,7 +38,7 @@ export default function TemplatesPage() {
               </div>
               <CardContent className="p-8 flex-1 flex flex-col z-20 bg-white/40 backdrop-blur-xl dark:bg-white/[0.03]">
                 <h3 className="font-extrabold text-2xl mb-3 tracking-tight">{template.name}</h3>
-                <p className="text-foreground/70 mb-8 flex-1 leading-relaxed">
+                <p className="text-foreground/80 mb-8 flex-1 leading-relaxed">
                   {template.desc}
                 </p>
                 <Link href={`/builder?template=${template.id}`}>

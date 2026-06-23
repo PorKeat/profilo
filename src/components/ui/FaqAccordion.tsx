@@ -33,7 +33,7 @@ export default function FaqAccordion() {
             <div className={`relative z-10 p-4 md:px-6 ${isOpen ? 'pt-8 pb-8' : 'py-5'} flex items-start gap-4 md:gap-6`}>
               <div className="flex-1 pt-1">
                 <div className="flex items-center gap-4">
-                  <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 font-mono text-xs font-bold transition-colors duration-300 ${isOpen ? 'bg-primary/20 text-primary' : 'bg-black/5 dark:bg-white/10 text-foreground/50'}`}>
+                  <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 font-mono text-xs font-bold transition-colors duration-300 ${isOpen ? 'bg-primary/20 text-primary' : 'bg-black/5 dark:bg-white/10 text-foreground/80'}`}>
                     {i + 1}
                   </div>
                   <h3 className={`text-base md:text-lg font-bold transition-colors duration-300 ${isOpen ? 'text-foreground' : 'text-foreground/80 group-hover:text-foreground'}`}>
@@ -50,7 +50,7 @@ export default function FaqAccordion() {
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <p className="mt-4 md:pl-12 text-foreground/70 text-sm md:text-base leading-relaxed">
+                      <p className="mt-4 md:pl-12 text-foreground/80 text-sm md:text-base leading-relaxed">
                         {faq.a}
                       </p>
                     </motion.div>
