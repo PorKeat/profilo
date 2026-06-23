@@ -82,7 +82,7 @@ export default function AboutPage() {
                 Building Better<br />GitHub Profiles
               </h2>
               <p className="text-foreground/70 leading-relaxed mb-8 max-w-lg text-lg">
-                Hi, I&apos;m Seng Porkeat. As a DevOps engineer and cloud automation enthusiast, I realized developers spend too much time wrestling with Markdown just to make a decent GitHub profile. Profilo was built to change that — making it frictionless to present your work beautifully.
+                Hi, I&apos;m Seng Porkeat. I am a passionate DevOps Engineer and Software Engineering student focused on building scalable, secure, and cloud-native systems. I realized developers spend too much time wrestling with Markdown just to make a decent GitHub profile, so I built Profilo to change that — making it frictionless to present your work beautifully.
               </p>
               
               <Link href="/contact">
@@ -149,6 +149,52 @@ export default function AboutPage() {
                 </div>
               ))}
             </motion.div>
+          </motion.section>
+
+          {/* ── Tech Stack Section ── */}
+          <motion.section 
+            initial="hidden" 
+            whileInView="show" 
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="flex flex-col gap-12 relative z-10"
+          >
+            <motion.div variants={fadeUp} className="text-center relative">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500/10 blur-[80px] rounded-full pointer-events-none" />
+              <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-foreground tracking-tight">My Tech Stack</h2>
+              <p className="text-foreground/60 max-w-2xl mx-auto leading-relaxed">
+                The tools and technologies I use to build scalable cloud-native infrastructure, robust backend microservices, and seamless frontend experiences.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { 
+                  title: 'DevOps & Cloud', 
+                  items: ['Kubernetes', 'Docker', 'Jenkins', 'ArgoCD', 'Ansible', 'GCP', 'Linux', 'GitOps'] 
+                },
+                { 
+                  title: 'Backend & Data', 
+                  items: ['Java', 'Spring Boot', 'PostgreSQL', 'RESTful APIs', 'Microservices', 'SQL', 'Node.js'] 
+                },
+                { 
+                  title: 'Frontend & UI', 
+                  items: ['React.js', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Framer Motion', 'UI/UX'] 
+                }
+              ].map((category) => (
+                <motion.div key={category.title} variants={fadeUp} className={`${cardBase} p-8 group hover:-translate-y-2 hover:border-primary/30 transition-all duration-500`}>
+                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+                   <h3 className="text-xl font-bold mb-6 text-foreground relative z-10 tracking-tight">{category.title}</h3>
+                   <div className="flex flex-wrap gap-2.5 relative z-10">
+                     {category.items.map(tech => (
+                       <span key={tech} className="px-3.5 py-1.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 text-sm font-medium text-foreground/80 group-hover:border-primary/20 group-hover:text-foreground transition-colors duration-300">
+                         {tech}
+                       </span>
+                     ))}
+                   </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.section>
 
           {/* ── Third Section: CTA Banner ── */}
