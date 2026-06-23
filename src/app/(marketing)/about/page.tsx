@@ -38,25 +38,40 @@ export default function AboutPage() {
       </section>
 
       <MarketingPageShell className="max-w-6xl mt-0">
-        <motion.div variants={stagger} initial="hidden" animate="show" className="w-full flex flex-col gap-24 md:gap-32">
+        <div className="w-full flex flex-col gap-24 md:gap-32">
           
           {/* ── First Section: Image Left, Text Right ── */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <motion.section 
+            initial="hidden" 
+            whileInView="show" 
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+          >
             {/* Avatar Container */}
-            <motion.div variants={fadeUp} className="relative w-full max-w-[28rem] mx-auto group">
-              <div className="absolute -inset-1 bg-gradient-to-br from-primary/30 to-blue-600/10 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-80 transition duration-700" />
-              <div className={`${cardBase} relative overflow-hidden p-4 rounded-[2rem]`}>
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-50 z-0 pointer-events-none" />
-                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-black/5 dark:border-white/5 z-10 bg-black/20">
-                  <Image
-                    src="https://github.com/PorKeat.png"
-                    alt="Seng Porkeat"
-                    fill
-                    unoptimized
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                  />
+            <motion.div 
+              variants={fadeUp} 
+              className="relative w-full max-w-[28rem] mx-auto group"
+            >
+              <motion.div 
+                animate={{ y: [0, -15, 0] }} 
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="relative"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-br from-primary/30 to-blue-600/10 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-80 transition duration-700" />
+                <div className={`${cardBase} relative overflow-hidden p-4 rounded-[2rem]`}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-50 z-0 pointer-events-none" />
+                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-black/5 dark:border-white/5 z-10 bg-black/20">
+                    <Image
+                      src="https://github.com/PorKeat.png"
+                      alt="Seng Porkeat"
+                      fill
+                      unoptimized
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-col items-start relative z-10">
@@ -77,10 +92,16 @@ export default function AboutPage() {
                 </button>
               </Link>
             </motion.div>
-          </section>
+          </motion.section>
 
           {/* ── Second Section: Skills Left, Stats Right ── */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
+          <motion.section 
+            initial="hidden" 
+            whileInView="show" 
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20"
+          >
             
             <motion.div variants={fadeUp} className="flex flex-col justify-center">
               <h2 className="text-3xl font-extrabold mb-4 text-foreground tracking-tight">Core Priorities</h2>
@@ -129,13 +150,23 @@ export default function AboutPage() {
                 </div>
               ))}
             </motion.div>
-          </section>
+          </motion.section>
 
           {/* ── Third Section: CTA Banner ── */}
-          <motion.div variants={fadeUp} className={`${cardBase} relative overflow-hidden py-32 px-6 flex flex-col items-center justify-center text-center mt-10 group`}>
+          <motion.div 
+            initial="hidden" 
+            whileInView="show" 
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp} 
+            className={`${cardBase} relative overflow-hidden py-32 px-6 flex flex-col items-center justify-center text-center mt-10 group`}
+          >
             {/* Background effects */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:44px_44px]" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" />
+            <motion.div 
+              animate={{ rotate: 360, scale: [1, 1.1, 1] }} 
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" 
+            />
             
             <div className="relative z-10 flex flex-col items-center max-w-3xl">
               <span className="text-xs font-bold text-primary mb-6 tracking-widest uppercase flex items-center gap-2">
@@ -152,7 +183,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-        </motion.div>
+        </div>
       </MarketingPageShell>
     </div>
   );
