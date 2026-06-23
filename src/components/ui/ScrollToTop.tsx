@@ -1,89 +1,64 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 
 export function ScrollToTop() {
   const [visible, setVisible] = useState(false);
-  const [scrollPct, setScrollPct] = useState(0);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const onScroll = () => {
-      const scrolled = window.scrollY;
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setVisible(scrolled > 400);
-      setScrollPct(total > 0 ? scrolled / total : 0);
-    };
+    const onScroll = () => setVisible(window.scrollY > 400);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // SVG circle progress ring
-  const size = 44;
-  const strokeWidth = 2;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const dash = scrollPct * circumference;
-
   return (
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0, y: 16, scale: 0.85 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 16, scale: 0.85 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
+          transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 25 }}
           onClick={scrollToTop}
           aria-label="Scroll back to top"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.92 }}
-          className="fixed bottom-6 right-6 z-50 group"
+          className="group fixed bottom-6 right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-white/70 dark:bg-black/50 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-lg hover:shadow-[0_0_20px_rgba(75,134,247,0.3)] transition-all duration-300"
         >
-          {/* Outer glow */}
-          <span className="absolute inset-0 rounded-full bg-primary/30 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-          {/* SVG ring + icon */}
-          <span className="relative flex items-center justify-center w-11 h-11">
-            {/* Background circle */}
-            <svg
-              width={size}
-              height={size}
-              className="absolute inset-0 -rotate-90"
-              viewBox={`0 0 ${size} ${size}`}
-            >
-              {/* Track */}
-              <circle
-                cx={size / 2}
-                cy={size / 2}
-                r={radius}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={strokeWidth}
-                className="text-primary/15"
-              />
-              {/* Progress */}
-              <circle
-                cx={size / 2}
-                cy={size / 2}
-                r={radius}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={strokeWidth}
-                strokeDasharray={circumference}
-                strokeDashoffset={circumference - dash}
-                strokeLinecap="round"
-                className="text-primary transition-[stroke-dashoffset] duration-100"
-              />
-            </svg>
-
-            {/* Inner glass pill */}
-            <span className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white/80 dark:bg-[#111]/80 backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-[0_4px_20px_rgba(75,134,247,0.25)] group-hover:shadow-[0_4px_24px_rgba(75,134,247,0.45)] transition-shadow duration-300">
-              <ArrowUp className="w-3.5 h-3.5 text-primary group-hover:-translate-y-0.5 transition-transform duration-200" />
-            </span>
-          </span>
+          {/* Subtle background glow on hover */}
+          <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+          
+          {/* SVG Progress Ring */}
+          <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
+            {/* Background track */}
+            <circle
+              cx="50"
+              cy="50"
+              r="46"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              className="text-black/5 dark:text-white/5"
+            />
+            {/* Progress indicator */}
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="46"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              className="text-primary drop-shadow-[0_0_6px_rgba(75,134,247,0.6)]"
+              style={{ pathLength: scrollYProgress }}
+            />
+          </svg>
+          
+          {/* Icon */}
+          <ArrowUp className="relative z-10 w-5 h-5 text-foreground/70 group-hover:text-primary group-hover:-translate-y-1 transition-all duration-300" />
         </motion.button>
       )}
     </AnimatePresence>
