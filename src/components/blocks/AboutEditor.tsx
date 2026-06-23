@@ -1,6 +1,6 @@
 'use client';
 
-import { AboutBlock } from '@/lib/types/blocks';
+import { AboutBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { MarkdownInput, MarkdownTextarea } from '@/components/ui/markdown-input';

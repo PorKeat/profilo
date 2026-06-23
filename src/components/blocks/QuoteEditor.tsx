@@ -1,6 +1,6 @@
 'use client';
 
-import { QuoteBlock } from '@/lib/types/blocks';
+import { QuoteBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Label } from '@/components/ui/label';

@@ -1,6 +1,6 @@
 'use client';
 
-import { HeroBlock } from '@/lib/types/blocks';
+import { HeroBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { MarkdownInput } from '@/components/ui/markdown-input';

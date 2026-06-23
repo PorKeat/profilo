@@ -2,7 +2,7 @@
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Block } from '@/lib/types/blocks';
+import { Block } from '@/types/blocks';
 import { GripVertical, Trash2, ChevronDown, ChevronUp, Columns, Maximize } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/store/hooks';

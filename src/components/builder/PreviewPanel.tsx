@@ -21,9 +21,9 @@ import {
 import { Copy, Download, Eye, Code2, ChevronDown, Check, Zap, Bot, Sparkles, Sun, Moon, AlertTriangle, FileText } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { setTheme as setProfileTheme } from '@/store/builderSlice';
-import { ThemeId } from '@/lib/types/theme';
+import { ThemeId } from '@/types/theme';
 import type { Components } from 'react-markdown';
-import type { SupportBlock, FeaturedProjectsBlock, ExperienceBlock, HeroBlock } from '@/lib/types/blocks';
+import type { SupportBlock, FeaturedProjectsBlock, ExperienceBlock, HeroBlock } from '@/types/blocks';
 
 // ─── Theme definitions ────────────────────────────────────────────────────────
 type ThemeStyles = {

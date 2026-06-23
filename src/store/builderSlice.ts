@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Block } from '@/lib/types/blocks';
-import { ThemeId } from '@/lib/types/theme';
+import { Block } from '@/types/blocks';
+import { ThemeId } from '@/types/theme';
 
 interface BuilderState {
   blocks: Block[];

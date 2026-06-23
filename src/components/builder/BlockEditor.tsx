@@ -15,7 +15,7 @@ import { SnakeEditor } from '../blocks/SnakeEditor';
 import { TerminalEditor } from '../blocks/TerminalEditor';
 import { AccordionEditor } from '../blocks/AccordionEditor';
 import { BentoEditor } from '../blocks/BentoEditor';
-import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/lib/types/blocks';
+import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
 import { PacmanEditor } from '../blocks/PacmanEditor';
 import { BlogPostsEditor } from '../blocks/BlogPostsEditor';
 import { TrophiesEditor } from '../blocks/TrophiesEditor';

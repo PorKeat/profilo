@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AccordionBlock } from '@/lib/types/blocks';
+import { AccordionBlock } from '@/types/blocks';
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { v4 as uuidv4 } from 'uuid';

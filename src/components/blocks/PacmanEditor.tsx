@@ -1,6 +1,6 @@
 'use client';
 
-import { PacmanBlock } from '@/lib/types/blocks';
+import { PacmanBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';

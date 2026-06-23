@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { TechnicalSkillsBlock } from '@/lib/types/blocks';
+import { TechnicalSkillsBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Label } from '@/components/ui/label';

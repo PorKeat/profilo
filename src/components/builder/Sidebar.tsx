@@ -2,7 +2,7 @@
 
 import { useAppDispatch } from '@/store/hooks';
 import { addBlock, removeBlock, reorderBlocks } from '@/store/builderSlice';
-import { BlockType, Block } from '@/lib/types/blocks';
+import { BlockType, Block } from '@/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
 import { buttonVariants } from '@/components/ui/button';
 import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, Image, Type, Activity, PlaySquare, Gamepad2, ChevronLeft, Sun, Moon, FileText, Trash2, Rss, Trophy, Music, Coffee, Briefcase, Quote, GripVertical } from 'lucide-react';

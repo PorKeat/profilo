@@ -12,7 +12,7 @@ import rehypeRaw from "rehype-raw";
 import { MarketingPageShell } from "@/components/layout/MarketingPageShell";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { TemplateCategory } from "@/lib/templates";
+import type { TemplateCategory } from "@/types/templates";
 import { cn } from "@/lib/utils";
 
 const fadeUp = {

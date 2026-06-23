@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BentoBlock } from '@/lib/types/blocks';
+import { BentoBlock } from '@/types/blocks';
 import { Textarea } from "@/components/ui/textarea";
 import { useDispatch } from 'react-redux';
 import { updateBlock } from '@/store/builderSlice';

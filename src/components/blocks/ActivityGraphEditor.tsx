@@ -1,6 +1,6 @@
 'use client';
 
-import { ActivityGraphBlock } from '@/lib/types/blocks';
+import { ActivityGraphBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';

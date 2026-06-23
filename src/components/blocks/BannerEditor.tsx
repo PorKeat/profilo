@@ -1,6 +1,6 @@
 'use client';
 
-import { BannerBlock } from '@/lib/types/blocks';
+import { BannerBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';

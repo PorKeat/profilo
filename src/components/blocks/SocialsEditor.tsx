@@ -1,6 +1,6 @@
 'use client';
 
-import { SocialLinksBlock } from '@/lib/types/blocks';
+import { SocialLinksBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';

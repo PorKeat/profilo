@@ -1,5 +1,5 @@
-import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '../types/blocks';
-import { ThemeId } from '../types/theme';
+import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
+import { ThemeId } from '@/types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 import { PLATFORMS } from '../constants/platforms';
 
@@ -241,7 +241,7 @@ function generateSkills(block: TechnicalSkillsBlock, themeId: ThemeId): string {
   
   if ((!skills || skills.length === 0) && (!groups || groups.length === 0)) return '';
   
-  const themeBadgeColor = getThemeBadgeColor(themeId);
+  const themeBadgeColor = (block.data.iconColor || sectionTitleColor || getThemeBadgeColor(themeId)).replace('#', '');
   const badgeLogoColor = block.data.iconColor ? block.data.iconColor.replace('#', '') : 'white';
   if (groups && groups.length > 0) {
     groups.forEach(group => {
@@ -252,7 +252,7 @@ function generateSkills(block: TechnicalSkillsBlock, themeId: ThemeId): string {
         const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
         const safeSkillName = encodeURIComponent(skill);
         const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
-        const badgeColor = skillDef?.color || themeBadgeColor;
+        const badgeColor = themeBadgeColor;
         md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${skill}" />\n`;
       });
       md += `</div>\n\n`;
@@ -263,7 +263,7 @@ function generateSkills(block: TechnicalSkillsBlock, themeId: ThemeId): string {
       const skillDef = POPULAR_SKILLS.find(s => s.name === skill);
       const safeSkillName = encodeURIComponent(skill);
       const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
-      const badgeColor = skillDef?.color || themeBadgeColor;
+      const badgeColor = themeBadgeColor;
       md += `  <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=${style}&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${skill}" />\n`;
     });
     md += `</div>\n\n`;
@@ -577,7 +577,7 @@ function generateProjects(block: FeaturedProjectsBlock, themeId: ThemeId, isPrev
       
       if (project.techStack && project.techStack.length > 0) {
         md += `<div align="left">\n`;
-        const badgeColor = getThemeBadgeColor(themeId);
+        const badgeColor = (iconColor || sectionTitleColor || getThemeBadgeColor(themeId)).replace('#', '');
         project.techStack.forEach(tech => {
           const safeName = encodeURIComponent(tech).replace(/-/g, '--');
           const iconName = tech.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -752,6 +752,7 @@ function generateExperience(block: ExperienceBlock, themeId: ThemeId, isPreview:
   const { sectionTitle, sectionTitleColor, iconColor, jobs } = block.data;
   if (!jobs || jobs.length === 0) return '';
   const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
+  const badgeColor = (iconColor || sectionTitleColor || getThemeBadgeColor(themeId)).replace('#', '');
 
   let md = generateSectionTitle('💼 Work Experience', sectionTitle, sectionTitleColor);
   jobs.forEach(job => {
@@ -774,7 +775,6 @@ function generateExperience(block: ExperienceBlock, themeId: ThemeId, isPreview:
         const skillDef = POPULAR_SKILLS.find(s => s.name.toLowerCase() === tech.toLowerCase());
         const safeName = encodeURIComponent(tech);
         const iconName = skillDef ? skillDef.icon : tech.toLowerCase().replace(/\s+/g, '');
-        const badgeColor = skillDef?.color || getThemeBadgeColor(themeId);
         md += `  <img src="https://img.shields.io/badge/-${safeName}-${badgeColor}?style=flat-square&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${tech}" />\n`;
       });
       md += `</div>\n\n`;
@@ -846,7 +846,7 @@ function generateBento(block: BentoBlock, themeId: ThemeId): string {
   let md = generateSectionTitle('', sectionTitle, sectionTitleColor);
   
   const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
-  const themeBadgeColor = getThemeBadgeColor(themeId);
+  const themeBadgeColor = (iconColor || sectionTitleColor || getThemeBadgeColor(themeId)).replace('#', '');
   
   md += `<table width="100%" style="border-collapse: separate; border-spacing: 10px;">\n`;
   md += `  <tr>\n`;
@@ -869,7 +869,7 @@ function generateBento(block: BentoBlock, themeId: ThemeId): string {
       const skillDef = POPULAR_SKILLS.find(s => s.name.toLowerCase() === skill.toLowerCase());
       const safeSkillName = encodeURIComponent(skill);
       const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
-      const badgeColor = skillDef?.color || themeBadgeColor;
+      const badgeColor = themeBadgeColor;
       md += `        <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=for-the-badge&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${skill}" style="margin-bottom: 5px;" />\n`;
     });
     md += `      </div>\n`;

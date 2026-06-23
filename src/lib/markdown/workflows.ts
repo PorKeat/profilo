@@ -1,4 +1,4 @@
-import { Block } from '../types/blocks';
+import { Block } from '@/types/blocks';
 
 export interface WorkflowFile {
   filename: string;

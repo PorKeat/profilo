@@ -81,11 +81,9 @@ export interface AboutBlock extends BaseBlock {
     sectionTitleColor?: string;
     iconColor?: string;
     paragraph: string;
-    // Legacy fields
     currentlyLearning?: string;
     currentlyWorkingOn?: string;
     askMeAbout?: string;
-    // Dynamic fields
     bullets?: { id: string; emoji?: string; icon?: string; text: string; }[];
   };
 }
@@ -96,8 +94,8 @@ export interface TechnicalSkillsBlock extends BaseBlock {
     sectionTitle?: string;
     sectionTitleColor?: string;
     iconColor?: string;
-    skills: string[]; // Legacy flat list
-    groups?: { id: string; name: string; skills: string[] }[]; // Categorized
+    skills: string[];
+    groups?: { id: string; name: string; skills: string[] }[];
     style: 'flat' | 'plastic' | 'flat-square' | 'for-the-badge' | 'social';
   };
 }
@@ -167,7 +165,6 @@ export interface SocialLinksBlock extends BaseBlock {
     iconColor?: string;
     links?: { id: string; platform: string; url: string; color: string; icon: string }[];
     badgeStyle?: string;
-    // Legacy fields for backward compatibility during migration
     github?: string;
     linkedin?: string;
     twitter?: string;

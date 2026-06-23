@@ -1,6 +1,6 @@
 'use client';
 
-import { TrophiesBlock } from '@/lib/types/blocks';
+import { TrophiesBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';

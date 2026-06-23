@@ -13,7 +13,7 @@ import {
 import { useAppDispatch } from '@/store/hooks';
 import { addBlock } from '@/store/builderSlice';
 import { createDefaultBlock } from '@/components/builder/Sidebar';
-import { BlockType } from '@/lib/types/blocks';
+import { BlockType } from '@/types/blocks';
 import { User, Info, Code2, FolderGit2, Share2, Mail, Image as ImageIcon, Type, Activity, PlaySquare, Gamepad2, Rss, Trophy, Music, Coffee, Briefcase, Quote } from 'lucide-react';
 import { Github } from '@/components/icons/Github';
 
