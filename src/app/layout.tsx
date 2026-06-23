@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -10,12 +10,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: '#4B86F7',
+};
+
 export const metadata: Metadata = {
   title: "Profilo — GitHub Profile README Builder",
   description: "Drag-and-drop beautiful blocks, see live previews, and export pure Markdown. Build your GitHub README in minutes, not hours. Free, open-source, no login required.",
   keywords: ['github profile', 'readme builder', 'github readme', 'developer profile', 'markdown generator', 'github stats', 'open source'],
   authors: [{ name: 'AlexKGM (Seng Porkeat)' }],
-  themeColor: '#4B86F7',
   openGraph: {
     title: 'Profilo — GitHub Profile README Builder',
     description: 'Drag-and-drop beautiful blocks, see live previews, and export pure Markdown. Build your GitHub README in minutes, not hours.',
