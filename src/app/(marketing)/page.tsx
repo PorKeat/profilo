@@ -11,7 +11,7 @@ import { useRef } from 'react';
 // ─── Reusable animation variants ─────────────────────────────────────────────
 const fadeUp = {
   hidden: { opacity: 0, y: 48 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' as const } },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
 };
 const fadeUpStagger = {
   hidden: {},
@@ -24,7 +24,7 @@ const fadeIn = {
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: false, margin: '-40px' });
   return (
     <motion.section
       ref={ref}

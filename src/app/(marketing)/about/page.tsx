@@ -8,7 +8,7 @@ import { MarketingPageShell } from '@/components/layout/MarketingPageShell';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' as const } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
 const stagger = {
@@ -43,7 +43,7 @@ export default function AboutPage() {
           <motion.section 
             initial="hidden" 
             whileInView="show" 
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-40px" }}
             variants={stagger}
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
           >
@@ -97,7 +97,7 @@ export default function AboutPage() {
           <motion.section 
             initial="hidden" 
             whileInView="show" 
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-40px" }}
             variants={stagger}
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20"
           >
@@ -123,7 +123,7 @@ export default function AboutPage() {
                       <motion.div 
                         initial={{ width: 0 }}
                         whileInView={{ width: skill.value }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false, margin: "-40px" }}
                         transition={{ duration: 1.2, ease: "easeOut", delay: 0.1 }}
                         className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary/50 to-primary rounded-full relative"
                       >
@@ -155,7 +155,7 @@ export default function AboutPage() {
           <motion.section 
             initial="hidden" 
             whileInView="show" 
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-40px" }}
             variants={stagger}
             className="flex flex-col gap-12 relative z-10"
           >
@@ -201,7 +201,7 @@ export default function AboutPage() {
           <motion.div 
             initial="hidden" 
             whileInView="show" 
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-40px" }}
             variants={fadeUp} 
             className={`${cardBase} relative overflow-hidden py-32 px-6 flex flex-col items-center justify-center text-center mt-10 group`}
           >
