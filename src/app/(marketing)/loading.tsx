@@ -1,31 +1,38 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { MarketingPageShell } from "@/components/layout/MarketingPageShell";
 
 export default function MarketingLoading() {
+  const cardBase = "bg-white/60 dark:bg-[#080810]/80 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-3xl p-8";
+
   return (
-    <div className="container py-20 max-w-4xl mx-auto space-y-12">
-      {/* Header section */}
-      <div className="space-y-4 text-center flex flex-col items-center">
-        <Skeleton className="h-12 w-1/2 max-w-md rounded-lg" />
-        <Skeleton className="h-6 w-3/4 max-w-lg rounded-md" />
-      </div>
-
-      {/* Content blocks */}
-      <div className="space-y-8 mt-12">
-        <div className="space-y-4">
-          <Skeleton className="h-8 w-1/3 rounded-md" />
-          <Skeleton className="h-24 w-full rounded-md" />
-        </div>
+    <MarketingPageShell className="max-w-6xl">
+      <div className="w-full flex flex-col gap-16 md:gap-24">
         
-        <div className="space-y-4">
-          <Skeleton className="h-8 w-1/4 rounded-md" />
-          <Skeleton className="h-32 w-full rounded-md" />
+        {/* Header Skeleton */}
+        <div className="text-center mt-8 relative flex flex-col items-center">
+          <Skeleton className="h-6 w-24 rounded-full mb-6" />
+          <Skeleton className="h-16 w-3/4 max-w-2xl rounded-xl mb-6" />
+          <Skeleton className="h-6 w-1/2 max-w-md rounded-md" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Skeleton className="h-40 w-full rounded-xl" />
-          <Skeleton className="h-40 w-full rounded-xl" />
+        {/* Content Skeleton */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className={`${cardBase} aspect-square relative overflow-hidden`}>
+            <Skeleton className="absolute inset-0 rounded-[2rem]" />
+          </div>
+          <div className="flex flex-col gap-6 pt-4">
+            <Skeleton className="h-10 w-3/4 rounded-xl" />
+            <Skeleton className="h-32 w-full rounded-xl" />
+            <Skeleton className="h-14 w-40 rounded-full mt-4" />
+          </div>
         </div>
+
+        {/* Bottom Skeleton */}
+        <div className={`${cardBase} h-64 relative overflow-hidden flex flex-col items-center justify-center gap-6 mt-10`}>
+          <Skeleton className="absolute inset-0 rounded-3xl" />
+        </div>
+
       </div>
-    </div>
+    </MarketingPageShell>
   );
 }
