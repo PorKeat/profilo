@@ -178,6 +178,23 @@ export function PreviewPanel({ isFullscreen = false }: PreviewPanelProps) {
             workflowsFolder.file(wf.filename, wf.content);
           });
         }
+        
+        // Add visible instructions since .github is hidden on mac/linux
+        zip.file('SETUP_INSTRUCTIONS.txt', `GitHub Actions Setup Instructions
+=================================
+
+We noticed you are using blocks that require GitHub Actions (like the Snake Animation, Pacman, 3D Contrib, or Blog Posts).
+
+We have included the necessary workflow files in this ZIP archive. 
+However, they are placed in a hidden folder called ".github/workflows/".
+
+To set them up:
+1. Make sure you can see hidden files on your computer (On Mac: press Cmd + Shift + . in Finder).
+2. Copy the entire ".github" folder and paste it directly into the root of your GitHub repository.
+3. Commit and push the changes to GitHub.
+4. Go to the "Actions" tab in your GitHub repository and enable workflows if prompted.
+5. The Actions will automatically run on a schedule, but you can also trigger them manually!
+`);
       }
 
       if (qrCodeBase64) {
