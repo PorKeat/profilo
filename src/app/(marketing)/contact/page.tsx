@@ -213,7 +213,7 @@ export default function ContactPage() {
                 href={c.href}
                 target={c.href.startsWith('mailto') ? undefined : '_blank'}
                 rel="noreferrer"
-                className="group relative flex items-center gap-5 bg-white/40 dark:bg-black/30 backdrop-blur-xl border border-black/5 dark:border-white/5 hover:border-primary/30 rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 overflow-hidden"
+                className="group relative flex items-center gap-5 bg-white/60 dark:bg-[#080810]/80 backdrop-blur-3xl border border-black/10 dark:border-white/10 hover:border-primary/30 rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
@@ -233,7 +233,7 @@ export default function ContactPage() {
             ))}
 
             {/* Contribute note */}
-            <div className="mt-4 relative overflow-hidden bg-primary/5 border border-primary/20 rounded-2xl p-6 group hover:bg-primary/10 transition-colors duration-500">
+            <div className="mt-4 relative overflow-hidden bg-primary/5 dark:bg-primary/[0.02] border border-primary/20 rounded-2xl p-6 group hover:bg-primary/10 dark:hover:bg-primary/[0.04] transition-colors duration-500 backdrop-blur-3xl">
               <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors duration-500" />
               <h4 className="font-bold text-foreground mb-2 relative z-10">Want to contribute?</h4>
               <p className="text-sm text-foreground/70 leading-relaxed mb-4 relative z-10">
