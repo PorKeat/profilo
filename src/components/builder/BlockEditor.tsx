@@ -12,7 +12,10 @@ import { BannerEditor } from '../blocks/BannerEditor';
 import { TypingEditor } from '../blocks/TypingEditor';
 import { ActivityGraphEditor } from '../blocks/ActivityGraphEditor';
 import { SnakeEditor } from '../blocks/SnakeEditor';
-import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock } from '@/lib/types/blocks';
+import { TerminalEditor } from '../blocks/TerminalEditor';
+import { AccordionEditor } from '../blocks/AccordionEditor';
+import { BentoEditor } from '../blocks/BentoEditor';
+import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/lib/types/blocks';
 import { PacmanEditor } from '../blocks/PacmanEditor';
 import { BlogPostsEditor } from '../blocks/BlogPostsEditor';
 import { TrophiesEditor } from '../blocks/TrophiesEditor';
@@ -63,6 +66,12 @@ export function BlockEditor({ block }: BlockEditorProps) {
       return <ExperienceEditor block={block as ExperienceBlock} />;
     case 'quote':
       return <QuoteEditor block={block as QuoteBlock} />;
+    case 'terminal':
+      return <TerminalEditor block={block as TerminalBlock} />;
+    case 'accordion':
+      return <AccordionEditor block={block as AccordionBlock} />;
+    case 'bento':
+      return <BentoEditor block={block as BentoBlock} />;
     default:
       return <div>Unknown block type</div>;
   }

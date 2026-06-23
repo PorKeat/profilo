@@ -1,4 +1,4 @@
-export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote';
+export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote' | 'terminal' | 'accordion' | 'bento';
 
 export interface BaseBlock {
   id: string;
@@ -267,6 +267,47 @@ export interface QuoteBlock extends BaseBlock {
   };
 }
 
+export interface TerminalBlock extends BaseBlock {
+  type: 'terminal';
+  data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
+    username: string;
+    lines: string[];
+    color: string;
+  };
+}
+
+export interface AccordionItem {
+  id: string;
+  title: string;
+  content: string;
+}
+
+export interface AccordionBlock extends BaseBlock {
+  type: 'accordion';
+  data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
+    items: AccordionItem[];
+  };
+}
+
+export interface BentoBlock extends BaseBlock {
+  type: 'bento';
+  data: {
+    sectionTitle?: string;
+    sectionTitleColor?: string;
+    iconColor?: string;
+    bio: string;
+    githubUsername: string;
+    skills: string[];
+    role: string;
+  };
+}
+
 export type Block =
   | HeroBlock
   | BannerBlock
@@ -285,4 +326,7 @@ export type Block =
   | SpotifyBlock
   | SupportBlock
   | ExperienceBlock
-  | QuoteBlock;
+  | QuoteBlock
+  | TerminalBlock
+  | AccordionBlock
+  | BentoBlock;

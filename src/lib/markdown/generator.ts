@@ -1,4 +1,4 @@
-import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock } from '../types/blocks';
+import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '../types/blocks';
 import { ThemeId } from '../types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 import { PLATFORMS } from '../constants/platforms';
@@ -79,6 +79,12 @@ function generateBlockMarkdown(block: Block, themeId: ThemeId, isPreview: boolea
       return generateExperience(block, themeId, isPreview);
     case 'quote':
       return generateQuote(block);
+    case 'terminal':
+      return generateTerminal(block);
+    case 'accordion':
+      return generateAccordion(block);
+    case 'bento':
+      return generateBento(block, themeId);
     default:
       return '';
   }
@@ -784,5 +790,93 @@ function generateQuote(block: QuoteBlock): string {
   let md = `<div align="center">\n`;
   md += `  <img src="https://quotes-github-readme.vercel.app/api?type=${layout}&theme=${theme}" alt="Random Quote" />\n`;
   md += `</div>\n\n`;
+  return md;
+}
+
+function generateTerminal(block: TerminalBlock): string {
+  const { username, lines, color, sectionTitle, sectionTitleColor } = block.data;
+  let md = generateSectionTitle('', sectionTitle, sectionTitleColor);
+  
+  const cleanColor = (color || '4ade80').replace('#', '');
+  
+  md += `<div align="center">\n`;
+  md += `  <table width="600" style="border-collapse: collapse; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; background-color: #0d1117;">\n`;
+  md += `    <tr style="background-color: #161b22; border-bottom: 1px solid #30363d;">\n`;
+  md += `      <td style="padding: 10px; text-align: left;">\n`;
+  md += `        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Apple_macOS_Window_Controls.svg" alt="macOS buttons" width="50" style="vertical-align: middle;"/>\n`;
+  md += `        <span style="color: #8b949e; font-family: -apple-system, monospace; font-size: 13px; margin-left: 20px; font-weight: 500;">~/${username}/bash</span>\n`;
+  md += `      </td>\n`;
+  md += `    </tr>\n`;
+  md += `    <tr>\n`;
+  md += `      <td style="padding: 20px; text-align: left; background-color: #0d1117;">\n`;
+  
+  if (lines && lines.length > 0) {
+    const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
+    md += `        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&pause=1000&color=${cleanColor}&width=560&lines=${safeLines}" alt="Typing SVG" />\n`;
+  }
+  
+  md += `      </td>\n`;
+  md += `    </tr>\n`;
+  md += `  </table>\n`;
+  md += `</div>\n\n`;
+  
+  return md;
+}
+
+function generateAccordion(block: AccordionBlock): string {
+  const { items, sectionTitle, sectionTitleColor } = block.data;
+  if (!items || items.length === 0) return '';
+  
+  let md = generateSectionTitle('', sectionTitle, sectionTitleColor);
+  
+  items.forEach(item => {
+    md += `<details>\n`;
+    md += `  <summary><b>${item.title}</b></summary>\n\n`;
+    md += `  <blockquote>\n`;
+    md += `    ${item.content}\n`;
+    md += `  </blockquote>\n`;
+    md += `</details>\n\n`;
+  });
+  
+  return md;
+}
+
+function generateBento(block: BentoBlock, themeId: ThemeId): string {
+  const { bio, githubUsername, skills, role, sectionTitle, sectionTitleColor, iconColor } = block.data;
+  let md = generateSectionTitle('', sectionTitle, sectionTitleColor);
+  
+  const badgeLogoColor = (iconColor && iconColor.trim() !== '') ? iconColor.replace('#', '') : 'white';
+  const themeBadgeColor = getThemeBadgeColor(themeId);
+  
+  md += `<table width="100%" style="border-collapse: separate; border-spacing: 10px;">\n`;
+  md += `  <tr>\n`;
+  md += `    <td width="60%" valign="top" style="padding: 20px; border: 1px solid #30363d; border-radius: 12px; background-color: #161b22;">\n`;
+  md += `      <h2>Hi, I'm ${githubUsername} 👋</h2>\n`;
+  md += `      <p style="color: #8b949e; font-size: 16px;">${role}</p>\n`;
+  md += `      <p>${bio}</p>\n`;
+  md += `    </td>\n`;
+  md += `    <td width="40%" valign="top" style="padding: 20px; border: 1px solid #30363d; border-radius: 12px; background-color: #161b22;" align="center">\n`;
+  md += `      <img src="https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&hide_border=true&bg_color=transparent&title_color=58a6ff&text_color=c9d1d9&icon_color=58a6ff" alt="GitHub Stats" width="100%" />\n`;
+  md += `    </td>\n`;
+  md += `  </tr>\n`;
+  
+  if (skills && skills.length > 0) {
+    md += `  <tr>\n`;
+    md += `    <td colspan="2" style="padding: 20px; border: 1px solid #30363d; border-radius: 12px; background-color: #161b22;">\n`;
+    md += `      <h3>Core Technologies</h3>\n`;
+    md += `      <div align="left">\n`;
+    skills.forEach(skill => {
+      const skillDef = POPULAR_SKILLS.find(s => s.name.toLowerCase() === skill.toLowerCase());
+      const safeSkillName = encodeURIComponent(skill);
+      const iconName = skillDef ? skillDef.icon : skill.toLowerCase().replace(/\s+/g, '');
+      const badgeColor = skillDef?.color || themeBadgeColor;
+      md += `        <img src="https://img.shields.io/badge/-${safeSkillName}-${badgeColor}?style=for-the-badge&logo=${iconName}&logoColor=${badgeLogoColor}" alt="${skill}" style="margin-bottom: 5px;" />\n`;
+    });
+    md += `      </div>\n`;
+    md += `    </td>\n`;
+    md += `  </tr>\n`;
+  }
+  md += `</table>\n\n`;
+  
   return md;
 }

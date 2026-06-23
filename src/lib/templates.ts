@@ -226,7 +226,7 @@ export const TEMPLATES: Template[] = [
     category: 'Creative',
     blocks: [
       { id: uuidv4(), type: 'banner', data: { bannerType: 'rect', height: 200, text: 'V', desc: 'Netrunner | Edgerunner', color: '0:0f0c29,50:302b63,100:24243e', fontColor: '00ff00', section: 'header' } },
-      { id: uuidv4(), type: 'typing', data: { lines: ['Wake up, samurai.', 'We have a city to burn.'], color: '00ff00', size: 28, center: true, vCenter: true } },
+      { id: uuidv4(), type: 'terminal', data: { username: 'netrunner', lines: ['> _Initializing root access...', '> _Bypassing mainframe security...', '> _Access granted.'], color: '00ff00' } },
       { id: uuidv4(), type: 'github-stats', data: { username: 'torvalds', showStats: true, showTopLanguages: true, showStreak: true, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, showProfileViews: false, useCustomColors: true, theme: 'radical', customColors: { bg: '0d1117', title: '00ff00', text: 'c9d1d9', icon: 'ff00ff', border: '30363d' } } },
       { id: uuidv4(), type: 'activity-graph', data: { username: 'torvalds', theme: 'react', useCustomColors: true, customColors: { bg: '0d1117', color: '00ff00', line: 'ff00ff', point: 'ffffff' } } },
       { id: uuidv4(), type: 'snake', data: { username: 'torvalds' } }
@@ -256,6 +256,7 @@ export const TEMPLATES: Template[] = [
       { id: uuidv4(), type: 'banner', data: { bannerType: 'rect', height: 160, text: 'Sarah Connor', desc: 'Director of Engineering', color: '000000', fontColor: 'ffffff', section: 'header' } },
       { id: uuidv4(), type: 'about', data: { paragraph: 'Engineering leader with 10+ years of experience scaling infrastructure and growing teams from 5 to 50+ engineers. Passionate about system design, mentorship, and fostering a culture of engineering excellence.', askMeAbout: 'System Architecture, Engineering Management, Scaling Teams' } },
       { id: uuidv4(), type: 'skills', data: { skills: ['System Design', 'Kubernetes', 'AWS', 'Go', 'Microservices', 'Agile Leadership', 'Engineering Strategy'], style: 'for-the-badge' } },
+      { id: uuidv4(), type: 'accordion', data: { sectionTitle: 'My Leadership Philosophy', items: [{ id: uuidv4(), title: 'How I measure success', content: 'I measure team success through delivery velocity, system uptime, and team retention.' }, { id: uuidv4(), title: 'My approach to 1:1s', content: 'Regular, unstructured, and focused entirely on the engineer\'s growth and blockers.' }] } },
       { id: uuidv4(), type: 'experience', data: { jobs: [{ id: uuidv4(), company: 'Cyberdyne Systems', title: 'Tech Lead', duration: '2020 - Present', description: 'Led the migration from monolith to microservices, reducing deployment times by 40%. Managed a team of 12 engineers.' }] } }
     ]
   },
@@ -293,8 +294,8 @@ export const TEMPLATES: Template[] = [
     category: 'Creative',
     blocks: [
       { id: uuidv4(), type: 'banner', data: { bannerType: 'soft', height: 250, text: 'Alex Design', desc: 'Product Designer', color: '0:fbc2eb,100:a6c1ee', fontColor: 'ffffff', section: 'header' } },
-      { id: uuidv4(), type: 'projects', data: { style: 'cards', useCustomColors: false, theme: 'default', customColors: { bg: 'ffffff', title: '000000', text: '333333', icon: '000000', border: 'e2e8f0' }, projects: [{ id: uuidv4(), name: 'Fintech Dashboard UX', description: 'Redesigned the core user flow, increasing conversion by 25%.', githubUrl: '', demoUrl: 'https://dribbble.com', techStack: ['Figma', 'Framer'] }, { id: uuidv4(), name: 'Design System', description: 'Comprehensive component library used by 50+ developers.', githubUrl: '', demoUrl: 'https://figma.com', techStack: ['Figma', 'Storybook'] }] } },
-      { id: uuidv4(), type: 'skills', data: { skills: ['Figma', 'Adobe XD', 'Framer', 'Prototyping', 'User Research', 'Wireframing', 'CSS'], style: 'flat-square' } }
+      { id: uuidv4(), type: 'bento', data: { githubUsername: 'alexdesign', bio: 'Creating intuitive, beautiful digital experiences with a focus on micro-interactions and accessible design systems.', role: 'Senior Product Designer', skills: ['Figma', 'Framer', 'React', 'CSS', 'User Research', 'Prototyping'] } },
+      { id: uuidv4(), type: 'projects', data: { style: 'cards', useCustomColors: false, theme: 'default', customColors: { bg: 'ffffff', title: '000000', text: '333333', icon: '000000', border: 'e2e8f0' }, projects: [{ id: uuidv4(), name: 'Fintech Dashboard UX', description: 'Redesigned the core user flow, increasing conversion by 25%.', githubUrl: '', demoUrl: 'https://dribbble.com', techStack: ['Figma', 'Framer'] }, { id: uuidv4(), name: 'Design System', description: 'Comprehensive component library used by 50+ developers.', githubUrl: '', demoUrl: 'https://figma.com', techStack: ['Figma', 'Storybook'] }] } }
     ]
   },
   {
