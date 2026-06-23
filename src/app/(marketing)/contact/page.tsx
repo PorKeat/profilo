@@ -107,23 +107,23 @@ export default function ContactPage() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
 
           {/* ── Left: Contact form ── */}
           <motion.div
             variants={fadeUp}
-            className="lg:col-span-7 relative group"
+            className="lg:col-span-7 relative group h-full"
           >
             {/* Animated Glow Behind Form */}
             <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/30 to-blue-600/10 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition duration-500" />
             
-            <div className="relative bg-white/60 dark:bg-[#080810]/80 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl">
+            <div className="relative h-full flex flex-col bg-white/60 dark:bg-[#080810]/80 backdrop-blur-3xl border border-black/10 dark:border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl">
               <h2 className="text-2xl font-bold text-foreground mb-8 flex items-center gap-3">
                 <div className="w-1.5 h-6 rounded-full bg-primary" />
                 Send a message
               </h2>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 flex-1">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
                     <label className="text-xs font-bold text-foreground/50 uppercase tracking-widest pl-1">Name</label>
@@ -185,7 +185,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="mt-2 w-full h-14 rounded-2xl bg-primary text-black font-extrabold text-base flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(75,134,247,0.3)] hover:shadow-[0_0_40px_rgba(75,134,247,0.5)] disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-100 overflow-hidden relative group/btn"
+                  className="mt-auto w-full h-14 rounded-2xl bg-primary text-black font-extrabold text-base flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(75,134,247,0.3)] hover:shadow-[0_0_40px_rgba(75,134,247,0.5)] disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-100 overflow-hidden relative group/btn"
                 >
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
                   <span className="relative z-10 flex items-center gap-2">
@@ -201,7 +201,7 @@ export default function ContactPage() {
           </motion.div>
 
           {/* ── Right: Contact channels ── */}
-          <motion.div variants={fadeUp} className="lg:col-span-5 flex flex-col gap-5 pt-2">
+          <motion.div variants={fadeUp} className="lg:col-span-5 flex flex-col gap-5 pt-2 h-full">
             <div className="mb-2">
               <h3 className="text-xl font-bold text-foreground mb-2">Direct channels</h3>
               <p className="text-sm text-foreground/60">Prefer to reach out directly? Choose your favorite platform below.</p>
@@ -233,7 +233,7 @@ export default function ContactPage() {
             ))}
 
             {/* Contribute note */}
-            <div className="mt-4 relative overflow-hidden bg-primary/5 dark:bg-primary/[0.02] border border-primary/20 rounded-2xl p-6 group hover:bg-primary/10 dark:hover:bg-primary/[0.04] transition-colors duration-500 backdrop-blur-3xl">
+            <div className="mt-auto relative overflow-hidden bg-primary/5 dark:bg-primary/[0.02] border border-primary/20 rounded-2xl p-6 group hover:bg-primary/10 dark:hover:bg-primary/[0.04] transition-colors duration-500 backdrop-blur-3xl">
               <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors duration-500" />
               <h4 className="font-bold text-foreground mb-2 relative z-10">Want to contribute?</h4>
               <p className="text-sm text-foreground/70 leading-relaxed mb-4 relative z-10">
