@@ -30,7 +30,7 @@ export function ColorPicker({ value, onChange, className, ...props }: ColorPicke
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-white/20 shadow-md transition-transform hover:scale-110">
+      <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-white/20 shadow-md transition-transform hover:scale-110">
         <input
           type="color"
           value={safeValue}
