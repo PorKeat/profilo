@@ -45,9 +45,9 @@ export default function AboutPage() {
             {/* Avatar Container */}
             <motion.div variants={fadeUp} className="relative w-full max-w-[28rem] mx-auto aspect-square group">
               <div className="absolute -inset-1 bg-gradient-to-br from-primary/30 to-blue-600/10 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-80 transition duration-700" />
-              <div className={`${cardBase} absolute inset-0 overflow-hidden flex items-center justify-center p-4 rounded-[2rem]`}>
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-50" />
-                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-black/5 dark:border-white/5">
+              <div className={`${cardBase} absolute inset-0 overflow-hidden p-4 rounded-[2rem]`}>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-50 z-0" />
+                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-black/5 dark:border-white/5 z-10">
                   <Image
                     src="https://github.com/PorKeat.png"
                     alt="Seng Porkeat"
