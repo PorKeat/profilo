@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Shield, Layers, Code2, GitBranch, Sparkles, ChevronDown, Terminal } from 'lucide-react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import FloatingLines from '@/components/ui/FloatingLines';
+
 import FaqAccordion from '@/components/ui/FaqAccordion';
 import { useRef } from 'react';
 
@@ -44,22 +44,7 @@ export default function Home() {
   const heroParallax = useTransform(scrollY, [0, 400], [0, -60]);
 
   return (
-    <div ref={containerRef} className="flex flex-col items-center bg-white dark:bg-[#080810] min-h-screen text-foreground overflow-x-hidden relative font-sans transition-colors duration-300">
-
-      {/* ── React Bits Floating Lines Background ── */}
-      <div className="fixed inset-0 z-0 opacity-60 dark:opacity-100 pointer-events-none">
-        <FloatingLines
-          enabledWaves={['top', 'middle', 'bottom']}
-          lineCount={8}
-          lineDistance={8}
-          bendRadius={8}
-          bendStrength={-2}
-          interactive
-          parallax={true}
-          animationSpeed={1}
-          linesGradient={['#4B86F7', '#75A8F6', '#8B5CF6']}
-        />
-      </div>
+    <div ref={containerRef} className="flex flex-col items-center min-h-screen text-foreground overflow-x-hidden relative font-sans transition-colors duration-300">
 
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-14">
 
