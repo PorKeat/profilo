@@ -163,10 +163,10 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 flex-1">
                   <label className="text-xs font-bold text-foreground/50 uppercase tracking-widest pl-1">Message</label>
-                  <div className="relative">
-                    <div className="absolute top-4 left-0 pl-4 flex items-start pointer-events-none text-foreground/40">
+                  <div className="relative flex-1 flex flex-col">
+                    <div className="absolute top-4 left-0 pl-4 flex items-start pointer-events-none text-foreground/40 z-10">
                       <MessageSquare className="w-4 h-4" />
                     </div>
                     <textarea
@@ -175,9 +175,8 @@ export default function ContactPage() {
                       onChange={handleChange}
                       placeholder="How can I help you?"
                       required
-                      rows={5}
                       disabled={loading}
-                      className={`${inputBase} pl-11 resize-none`}
+                      className={`${inputBase} pl-11 resize-none flex-1 h-full min-h-[120px]`}
                     />
                   </div>
                 </div>
