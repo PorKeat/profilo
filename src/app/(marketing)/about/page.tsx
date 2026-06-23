@@ -21,24 +21,23 @@ export default function AboutPage() {
 
   return (
     <div className="pb-20">
-      
-      {/* ── Top Header Section ── */}
-      <section className="relative pt-32 pb-20 flex flex-col items-center justify-center text-center">
-        <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
-        <motion.div initial="hidden" animate="show" variants={stagger} className="relative z-10">
-          <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-foreground">
-            About Us
-          </motion.h1>
-          <motion.div variants={fadeUp} className="text-foreground/50 text-sm font-bold tracking-wide flex items-center justify-center gap-2 uppercase">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <span className="text-primary/50">/</span>
-            <span className="text-foreground">About</span>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      <MarketingPageShell className="max-w-6xl mt-0">
+      <MarketingPageShell className="max-w-6xl">
         <div className="w-full flex flex-col gap-24 md:gap-32">
+          
+          {/* ── Header ── */}
+          <motion.div initial="hidden" animate="show" variants={stagger} className="text-center mt-8 relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-[100px] rounded-full pointer-events-none" />
+            
+            <motion.div variants={fadeUp} className="relative inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(75,134,247,0.8)]" />
+              <span className="text-[10px] text-primary font-bold tracking-widest uppercase">The Story</span>
+            </motion.div>
+            
+            <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
+              <span className="text-foreground">About </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Us.</span>
+            </motion.h1>
+          </motion.div>
           
           {/* ── First Section: Image Left, Text Right ── */}
           <motion.section 
