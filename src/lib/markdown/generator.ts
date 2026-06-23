@@ -786,9 +786,27 @@ function generateExperience(block: ExperienceBlock, themeId: ThemeId, isPreview:
 }
 
 function generateQuote(block: QuoteBlock): string {
-  const { theme, layout } = block.data;
+  const { theme, layout, quote, author, showAuthor } = block.data;
   let md = `<div align="center">\n`;
-  md += `  <img src="https://quotes-github-readme.vercel.app/api?type=${layout}&theme=${theme}" alt="Random Quote" />\n`;
+  
+  let url = `https://quotes-github-readme.vercel.app/api?type=${layout}&theme=${theme}`;
+  
+  if (quote && quote.trim() !== '') {
+    url += `&quote=${encodeURIComponent(quote)}`;
+  }
+  
+  if (author && author.trim() !== '') {
+    if (showAuthor === false) {
+      // If they explicitly disabled it, maybe pass a space or "Unknown"
+      url += `&author=${encodeURIComponent(' ')}`;
+    } else {
+      url += `&author=${encodeURIComponent(author)}`;
+    }
+  } else if (showAuthor === false) {
+    url += `&author=${encodeURIComponent(' ')}`;
+  }
+  
+  md += `  <img src="${url}" alt="Random Quote" />\n`;
   md += `</div>\n\n`;
   return md;
 }

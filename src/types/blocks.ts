@@ -261,6 +261,9 @@ export interface QuoteBlock extends BaseBlock {
   data: {
     theme: string;
     layout: 'horizontal' | 'vertical';
+    quote?: string;
+    author?: string;
+    showAuthor?: boolean;
   };
 }
 

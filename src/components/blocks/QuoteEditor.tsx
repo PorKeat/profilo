@@ -5,6 +5,8 @@ import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 
 const QUOTE_THEMES = [
   'radical', 'tokyonight', 'dracula', 'dark', 'light', 'vision-friendly-dark', 'algolia', 'vue-dark', 'github-dark'
@@ -14,7 +16,7 @@ export function QuoteEditor({ block }: { block: QuoteBlock }) {
   const dispatch = useAppDispatch();
   const { data } = block;
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: string, value: string | boolean) => {
     dispatch(updateBlock({ id: block.id, data: { [field]: value } }));
   };
 
@@ -40,6 +42,29 @@ export function QuoteEditor({ block }: { block: QuoteBlock }) {
             <SelectItem value="vertical">Vertical</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+      <div className="space-y-2">
+        <Label>Custom Quote (Optional)</Label>
+        <Input 
+          value={data.quote || ''} 
+          onChange={(e) => handleChange('quote', e.target.value)} 
+          placeholder="Leave blank for random quote" 
+        />
+      </div>
+      <div className="space-y-2">
+        <Label>Custom Author</Label>
+        <Input 
+          value={data.author || ''} 
+          onChange={(e) => handleChange('author', e.target.value)} 
+          placeholder="e.g. Linus Torvalds" 
+        />
+      </div>
+      <div className="flex items-center space-x-2">
+        <Switch 
+          checked={data.showAuthor !== false} 
+          onCheckedChange={(v) => handleChange('showAuthor', v)} 
+        />
+        <Label>Show Author Name</Label>
       </div>
     </div>
   );
