@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Rocket } from 'lucide-react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 import { MagicCard } from '@/components/ui/MagicCard';
 import Link from 'next/link';
 import { MarketingPageShell } from '@/components/layout/MarketingPageShell';
@@ -207,28 +208,38 @@ export default function AboutPage() {
             viewport={{ once: false, margin: "-40px" }}
             variants={fadeUp} 
           >
-            <MagicCard className={`${cardBase} relative overflow-hidden py-32 px-6 flex flex-col items-center justify-center text-center mt-10 group`}>
-            {/* Background effects */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:44px_44px]" />
-            <motion.div 
-              animate={{ rotate: 360, scale: [1, 1.1, 1] }} 
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" 
-            />
-            
-            <div className="relative z-10 flex flex-col items-center max-w-3xl">
-              <span className="text-xs font-bold text-primary mb-6 tracking-widest uppercase flex items-center gap-2">
-                <Rocket className="w-4 h-4" /> Try It Now
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-10 text-foreground tracking-tight">
-                Ready To Build Your Perfect GitHub Profile?
-              </h2>
-              <Link href="/builder">
-                <button className="h-16 px-10 rounded-2xl bg-primary text-black font-extrabold text-lg hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_30px_rgba(75,134,247,0.3)] hover:shadow-[0_0_50px_rgba(75,134,247,0.5)] flex items-center gap-3">
-                  Get Started <ArrowRight className="w-5 h-5" />
-                </button>
-              </Link>
-            </div>
+            <MagicCard className="relative text-center bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-primary/20 dark:border-primary/15 rounded-[2rem] md:rounded-[3rem] overflow-hidden p-8 md:p-16 lg:p-20 shadow-2xl mt-10">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#4B86F7_0%,transparent_55%)] opacity-10 dark:opacity-15 pointer-events-none" />
+              <div className="absolute -top-px left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              
+              {[0, 60, 120, 180, 240, 300].map((deg, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 18 + i * 3, repeat: Infinity, ease: 'linear' }}
+                  className="absolute top-1/2 left-1/2 w-[340px] h-[340px] -translate-x-1/2 -translate-y-1/2"
+                  style={{ transformOrigin: 'center' }}
+                >
+                  <div
+                    className="absolute w-1.5 h-1.5 rounded-full bg-primary/30 dark:bg-primary/40"
+                    style={{ top: 0, left: '50%', transform: `translateX(-50%) rotate(${deg}deg) translateY(-170px)` }}
+                  />
+                </motion.div>
+              ))}
+
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <span className="text-xs font-bold text-primary mb-6 tracking-widest uppercase flex items-center justify-center gap-2">
+                  <Rocket className="w-4 h-4" /> Try It Now
+                </span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-10 text-foreground tracking-tight max-w-3xl mx-auto">
+                  Ready To Build Your Perfect GitHub Profile?
+                </h2>
+                <Link href="/builder">
+                  <Button className="bg-primary text-black hover:bg-primary/80 transition-all duration-300 font-bold px-12 h-14 text-base rounded-full shadow-[0_0_40px_rgba(75,134,247,0.35)] hover:shadow-[0_0_60px_rgba(75,134,247,0.55)] hover:scale-105">
+                    Get Started <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+              </div>
             </MagicCard>
           </motion.div>
 

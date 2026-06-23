@@ -6,6 +6,7 @@ import { ArrowRight, Zap, Shield, Layers, Code2, GitBranch, Sparkles, ChevronDow
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 
 import FaqAccordion from '@/components/ui/FaqAccordion';
+import { MagicCard } from '@/components/ui/MagicCard';
 import { useRef } from 'react';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
@@ -455,10 +456,9 @@ export default function Home() {
         {/* ══════════════════════════════════════════
             FINAL CTA
         ══════════════════════════════════════════ */}
-        <Section className="py-32 mb-12">
-          <motion.div
-            variants={fadeUp}
-            className="relative text-center bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-primary/20 dark:border-primary/15 rounded-[3rem] overflow-hidden p-20 shadow-2xl"
+        <Section className="py-20 md:py-32 mb-12">
+          <MagicCard
+            className="relative text-center bg-white/80 dark:bg-black/60 backdrop-blur-3xl border border-primary/20 dark:border-primary/15 rounded-[2rem] md:rounded-[3rem] overflow-hidden p-8 md:p-16 lg:p-20 shadow-2xl"
           >
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#4B86F7_0%,transparent_55%)] opacity-10 dark:opacity-15 pointer-events-none" />
             <div className="absolute -top-px left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
@@ -478,8 +478,8 @@ export default function Home() {
               </motion.div>
             ))}
 
-            <div className="relative z-10">
-              <motion.span variants={fadeUp} className="text-xs text-primary font-bold tracking-widest uppercase mb-6 block">Ready to begin?</motion.span>
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <motion.span variants={fadeUp} className="text-xs text-primary font-bold tracking-widest uppercase mb-6 block flex items-center justify-center gap-2">Ready to begin?</motion.span>
               <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-foreground">
                 Ready to stand out?
               </motion.h2>
@@ -494,7 +494,7 @@ export default function Home() {
                 </Link>
               </motion.div>
             </div>
-          </motion.div>
+          </MagicCard>
         </Section>
 
       </div>
