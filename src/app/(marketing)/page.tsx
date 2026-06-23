@@ -180,7 +180,7 @@ export default function Home() {
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-xl font-black text-primary">A</div>
                 <div>
-                  <div className="text-lg font-black text-foreground">Alex Nguyen</div>
+                  <div className="text-lg font-black text-foreground">Alex KGM</div>
                   <div className="mt-1 text-sm font-medium text-primary">Full-Stack Developer</div>
                 </div>
               </div>
