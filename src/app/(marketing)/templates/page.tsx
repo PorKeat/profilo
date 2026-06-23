@@ -44,9 +44,9 @@ export default function TemplatesPage() {
           const markdownPreview = generateMarkdown(template.blocks, template.themeId, true);
 
           return (
-            <motion.div key={template.id} variants={fadeUp}>
-              <MagicCard className="group flex flex-col gap-0 overflow-hidden rounded-2xl border-black/8 bg-white/75 py-0 shadow-sm backdrop-blur-2xl [--card-spacing:0px] transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_90px_rgba(75,134,247,0.16)] dark:border-white/10 dark:bg-black/45">
-                <div className="dark h-64 bg-[#080d1b]/95 border-b border-white/10 relative overflow-hidden flex justify-center p-0">
+            <motion.div key={template.id} variants={fadeUp} className="h-full">
+              <MagicCard className="h-full group flex flex-col gap-0 overflow-hidden rounded-2xl border-black/8 bg-white/75 py-0 shadow-sm backdrop-blur-2xl [--card-spacing:0px] transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_90px_rgba(75,134,247,0.16)] dark:border-white/10 dark:bg-black/45">
+                <div className="dark h-64 bg-[#080d1b]/95 border-b border-white/10 relative overflow-hidden flex justify-center p-0 z-10">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 duration-500 pointer-events-none" />
                   <div className="absolute top-0 w-[1000px] origin-top transform scale-[0.4] flex flex-col items-center pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="prose prose-sm prose-invert max-w-none w-full">

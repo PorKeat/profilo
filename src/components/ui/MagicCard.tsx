@@ -53,9 +53,7 @@ export function MagicCard({
           background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColor}, transparent 40%)`,
         }}
       />
-      <div className="relative z-10 h-full w-full">
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
