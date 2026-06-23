@@ -17,7 +17,7 @@ import { BlockType } from '@/lib/types/blocks';
 import { User, Info, Code2, FolderGit2, Share2, Mail, Image as ImageIcon, Type, Activity, PlaySquare, Gamepad2, Rss, Trophy, Music, Coffee, Briefcase, Quote } from 'lucide-react';
 import { Github } from '@/components/icons/Github';
 
-export function CommandPalette() {
+export function BuilderCommandPalette() {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
 

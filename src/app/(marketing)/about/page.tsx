@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Rocket } from 'lucide-react';
 import Image from 'next/image';
+import { MagicCard } from '@/components/ui/MagicCard';
 import Link from 'next/link';
 import { MarketingPageShell } from '@/components/layout/MarketingPageShell';
 
@@ -182,8 +183,9 @@ export default function AboutPage() {
                   items: ['React.js', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Framer Motion', 'UI/UX'] 
                 }
               ].map((category) => (
-                <motion.div key={category.title} variants={fadeUp} className={`${cardBase} p-8 group hover:-translate-y-2 hover:border-primary/30 transition-all duration-500`}>
-                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+                <motion.div key={category.title} variants={fadeUp}>
+                  <MagicCard className={`${cardBase} h-full p-8 group hover:-translate-y-2 hover:border-primary/30 transition-all duration-500`}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
                    <h3 className="text-xl font-bold mb-6 text-foreground relative z-10 tracking-tight">{category.title}</h3>
                    <div className="flex flex-wrap gap-2.5 relative z-10">
                      {category.items.map(tech => (
@@ -192,6 +194,7 @@ export default function AboutPage() {
                        </span>
                      ))}
                    </div>
+                  </MagicCard>
                 </motion.div>
               ))}
             </div>
@@ -203,8 +206,8 @@ export default function AboutPage() {
             whileInView="show" 
             viewport={{ once: false, margin: "-40px" }}
             variants={fadeUp} 
-            className={`${cardBase} relative overflow-hidden py-32 px-6 flex flex-col items-center justify-center text-center mt-10 group`}
           >
+            <MagicCard className={`${cardBase} relative overflow-hidden py-32 px-6 flex flex-col items-center justify-center text-center mt-10 group`}>
             {/* Background effects */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:44px_44px]" />
             <motion.div 
@@ -226,6 +229,7 @@ export default function AboutPage() {
                 </button>
               </Link>
             </div>
+            </MagicCard>
           </motion.div>
 
         </div>

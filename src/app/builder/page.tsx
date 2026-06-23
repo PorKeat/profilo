@@ -4,11 +4,12 @@ import { Sidebar } from "@/components/builder/Sidebar";
 import { Canvas } from "@/components/builder/Canvas";
 import { PreviewPanel } from "@/components/builder/PreviewPanel";
 import { TemplateLoader } from "@/components/builder/TemplateLoader";
-import { CommandPalette } from "@/components/builder/CommandPalette";
+import { BuilderCommandPalette } from "@/components/builder/BuilderCommandPalette";
 import { Suspense, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import DotField from "@/components/ui/DotField";
 
 export default function BuilderPage() {
   const [zenMode, setZenMode] = useState(false);
@@ -25,7 +26,7 @@ export default function BuilderPage() {
     <div className="flex flex-col h-screen bg-background relative overflow-hidden">
       {/* Dynamic Ambient Background with Noise Texture */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <DotField className="absolute inset-0 opacity-50" />
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-30 blur-[120px]"></div>
         {/* SVG Noise Texture Overlay */}
         <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
@@ -90,7 +91,7 @@ export default function BuilderPage() {
       </div>
 
       {/* Global Command Palette (Cmd+K) */}
-      <CommandPalette />
+      <BuilderCommandPalette />
     </div>
   );
 }

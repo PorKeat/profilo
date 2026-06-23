@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { StoreProvider } from "@/store/Provider";
 import NextTopLoader from 'nextjs-toploader';
 import { Toaster } from 'sonner';
+import { GlobalCommandPalette } from '@/components/layout/GlobalCommandPalette';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
               },
             }}
           />
+          <GlobalCommandPalette />
         </ThemeProvider>
       </body>
     </html>
