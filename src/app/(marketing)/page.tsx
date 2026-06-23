@@ -452,12 +452,16 @@ export default function Home() {
         ══════════════════════════════════════════ */}
         <Section className="py-32 border-t border-black/5 dark:border-white/5">
           <motion.div variants={fadeUp} className="text-center mb-16 flex flex-col items-center">
-            <div className="bg-white/60 dark:bg-black/40 backdrop-blur-md border border-black/10 dark:border-white/10 rounded-full px-4 py-1.5 flex items-center gap-3 mb-6 shadow-sm">
-              <span className="text-foreground/40 text-[10px] font-mono font-bold tracking-wider">04</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-foreground/20" />
-              <span className="text-foreground/80 text-[10px] font-bold tracking-widest uppercase">FAQS</span>
+            <div className="relative inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(75,134,247,0.8)]" />
+              <span className="text-[10px] text-primary font-bold tracking-widest uppercase">Answers</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">Frequently Asked Questions</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
+              Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Questions</span>
+            </h2>
+            <p className="text-foreground/60 max-w-xl mx-auto mt-4 leading-relaxed">
+              Everything you need to know about Profilo, pricing, and how your data is handled.
+            </p>
           </motion.div>
 
           <FaqAccordion />
