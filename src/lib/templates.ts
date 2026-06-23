@@ -225,55 +225,11 @@ export const TEMPLATES: Template[] = [
     themeId: 'cyberpunk',
     category: 'Creative',
     blocks: [
-      {
-        id: uuidv4(),
-        type: 'banner',
-        data: {
-          bannerType: 'rect',
-          height: 200,
-          text: 'V',
-          desc: 'Netrunner | Edgerunner',
-          color: '0:0f0c29,50:302b63,100:24243e',
-          fontColor: '00ff00',
-          section: 'header',
-        }
-      },
-      {
-        id: uuidv4(),
-        type: 'typing',
-        data: {
-          lines: ['Wake up, samurai.', 'We have a city to burn.'],
-          color: '00ff00',
-          size: 28,
-          center: true,
-          vCenter: true
-        }
-      },
-      {
-        id: uuidv4(),
-        type: 'github-stats',
-        data: {
-          username: 'torvalds',
-          showStats: true,
-          showTopLanguages: true,
-          showStreak: true,
-          showActivityGraph: false,
-          showSnake: false,
-          showPacman: false,
-          show3dContrib: false,
-          showProfileViews: false,
-          useCustomColors: true,
-          theme: 'radical',
-          customColors: { bg: '0d1117', title: '00ff00', text: 'c9d1d9', icon: 'ff00ff', border: '30363d' }
-        }
-      },
-      {
-        id: uuidv4(),
-        type: 'snake',
-        data: {
-          username: 'torvalds'
-        }
-      }
+      { id: uuidv4(), type: 'banner', data: { bannerType: 'rect', height: 200, text: 'V', desc: 'Netrunner | Edgerunner', color: '0:0f0c29,50:302b63,100:24243e', fontColor: '00ff00', section: 'header' } },
+      { id: uuidv4(), type: 'typing', data: { lines: ['Wake up, samurai.', 'We have a city to burn.'], color: '00ff00', size: 28, center: true, vCenter: true } },
+      { id: uuidv4(), type: 'github-stats', data: { username: 'torvalds', showStats: true, showTopLanguages: true, showStreak: true, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, showProfileViews: false, useCustomColors: true, theme: 'radical', customColors: { bg: '0d1117', title: '00ff00', text: 'c9d1d9', icon: 'ff00ff', border: '30363d' } } },
+      { id: uuidv4(), type: 'activity-graph', data: { username: 'torvalds', theme: 'react', useCustomColors: true, customColors: { bg: '0d1117', color: '00ff00', line: 'ff00ff', point: 'ffffff' } } },
+      { id: uuidv4(), type: 'snake', data: { username: 'torvalds' } }
     ]
   },
   {
@@ -283,44 +239,11 @@ export const TEMPLATES: Template[] = [
     themeId: 'github-classic',
     category: 'Data-Driven',
     blocks: [
-      {
-        id: uuidv4(),
-        type: 'about',
-        data: {
-          paragraph: 'Hi! I am a passionate open source contributor and maintainer of several popular libraries. I believe in free software and building tools for the community.',
-          currentlyLearning: 'Rust, WebAssembly',
-          currentlyWorkingOn: 'Optimizing compiler performance',
-          askMeAbout: 'TypeScript, open source licensing, system architecture'
-        }
-      },
-      {
-        id: uuidv4(),
-        type: 'github-stats',
-        data: {
-          username: 'torvalds',
-          showStats: true,
-          showTopLanguages: true,
-          showStreak: false,
-          showActivityGraph: false,
-          showSnake: false,
-          showPacman: false,
-          show3dContrib: false,
-          showProfileViews: false,
-          useCustomColors: false,
-          theme: 'default',
-          customColors: { bg: 'ffffff', title: '000000', text: '333333', icon: '000000', border: 'e2e8f0' }
-        }
-      },
-      {
-        id: uuidv4(),
-        type: 'activity-graph',
-        data: {
-          username: 'torvalds',
-          theme: 'github',
-          useCustomColors: false,
-          customColors: { bg: 'ffffff', color: '000000', line: '24292e', point: '000000' }
-        }
-      }
+      { id: uuidv4(), type: 'banner', data: { bannerType: 'waving', height: 180, text: 'Open Source', desc: 'Building tools for the community.', color: '0:24292e,100:000000', fontColor: 'ffffff', section: 'header' } },
+      { id: uuidv4(), type: 'about', data: { paragraph: 'Hi! I am a passionate open source contributor and maintainer of several popular libraries. I believe in free software and building tools for the community.', currentlyLearning: 'Rust, WebAssembly', currentlyWorkingOn: 'Optimizing compiler performance', askMeAbout: 'TypeScript, open source licensing, system architecture' } },
+      { id: uuidv4(), type: 'github-stats', data: { username: 'torvalds', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: false, showProfileViews: false, useCustomColors: true, theme: 'radical', customColors: { bg: '0d1117', title: '58a6ff', text: 'c9d1d9', icon: '58a6ff', border: '30363d' } } },
+      { id: uuidv4(), type: 'activity-graph', data: { username: 'torvalds', theme: 'github', useCustomColors: true, customColors: { bg: '0d1117', color: '58a6ff', line: '58a6ff', point: 'ffffff' } } },
+      { id: uuidv4(), type: 'support', data: { github: 'torvalds' } }
     ]
   },
   {
@@ -330,9 +253,9 @@ export const TEMPLATES: Template[] = [
     themeId: 'github-classic',
     category: 'Professional',
     blocks: [
-      { id: uuidv4(), type: 'hero', data: { name: 'Sarah Connor', title: 'Director of Engineering', shortIntro: 'Building high-performance teams and scalable distributed systems.', bannerStyle: 'gradient' } },
+      { id: uuidv4(), type: 'banner', data: { bannerType: 'rect', height: 160, text: 'Sarah Connor', desc: 'Director of Engineering', color: '000000', fontColor: 'ffffff', section: 'header' } },
       { id: uuidv4(), type: 'about', data: { paragraph: 'Engineering leader with 10+ years of experience scaling infrastructure and growing teams from 5 to 50+ engineers. Passionate about system design, mentorship, and fostering a culture of engineering excellence.', askMeAbout: 'System Architecture, Engineering Management, Scaling Teams' } },
-      { id: uuidv4(), type: 'skills', data: { skills: ['System Design', 'Kubernetes', 'AWS', 'Go', 'Microservices', 'Agile Leadership', 'Engineering Strategy'], style: 'flat' } },
+      { id: uuidv4(), type: 'skills', data: { skills: ['System Design', 'Kubernetes', 'AWS', 'Go', 'Microservices', 'Agile Leadership', 'Engineering Strategy'], style: 'for-the-badge' } },
       { id: uuidv4(), type: 'experience', data: { jobs: [{ id: uuidv4(), company: 'Cyberdyne Systems', title: 'Tech Lead', duration: '2020 - Present', description: 'Led the migration from monolith to microservices, reducing deployment times by 40%. Managed a team of 12 engineers.' }] } }
     ]
   },
@@ -343,8 +266,8 @@ export const TEMPLATES: Template[] = [
     themeId: 'purple-gradient',
     category: 'Data-Driven',
     blocks: [
-      { id: uuidv4(), type: 'hero', data: { name: 'Ada Lovelace', title: 'Machine Learning Engineer', shortIntro: 'Turning raw data into actionable insights and predictive models.', bannerStyle: 'image' } },
-      { id: uuidv4(), type: 'skills', data: { skills: ['Python', 'TensorFlow', 'PyTorch', 'SQL', 'R', 'Pandas', 'Jupyter', 'Scikit-Learn'], style: 'for-the-badge' } },
+      { id: uuidv4(), type: 'banner', data: { bannerType: 'waving', height: 200, text: 'Ada Lovelace', desc: 'Machine Learning Engineer', color: '0:4c1d95,50:7c3aed,100:a78bfa', fontColor: 'ffffff', section: 'header' } },
+      { id: uuidv4(), type: 'skills', data: { skills: ['Python', 'TensorFlow', 'PyTorch', 'SQL', 'R', 'Pandas', 'Jupyter', 'Scikit-Learn'], style: 'flat-square' } },
       { id: uuidv4(), type: 'activity-graph', data: { username: 'torvalds', theme: 'react', useCustomColors: true, customColors: { bg: '0d1117', color: 'd8b4fe', line: 'a855f7', point: 'ffffff' } } },
       { id: uuidv4(), type: 'github-stats', data: { username: 'torvalds', showStats: true, showTopLanguages: true, showStreak: true, showActivityGraph: false, showSnake: false, showPacman: false, show3dContrib: true, showProfileViews: false, useCustomColors: true, theme: 'tokyonight', customColors: { bg: '1a1b26', title: 'c0caf5', text: 'a9b1d6', icon: 'bb9af7', border: '24283b' } } }
     ]
@@ -356,6 +279,7 @@ export const TEMPLATES: Template[] = [
     themeId: 'cyberpunk',
     category: 'Creative',
     blocks: [
+      { id: uuidv4(), type: 'banner', data: { bannerType: 'cylinder', height: 180, text: 'system.hack()', desc: '', color: '000000', fontColor: '00ff00', section: 'header' } },
       { id: uuidv4(), type: 'typing', data: { lines: ['> _Initializing root access...', '> _Bypassing mainframe security...', '> _Access granted.'], color: '00ff00', size: 24, center: false, vCenter: true } },
       { id: uuidv4(), type: 'skills', data: { skills: ['C++', 'Assembly', 'Rust', 'Kali Linux', 'Metasploit', 'Wireshark', 'Reverse Engineering'], style: 'plastic' } },
       { id: uuidv4(), type: 'github-stats', data: { username: 'torvalds', showStats: true, showTopLanguages: true, showStreak: false, showActivityGraph: false, showSnake: true, showPacman: false, show3dContrib: false, showProfileViews: true, useCustomColors: true, theme: 'radical', customColors: { bg: '000000', title: '00ff00', text: '00ff00', icon: '00ff00', border: '00ff00' } } }
@@ -368,9 +292,9 @@ export const TEMPLATES: Template[] = [
     themeId: 'clean-light',
     category: 'Creative',
     blocks: [
-      { id: uuidv4(), type: 'hero', data: { name: 'Alex Design', title: 'Product Designer', shortIntro: 'Creating intuitive, beautiful digital experiences.', bannerStyle: 'gradient' } },
+      { id: uuidv4(), type: 'banner', data: { bannerType: 'soft', height: 250, text: 'Alex Design', desc: 'Product Designer', color: '0:fbc2eb,100:a6c1ee', fontColor: 'ffffff', section: 'header' } },
       { id: uuidv4(), type: 'projects', data: { style: 'cards', useCustomColors: false, theme: 'default', customColors: { bg: 'ffffff', title: '000000', text: '333333', icon: '000000', border: 'e2e8f0' }, projects: [{ id: uuidv4(), name: 'Fintech Dashboard UX', description: 'Redesigned the core user flow, increasing conversion by 25%.', githubUrl: '', demoUrl: 'https://dribbble.com', techStack: ['Figma', 'Framer'] }, { id: uuidv4(), name: 'Design System', description: 'Comprehensive component library used by 50+ developers.', githubUrl: '', demoUrl: 'https://figma.com', techStack: ['Figma', 'Storybook'] }] } },
-      { id: uuidv4(), type: 'skills', data: { skills: ['Figma', 'Adobe XD', 'Framer', 'Prototyping', 'User Research', 'Wireframing', 'CSS'], style: 'flat' } }
+      { id: uuidv4(), type: 'skills', data: { skills: ['Figma', 'Adobe XD', 'Framer', 'Prototyping', 'User Research', 'Wireframing', 'CSS'], style: 'flat-square' } }
     ]
   },
   {
