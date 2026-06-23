@@ -18,7 +18,7 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortableBlock } from './SortableBlock';
-import { Trash2, AlertTriangle } from 'lucide-react';
+import { Trash2, AlertTriangle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -98,7 +98,7 @@ export function Canvas() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-primary/5 opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="relative z-10 w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(75,134,247,0.2)] animate-pulse">
                 <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                  <span className="text-3xl">✨</span>
+                  <Sparkles className="w-8 h-8 text-primary" />
                 </div>
               </div>
               <h3 className="relative z-10 text-2xl font-bold text-foreground mb-2 tracking-tight">Your Canvas is Empty</h3>
