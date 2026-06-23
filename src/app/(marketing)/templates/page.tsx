@@ -67,10 +67,7 @@ export default function TemplatesPage() {
       </motion.div>
 
       <motion.div 
-        variants={stagger} 
-        initial="hidden" 
-        whileInView="show" 
-        viewport={{ once: false, margin: "-40px" }}
+        layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
       >
         <AnimatePresence mode="popLayout">
@@ -78,7 +75,15 @@ export default function TemplatesPage() {
           const markdownPreview = generateMarkdown(template.blocks, template.themeId, true);
 
           return (
-            <motion.div key={template.id} layout variants={fadeUp} className="h-full">
+            <motion.div 
+              key={template.id} 
+              layout 
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="h-full"
+            >
               <MagicCard className="h-full group flex flex-col gap-0 overflow-hidden rounded-2xl border-black/8 bg-white/75 py-0 shadow-sm backdrop-blur-2xl [--card-spacing:0px] transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_90px_rgba(75,134,247,0.16)] dark:border-white/10 dark:bg-black/45">
                 <div className="dark h-64 bg-[#080d1b]/95 border-b border-white/10 relative overflow-hidden flex justify-center p-0 z-10">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 duration-500 pointer-events-none" />
