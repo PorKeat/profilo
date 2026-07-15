@@ -41,10 +41,10 @@ const TypewriterText = ({ text, className, delay = 0 }: { text: string; classNam
     <motion.span
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false }}
+      viewport={{ once: true, margin: "-40px" }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.03, delayChildren: delay } }
+        show: { transition: { staggerChildren: 0.02, delayChildren: delay } }
       }}
       className={`inline-block ${className || ""}`}
     >
@@ -52,8 +52,8 @@ const TypewriterText = ({ text, className, delay = 0 }: { text: string; classNam
         <motion.span
           key={index}
           variants={{
-            hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
-            show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring", damping: 12, stiffness: 200 } }
+            hidden: { opacity: 0, y: 10 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
           }}
           className="inline-block"
         >
@@ -172,23 +172,24 @@ export default function AboutPage() {
           >
             <div className="flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-24 max-w-5xl mx-auto px-4">
               
-              {/* Unique Image Capsule */}
+              {/* Unique Image Shape */}
               <motion.div variants={fadeUp} className="relative shrink-0 group z-10 order-1 md:order-2">
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/30 to-purple-500/30 rounded-[4rem] blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="relative w-48 h-64 md:w-56 md:h-80 rounded-[3rem] p-1.5 bg-gradient-to-b from-white/20 to-white/5 border border-white/10 shadow-2xl overflow-hidden backdrop-blur-sm">
-                  <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden bg-black/20">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-tr-[6rem] rounded-bl-[6rem] rounded-tl-2xl rounded-br-2xl blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="relative w-52 h-64 md:w-64 md:h-[22rem] rounded-tr-[5rem] rounded-bl-[5rem] rounded-tl-[1.5rem] rounded-br-[1.5rem] p-1.5 bg-gradient-to-tr from-white/20 to-white/5 border border-white/20 shadow-2xl overflow-hidden backdrop-blur-md">
+                  <div className="relative w-full h-full rounded-tr-[4.5rem] rounded-bl-[4.5rem] rounded-tl-xl rounded-br-xl overflow-hidden bg-black/20">
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent mix-blend-overlay z-10 pointer-events-none" />
                     <Image
                       src="/images/me.jpg"
                       alt="Seng Porkeat"
                       fill
                       unoptimized
-                      className="object-cover object-center scale-105 hover:scale-110 transition-all duration-700 ease-out"
+                      className="object-cover object-center scale-105 hover:scale-110 transition-transform duration-1000 ease-out relative z-0"
                     />
                   </div>
                 </div>
                 
                 {/* Floating Tech Badges */}
-                <div className="absolute -left-6 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-3 flex flex-col gap-4 group-hover:-translate-x-2 transition-transform duration-500 z-20">
+                <div className="absolute -left-6 bottom-12 bg-background/90 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(75,134,247,0.3)] rounded-2xl p-3 flex flex-col gap-4 group-hover:-translate-x-3 group-hover:-translate-y-2 transition-transform duration-500 z-20">
                   <Terminal className="w-5 h-5 text-primary" />
                   <Cloud className="w-5 h-5 text-blue-500" />
                 </div>
