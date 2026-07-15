@@ -200,7 +200,7 @@ export function generatePremiumHeroSvg(props: PremiumHeroSvgProps): string {
         <g mask="url(#ascii-mask)">
           <!-- Base tinted background for dark areas -->
           <rect width="400" height="530" fill="url(#accent-grad)" opacity="0.05" />
-          <image href="${avatarBase64}" xlink:href="${avatarBase64}" width="400" height="530" preserveAspectRatio="xMidYMid meet" filter="url(#grayscale)" opacity="0.8" />
+          <image href="${avatarBase64}" xlink:href="${avatarBase64}" width="400" height="530" preserveAspectRatio="xMidYMid slice" filter="url(#grayscale)" opacity="0.8" />
           <rect width="400" height="530" fill="url(#accent-grad)" opacity="0.5" style="mix-blend-mode: overlay;" />
         </g>
         
