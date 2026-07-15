@@ -35,6 +35,35 @@ const stagger = {
   show: { transition: { staggerChildren: 0.15 } },
 };
 
+const TypewriterText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
+  const chars = text.split("");
+  return (
+    <motion.span
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false }}
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.03, delayChildren: delay } }
+      }}
+      className={`inline-block ${className || ""}`}
+    >
+      {chars.map((char, index) => (
+        <motion.span
+          key={index}
+          variants={{
+            hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
+            show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring", damping: 12, stiffness: 200 } }
+          }}
+          className="inline-block"
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
+
 type TechLogo = {
   fallback?: React.ComponentType<{ className?: string }>;
   logo: string | { light: string; dark: string };
@@ -130,7 +159,7 @@ export default function AboutPage() {
 
             <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
               <span className="text-foreground">About </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Us.</span>
+              <TypewriterText text="Us." className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400" delay={0.2} />
             </motion.h1>
           </motion.div>
 
@@ -171,7 +200,7 @@ export default function AboutPage() {
                 
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tighter mb-6 text-foreground leading-[1.1]">
                   Built by <br className="hidden md:block" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Seng Porkeat.</span>
+                  <TypewriterText text="Seng Porkeat." className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500" delay={0.4} />
                 </h2>
                 
                 <p className="text-foreground/70 leading-relaxed text-base md:text-lg mb-8">
@@ -207,7 +236,7 @@ export default function AboutPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(75,134,247,0.75)] animate-pulse" />
                 The Philosophy
               </span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight">Core Priorities</h2>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight"><TypewriterText text="Core Priorities" delay={0.2} /></h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 relative z-10">
@@ -266,7 +295,7 @@ export default function AboutPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(75,134,247,0.75)]" />
                 Capability Map
               </span>
-              <h2 className="relative text-3xl md:text-5xl font-extrabold mb-4 text-foreground tracking-tight">My Tech Stack</h2>
+              <h2 className="relative text-3xl md:text-5xl font-extrabold mb-4 text-foreground tracking-tight"><TypewriterText text="My Tech Stack" delay={0.2} /></h2>
               <p className="relative text-foreground/80 max-w-2xl mx-auto leading-relaxed">
                 The tools and technologies I use to build scalable cloud-native infrastructure, robust backend microservices, and seamless frontend experiences.
               </p>
