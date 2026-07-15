@@ -153,7 +153,7 @@ export default function AboutPage() {
                       alt="Seng Porkeat"
                       fill
                       unoptimized
-                      className="object-cover object-center grayscale hover:grayscale-0 scale-105 hover:scale-110 transition-all duration-700 ease-out"
+                      className="object-cover object-center scale-105 hover:scale-110 transition-all duration-700 ease-out"
                     />
                   </div>
                 </div>
@@ -200,55 +200,57 @@ export default function AboutPage() {
             whileInView="show"
             viewport={{ once: false, margin: "-40px" }}
             variants={stagger}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20"
+            className="w-full relative py-20"
           >
-            <motion.div variants={fadeUp} className="flex flex-col justify-center">
-              <h2 className="text-3xl font-extrabold mb-4 text-foreground tracking-tight">Core Priorities</h2>
-              <p className="text-foreground/80 leading-relaxed mb-10 max-w-md">
-                Profilo is designed with a strict focus on developer experience. No backends, no logins, just pure utility and creative freedom.
-              </p>
-
-              <div className="space-y-8">
-                {[
-                  { label: "Open Source Focus", value: "100%" },
-                  { label: "No Auth / Database", value: "100%" },
-                  { label: "Ease of Use", value: "95%" },
-                ].map((skill) => (
-                  <div key={skill.label} className="group">
-                    <div className="flex justify-between text-sm font-bold mb-3 text-foreground/80 group-hover:text-primary transition-colors">
-                      <span className="uppercase tracking-widest text-[11px]">{skill.label}</span>
-                      <span>{skill.value}</span>
-                    </div>
-                    <div className="h-2 w-full bg-black/5 dark:bg-white/5 rounded-full overflow-hidden relative border border-black/5 dark:border-white/5">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: skill.value }}
-                        viewport={{ once: false, margin: "-40px" }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: 0.1 }}
-                        className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary/50 to-primary rounded-full"
-                      >
-                        <div className="absolute inset-0 bg-white/20 animate-pulse" />
-                      </motion.div>
-                    </div>
+            <div className="text-center mb-16 relative z-10">
+              <span className="relative mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(75,134,247,0.75)] animate-pulse" />
+                The Philosophy
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight">Core Priorities</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 relative z-10">
+              <motion.div variants={fadeUp} className={`${cardBase} md:col-span-2 p-10 flex flex-col justify-between group overflow-hidden`}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 text-primary">
+                    <Rocket className="w-6 h-6" />
                   </div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="grid grid-cols-2 gap-5">
-              {[
-                { number: "100%", label: "Free Forever" },
-                { number: "0", label: "Account Logins" },
-                { number: "Infinite", label: "Markdown Exports" },
-                { number: "24/7", label: "Browser Based" },
-              ].map((stat) => (
-                <div key={stat.label} className={`${cardBase} p-8 flex flex-col items-center text-center justify-center group hover:border-primary/30 hover:-translate-y-1 transition-all duration-300`}>
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300 rounded-3xl" />
-                  <span className="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight text-foreground relative z-10">{stat.number}</span>
-                  <span className="text-xs font-bold text-primary uppercase tracking-widest relative z-10">{stat.label}</span>
+                  <h3 className="text-2xl font-bold mb-3 text-foreground tracking-tight">Zero Friction. Free Forever.</h3>
+                  <p className="text-foreground/70 leading-relaxed max-w-md text-lg">
+                    Profilo is designed with a strict focus on developer experience. No backends, no account logins, just pure utility and creative freedom. Open the browser and build.
+                  </p>
                 </div>
-              ))}
-            </motion.div>
+              </motion.div>
+              
+              <motion.div variants={fadeUp} className={`${cardBase} p-10 flex flex-col justify-center items-center text-center group overflow-hidden`}>
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="text-6xl font-extrabold tracking-tighter text-foreground mb-4">100%</span>
+                <span className="text-sm font-bold text-primary uppercase tracking-widest">Open Source</span>
+              </motion.div>
+              
+              <motion.div variants={fadeUp} className={`${cardBase} p-10 flex flex-col justify-center items-center text-center group overflow-hidden`}>
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="text-6xl font-extrabold tracking-tighter text-foreground mb-4">∞</span>
+                <span className="text-sm font-bold text-primary uppercase tracking-widest">Exports</span>
+              </motion.div>
+              
+              <motion.div variants={fadeUp} className={`${cardBase} md:col-span-2 p-10 flex flex-col md:flex-row justify-between items-center gap-8 group overflow-hidden`}>
+                <div className="absolute inset-0 bg-gradient-to-tl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10 flex-1">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-foreground/5 border border-foreground/10 flex items-center justify-center text-foreground">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-foreground tracking-tight">No Auth / Database</h3>
+                  </div>
+                  <p className="text-foreground/70 leading-relaxed text-lg">
+                    Everything runs locally in your browser. Your data stays with you. We don't track your profiles or require you to sign in to export your code.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
           </motion.section>
 
           <motion.section
