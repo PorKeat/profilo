@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { TypewriterText } from '@/components/ui/TypewriterText';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Zap, Shield, Layers, Code2, GitBranch, Sparkles, ChevronDown, Terminal } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Layers, Code2, GitBranch, Sparkles, ChevronDown, Terminal, MapPin, Star, GitCommit } from 'lucide-react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import Image from 'next/image';
 
 import FaqAccordion from '@/components/ui/FaqAccordion';
 import { MagicCard } from '@/components/ui/MagicCard';
-import { useRef } from 'react';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
 const fadeUp = {
@@ -175,37 +176,56 @@ export default function Home() {
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
-              className="rounded-2xl border border-black/8 bg-white/80 p-6 shadow-sm backdrop-blur-2xl dark:border-white/10 dark:bg-black/45"
+              className="relative z-20 flex w-72 flex-col rounded-[1.75rem] border border-black/5 bg-white/95 p-6 shadow-[0_30px_100px_rgba(75,134,247,0.15)] dark:border-white/10 dark:bg-[#070b16]/95 dark:shadow-[0_30px_100px_rgba(0,0,0,0.8)]"
             >
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-xl font-black text-primary">A</div>
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-primary/20 bg-primary/5">
+                  <Image src="/images/me.jpg" alt="Profile" fill unoptimized className="object-cover" />
+                  <div className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-500 dark:border-[#070b16]" />
+                </div>
                 <div>
-                  <div className="text-lg font-black text-foreground">Alex KGM</div>
-                  <div className="mt-1 text-sm font-medium text-primary">Full-Stack Developer</div>
+                  <div className="text-xl font-bold text-foreground tracking-tight">Seng Porkeat</div>
+                  <div className="mt-0.5 text-xs font-medium text-foreground/60 flex items-center gap-1">
+                    <MapPin className="w-3 h-3" /> Cambodia
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-primary/15 bg-primary/15">
-                {[['Stars','423'], ['Commits','1,847']].map(([label, val]) => (
-                  <div key={label} className="bg-white/70 p-4 dark:bg-[#0b1020]/90">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-primary/80">{label}</div>
-                    <div className="mt-2 text-2xl font-black text-foreground">{val}</div>
-                  </div>
-                ))}
+              <div className="mt-5 text-[13px] text-foreground/80 leading-relaxed font-medium">
+                DevOps Engineer building scalable cloud-native infrastructure and seamless frontend experiences.
               </div>
 
-              <div className="mt-7">
-                <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-primary/70">Activity</div>
-                <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(7, minmax(0, 1fr))' }}>
-                  {[...Array(35)].map((_, i) => (
-                    <div key={i} className={`h-3 rounded-[4px] ${
+              <div className="mt-5 flex gap-2">
+                <div className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-black/5 bg-black/5 py-2.5 dark:border-white/5 dark:bg-white/5">
+                  <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+                  <span className="text-sm font-bold text-foreground">423</span>
+                </div>
+                <div className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-black/5 bg-black/5 py-2.5 dark:border-white/5 dark:bg-white/5">
+                  <GitCommit className="w-3.5 h-3.5 text-green-500" />
+                  <span className="text-sm font-bold text-foreground">1,847</span>
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <div className="mb-2.5 flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-foreground/50">Contributions</span>
+                  <span className="text-[10px] font-bold text-primary">5,439 Total</span>
+                </div>
+                <div className="grid grid-cols-12 gap-[3px]">
+                  {[...Array(36)].map((_, i) => (
+                    <div key={i} className={`h-2.5 w-2.5 rounded-sm ${
                       [2, 5, 8, 13, 17, 22, 26, 29, 34].includes(i) ? 'bg-primary' :
-                      [0, 3, 6, 11, 15, 18, 20, 24, 28, 31].includes(i) ? 'bg-primary/55' :
-                      'bg-primary/12 dark:bg-white/10'
+                      [0, 3, 6, 11, 15, 18, 20, 24, 28, 31].includes(i) ? 'bg-primary/60' :
+                      [1, 9, 14, 23, 27, 33].includes(i) ? 'bg-primary/30' :
+                      'bg-black/5 dark:bg-white/5'
                     }`} />
                   ))}
                 </div>
               </div>
+              
+              <button className="mt-5 w-full rounded-xl bg-primary py-2.5 text-sm font-bold text-white hover:bg-primary/90 transition-colors shadow-lg">
+                Follow
+              </button>
             </motion.div>
 
             <motion.div
