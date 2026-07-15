@@ -13,7 +13,8 @@ import { MarketingPageShell } from "@/components/layout/MarketingPageShell";
 import { TypewriterText } from "@/components/ui/TypewriterText";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import type { TemplateCategory } from "@/types/templates";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +32,14 @@ const CATEGORIES: (TemplateCategory | 'All')[] = ['All', 'Minimal', 'Creative', 
 
 export default function TemplatesPage() {
   const [activeTab, setActiveTab] = useState<TemplateCategory | 'All'>('All');
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentPreviewMode = mounted && resolvedTheme === 'light' ? 'light' : 'dark';
 
   const filteredTemplates = TEMPLATES.filter(t => activeTab === 'All' || t.category === activeTab);
 
@@ -76,7 +85,7 @@ export default function TemplatesPage() {
       >
         <AnimatePresence mode="popLayout">
           {filteredTemplates.map(template => {
-          const markdownPreview = generateMarkdown(template.blocks, template.themeId, true);
+          const markdownPreview = generateMarkdown(template.blocks, template.themeId, true, currentPreviewMode);
 
           return (
             <motion.div 
