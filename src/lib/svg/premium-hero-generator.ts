@@ -21,8 +21,7 @@ export interface PremiumHeroSvgProps {
 export function generatePremiumHeroSvg(props: PremiumHeroSvgProps): string {
   const {
     name, titles, location, education, focus, portfolio, email, skills,
-    github: _github, linkedin: _linkedin, twitter: _twitter, theme, 
-    accent1: customAccent1, accent2: customAccent2, accent3: customAccent3, style, 
+    theme, accent1: customAccent1, accent2: customAccent2, accent3: customAccent3, style, 
     avatarBase64
   } = props;
 

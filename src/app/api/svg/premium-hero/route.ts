@@ -11,13 +11,17 @@ export async function GET(req: NextRequest) {
   try {
     const titlesParam = searchParams.get('titles');
     if (titlesParam) titles = titlesParam.split(',').map(t => t.trim());
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   let skills = ['React', 'Next.js', 'TypeScript', 'Tailwind'];
   try {
     const skillsParam = searchParams.get('skills');
     if (skillsParam) skills = skillsParam.split(',').map(s => s.trim());
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   const location = searchParams.get('location') || 'Cambodia';
   const education = searchParams.get('education') || 'Computer Science, B.S.';

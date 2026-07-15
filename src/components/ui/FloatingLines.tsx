@@ -500,7 +500,13 @@ export default function FloatingLines({
     bendStrength,
     mouseDamping,
     parallax,
-    parallaxStrength
+    parallaxStrength,
+    bottomLineCount,
+    bottomLineDistance,
+    middleLineCount,
+    middleLineDistance,
+    topLineCount,
+    topLineDistance
   ]);
 
   return (
