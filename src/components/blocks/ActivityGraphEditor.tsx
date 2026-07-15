@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { ColorPicker } from '@/components/ui/color-picker';
 import { SectionTitleInput } from '@/components/ui/section-title-input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 
 export function ActivityGraphEditor({ block }: { block: ActivityGraphBlock }) {
   const dispatch = useAppDispatch();
@@ -48,23 +48,24 @@ export function ActivityGraphEditor({ block }: { block: ActivityGraphBlock }) {
         {!data.useCustomColors ? (
           <div className="space-y-2">
             <Label>Widget Theme</Label>
-            <Select value={data.theme} onValueChange={(val) => val && handleChange('theme', val)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="radical">Radical</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="merko">Merko</SelectItem>
-                <SelectItem value="gruvbox">Gruvbox</SelectItem>
-                <SelectItem value="tokyonight">Tokyo Night</SelectItem>
-                <SelectItem value="onedark">One Dark</SelectItem>
-                <SelectItem value="cobalt">Cobalt</SelectItem>
-                <SelectItem value="synthwave">Synthwave</SelectItem>
-                <SelectItem value="highcontrast">High Contrast</SelectItem>
-                <SelectItem value="dracula">Dracula</SelectItem>
-              </SelectContent>
-            </Select>
+            <SearchableSelect 
+              value={data.theme || 'default'} 
+              onChange={(val) => val && handleChange('theme', val)}
+              options={[
+                { value: 'radical', label: 'Radical' },
+                { value: 'dark', label: 'Dark' },
+                { value: 'merko', label: 'Merko' },
+                { value: 'gruvbox', label: 'Gruvbox' },
+                { value: 'tokyonight', label: 'Tokyo Night' },
+                { value: 'onedark', label: 'One Dark' },
+                { value: 'cobalt', label: 'Cobalt' },
+                { value: 'synthwave', label: 'Synthwave' },
+                { value: 'highcontrast', label: 'High Contrast' },
+                { value: 'dracula', label: 'Dracula' }
+              ]}
+              placeholder="Select a theme..."
+              searchPlaceholder="Search themes..."
+            />
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-4">

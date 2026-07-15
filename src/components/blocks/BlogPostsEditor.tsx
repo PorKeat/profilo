@@ -5,7 +5,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 export function BlogPostsEditor({ block }: { block: BlogPostsBlock }) {
@@ -26,16 +26,17 @@ export function BlogPostsEditor({ block }: { block: BlogPostsBlock }) {
       />
       <div className="space-y-2">
         <Label>Platform</Label>
-        <Select value={data.platform} onValueChange={(v) => v && handleChange('platform', v)}>
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="dev.to">Dev.to</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="hashnode">Hashnode</SelectItem>
-          </SelectContent>
-        </Select>
+        <SearchableSelect 
+          value={data.platform} 
+          onChange={(v) => v && handleChange('platform', v)}
+          options={[
+            { value: 'dev.to', label: 'Dev.to' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'hashnode', label: 'Hashnode' }
+          ]}
+          placeholder="Select a platform..."
+          searchPlaceholder="Search platforms..."
+        />
       </div>
       <div className="space-y-2">
         <Label>Username</Label>

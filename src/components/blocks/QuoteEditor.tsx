@@ -4,7 +4,7 @@ import { QuoteBlock } from '@/types/blocks';
 import { useAppDispatch } from '@/store/hooks';
 import { updateBlock } from '@/store/builderSlice';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 
@@ -24,24 +24,26 @@ export function QuoteEditor({ block }: { block: QuoteBlock }) {
     <div className="space-y-4 text-left">
       <div className="space-y-2">
         <Label>Theme</Label>
-        <Select value={data.theme} onValueChange={(v) => v && handleChange('theme', v)}>
-          <SelectTrigger><SelectValue /></SelectTrigger>
-          <SelectContent>
-            {QUOTE_THEMES.map(t => (
-              <SelectItem key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <SearchableSelect 
+          value={data.theme} 
+          onChange={(v) => v && handleChange('theme', v)}
+          options={QUOTE_THEMES.map(t => ({ value: t, label: t.charAt(0).toUpperCase() + t.slice(1) }))}
+          placeholder="Select a theme..."
+          searchPlaceholder="Search themes..."
+        />
       </div>
       <div className="space-y-2">
         <Label>Layout</Label>
-        <Select value={data.layout} onValueChange={(v) => v && handleChange('layout', v)}>
-          <SelectTrigger><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="horizontal">Horizontal</SelectItem>
-            <SelectItem value="vertical">Vertical</SelectItem>
-          </SelectContent>
-        </Select>
+        <SearchableSelect 
+          value={data.layout} 
+          onChange={(v) => v && handleChange('layout', v)}
+          options={[
+            { value: 'horizontal', label: 'Horizontal' },
+            { value: 'vertical', label: 'Vertical' }
+          ]}
+          placeholder="Select layout..."
+          searchPlaceholder="Search layouts..."
+        />
       </div>
       <div className="space-y-2">
         <Label>Custom Quote (Optional)</Label>

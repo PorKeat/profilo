@@ -25,6 +25,14 @@ export const metadata: Metadata = {
     description: 'Drag-and-drop beautiful blocks, see live previews, and export pure Markdown. Build your GitHub README in minutes, not hours.',
     url: 'https://profilo.vercel.app',
     siteName: 'Profilo',
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Profilo',
+      },
+    ],
     type: 'website',
     locale: 'en_US',
   },
@@ -33,6 +41,7 @@ export const metadata: Metadata = {
     title: 'Profilo — GitHub Profile README Builder',
     description: 'Build a stunning GitHub profile README in minutes — no code, no backend, no cost.',
     creator: '@alexkgm',
+    images: ['/logo.png'],
   },
   robots: {
     index: true,

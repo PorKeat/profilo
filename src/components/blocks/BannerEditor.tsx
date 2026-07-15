@@ -6,7 +6,7 @@ import { updateBlock } from '@/store/builderSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ColorPicker } from '@/components/ui/color-picker';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 
 export function BannerEditor({ block }: { block: BannerBlock }) {
   const dispatch = useAppDispatch();
@@ -21,30 +21,32 @@ export function BannerEditor({ block }: { block: BannerBlock }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Section</Label>
-          <Select value={data.section} onValueChange={(val) => val && handleChange('section', val)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select section" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="header">Header</SelectItem>
-              <SelectItem value="footer">Footer</SelectItem>
-            </SelectContent>
-          </Select>
+          <SearchableSelect 
+            value={data.section} 
+            onChange={(val) => val && handleChange('section', val)}
+            options={[
+              { value: 'header', label: 'Header' },
+              { value: 'footer', label: 'Footer' }
+            ]}
+            placeholder="Select section"
+            searchPlaceholder="Search sections..."
+          />
         </div>
         <div className="space-y-2">
           <Label>Banner Type</Label>
-          <Select value={data.bannerType} onValueChange={(val) => val && handleChange('bannerType', val)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="waving">Waving</SelectItem>
-              <SelectItem value="rect">Rectangle</SelectItem>
-              <SelectItem value="soft">Soft</SelectItem>
-              <SelectItem value="cylinder">Cylinder</SelectItem>
-              <SelectItem value="transparent">Transparent</SelectItem>
-            </SelectContent>
-          </Select>
+          <SearchableSelect 
+            value={data.bannerType} 
+            onChange={(val) => val && handleChange('bannerType', val)}
+            options={[
+              { value: 'waving', label: 'Waving' },
+              { value: 'rect', label: 'Rectangle' },
+              { value: 'soft', label: 'Soft' },
+              { value: 'cylinder', label: 'Cylinder' },
+              { value: 'transparent', label: 'Transparent' }
+            ]}
+            placeholder="Select type"
+            searchPlaceholder="Search types..."
+          />
         </div>
       </div>
 
