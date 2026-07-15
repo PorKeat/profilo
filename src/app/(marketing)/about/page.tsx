@@ -36,7 +36,7 @@ const stagger = {
 };
 
 const TypewriterText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
-  const chars = text.split("");
+  const words = text.split(" ");
   return (
     <motion.span
       initial="hidden"
@@ -44,20 +44,20 @@ const TypewriterText = ({ text, className, delay = 0 }: { text: string; classNam
       viewport={{ once: true, margin: "-40px" }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.02, delayChildren: delay } }
+        show: { transition: { staggerChildren: 0.15, delayChildren: delay } }
       }}
-      className={`inline-block ${className || ""}`}
+      className={`inline-flex flex-wrap ${className || ""}`}
     >
-      {chars.map((char, index) => (
+      {words.map((word, index) => (
         <motion.span
           key={index}
           variants={{
-            hidden: { opacity: 0, y: 10 },
-            show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+            hidden: { opacity: 0, y: 30 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
           }}
-          className="inline-block"
+          className="inline-block mr-[0.25em]"
         >
-          {char === " " ? "\u00A0" : char}
+          {word}
         </motion.span>
       ))}
     </motion.span>
