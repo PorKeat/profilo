@@ -176,7 +176,7 @@ export default function Home() {
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
-              className="relative z-20 flex w-[340px] flex-col rounded-[1.75rem] border border-black/5 bg-white/95 p-6 shadow-[0_30px_100px_rgba(75,134,247,0.15)] dark:border-white/10 dark:bg-[#070b16]/95 dark:shadow-[0_30px_100px_rgba(0,0,0,0.8)]"
+              className="relative z-20 flex w-full flex-col rounded-[1.75rem] border border-black/5 bg-white/95 p-6 shadow-[0_30px_100px_rgba(75,134,247,0.15)] dark:border-white/10 dark:bg-[#070b16]/95 dark:shadow-[0_30px_100px_rgba(0,0,0,0.8)]"
             >
               <div className="flex items-center gap-4">
                 <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-primary/20 bg-primary/5">
