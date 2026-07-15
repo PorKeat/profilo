@@ -6,12 +6,21 @@ import { TerminalBlock } from '@/types/blocks';
 import { Textarea } from "@/components/ui/textarea";
 import { useDispatch } from 'react-redux';
 import { updateBlock } from '@/store/builderSlice';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 export function TerminalEditor({ block }: { block: TerminalBlock }) {
   const dispatch = useDispatch();
 
   return (
     <div className="space-y-6">
+      <SectionTitleInput 
+        title={block.data.sectionTitle} 
+        defaultTitle="Terminal"
+        color={block.data.sectionTitleColor} 
+        iconColor={block.data.iconColor}
+        hasIcons={false}
+        onChange={(field, value) => dispatch(updateBlock({ id: block.id, data: { [field]: value } }))}
+      />
       <div className="space-y-4">
         <div>
           <Label className="text-white/60 mb-2 block">Terminal Username</Label>

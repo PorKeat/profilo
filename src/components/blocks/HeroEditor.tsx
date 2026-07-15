@@ -7,6 +7,7 @@ import { MarkdownInput } from '@/components/ui/markdown-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { ColorPicker } from '@/components/ui/color-picker';
 import { X } from 'lucide-react';
 
 export function HeroEditor({ block }: { block: HeroBlock }) {
@@ -35,14 +36,22 @@ export function HeroEditor({ block }: { block: HeroBlock }) {
   };
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-6 text-left">
       <div className="space-y-2">
         <Label>Name</Label>
         <MarkdownInput value={data.name} onChange={(val) => handleChange('name', val)} placeholder="John Doe" />
+        <div className="pt-2">
+          <Label className="text-muted-foreground text-xs block mb-1">Name Color (Hex without #)</Label>
+          <ColorPicker value={data.nameColor || ''} onChange={(val) => handleChange('nameColor', val)} placeholder="e.g. 58a6ff" />
+        </div>
       </div>
       <div className="space-y-2">
         <Label>Title</Label>
         <MarkdownInput value={data.title} onChange={(val) => handleChange('title', val)} placeholder="Full Stack Developer" />
+        <div className="pt-2">
+          <Label className="text-muted-foreground text-xs block mb-1">Title Color (Hex without #)</Label>
+          <ColorPicker value={data.titleColor || ''} onChange={(val) => handleChange('titleColor', val)} placeholder="e.g. 79c0ff" />
+        </div>
       </div>
       <div className="space-y-2">
         <Label>Short Intro</Label>

@@ -142,6 +142,7 @@ export function Sidebar() {
       label: 'Profile',
       blocks: [
         { type: 'hero', label: 'Hero', icon: User },
+        { type: 'premium-hero', label: 'Premium SVG Hero', icon: User },
         { type: 'about', label: 'About Me', icon: Info },
         { type: 'contact', label: 'Contact', icon: Mail },
       ]
@@ -345,6 +346,22 @@ export function createDefaultBlock(type: BlockType): Block {
   switch (type) {
     case 'hero':
       return { id, type, data: { name: 'Your Name', title: 'Full Stack Developer', shortIntro: 'I build things for the web.', bannerStyle: 'none' } };
+    case 'premium-hero':
+      return { 
+        id, 
+        type, 
+        data: { 
+          name: 'Your Name', 
+          titles: ['Frontend Engineer', 'Full Stack Developer'], 
+          location: 'San Francisco, CA', 
+          education: 'Computer Science, B.S.', 
+          currentFocus: 'Building cool things', 
+          portfolioUrl: 'https://yourwebsite.com', 
+          email: 'hello@yourwebsite.com', 
+          skills: ['React', 'Next.js', 'TypeScript', 'Tailwind'], 
+          socials: { github: 'yourusername', linkedin: 'in/yourusername', twitter: 'yourusername' } 
+        } 
+      };
     case 'banner':
       return { id, type, data: { bannerType: 'waving', height: 250, text: 'Hello World', desc: 'Welcome to my profile', color: '0:0f172a,50:1e3a8a,100:4b86f7', fontColor: 'ffffff', section: 'header' } };
     case 'typing':

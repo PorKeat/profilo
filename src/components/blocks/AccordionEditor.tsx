@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Plus, Trash2 } from "lucide-react";
 import { useDispatch } from 'react-redux';
 import { updateBlock } from '@/store/builderSlice';
+import { SectionTitleInput } from '@/components/ui/section-title-input';
 
 export function AccordionEditor({ block }: { block: AccordionBlock }) {
   const dispatch = useDispatch();
@@ -30,6 +31,14 @@ export function AccordionEditor({ block }: { block: AccordionBlock }) {
 
   return (
     <div className="space-y-6">
+      <SectionTitleInput 
+        title={block.data.sectionTitle} 
+        defaultTitle="FAQ / Accordion"
+        color={block.data.sectionTitleColor} 
+        iconColor={block.data.iconColor}
+        hasIcons={false}
+        onChange={(field, value) => dispatch(updateBlock({ id: block.id, data: { [field]: value } }))}
+      />
       <div className="space-y-4">
         {(block.data.items || []).map((item, index) => (
           <div key={item.id} className="p-4 border border-white/10 rounded-xl space-y-4 relative group">

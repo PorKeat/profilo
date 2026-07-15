@@ -1,4 +1,5 @@
-import { Block, HeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
+import { generatePremiumHeroSvg } from '../svg/premium-hero-generator';
+import { Block, HeroBlock, PremiumHeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
 import { ThemeId } from '@/types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 import { PLATFORMS } from '../constants/platforms';
@@ -45,6 +46,8 @@ function generateBlockMarkdown(block: Block, themeId: ThemeId, isPreview: boolea
   switch (block.type) {
     case 'hero':
       return generateHero(block, isPreview);
+    case 'premium-hero':
+      return generatePremiumHero(block as PremiumHeroBlock, isPreview, previewMode);
     case 'banner':
       return generateBanner(block);
     case 'typing':
@@ -165,8 +168,75 @@ function getThemeBadgeColor(themeId: ThemeId): string {
   }
 }
 
+function generatePremiumHero(block: PremiumHeroBlock, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
+  const { data } = block;
+  const theme = previewMode || 'dark';
+
+  if (isPreview && data.localAvatarBase64) {
+    // Generate inline SVG for local preview to support massive base64 uploads without URL limit errors
+    const svgContent = generatePremiumHeroSvg({
+      name: data.name,
+      titles: data.titles,
+      location: data.location,
+      education: data.education,
+      focus: data.currentFocus,
+      portfolio: data.portfolioUrl,
+      email: data.email,
+      skills: data.skills,
+      github: data.socials?.github,
+      linkedin: data.socials?.linkedin,
+      twitter: data.socials?.twitter,
+      theme,
+      accent1: data.sectionTitleColor,
+      accent2: data.iconColor,
+      accent3: data.accent3,
+      style: data.style || 'gradient',
+      avatarBase64: data.localAvatarBase64
+    });
+    
+    // We can embed the raw SVG straight into markdown, and rehype-raw will render it!
+    // We MUST strip newlines because markdown parsers will turn blank lines inside the SVG into <p> tags, breaking the SVG structure.
+    const safeSvg = svgContent.replace(/\r?\n|\r/g, ' ');
+    return `<div align="center">\n\n${safeSvg}\n\n</div>\n\n`;
+  }
+
+  // Use relative URL for local preview, absolute for export
+  const baseUrl = isPreview ? '' : 'https://profilo.vercel.app';
+  
+  // Create URL params
+  const params = new URLSearchParams();
+  if (data.name) params.append('name', data.name);
+  if (data.titles?.length) params.append('titles', data.titles.join(','));
+  if (data.location) params.append('location', data.location);
+  if (data.education) params.append('education', data.education);
+  if (data.currentFocus) params.append('focus', data.currentFocus);
+  if (data.portfolioUrl) params.append('portfolio', data.portfolioUrl);
+  if (data.email) params.append('email', data.email);
+  if (data.skills?.length) params.append('skills', data.skills.join(','));
+  
+  if (data.socials?.github) params.append('github', data.socials.github);
+  if (data.socials?.linkedin) params.append('linkedin', data.socials.linkedin);
+  if (data.socials?.twitter) params.append('twitter', data.socials.twitter);
+  if (data.sectionTitleColor) params.append('accent1', data.sectionTitleColor.replace('#', ''));
+  if (data.iconColor) params.append('accent2', data.iconColor.replace('#', ''));
+  if (data.accent3) params.append('accent3', data.accent3.replace('#', ''));
+  if (data.style) params.append('style', data.style);
+  if (data.avatarUrl) params.append('avatarUrl', data.avatarUrl);
+
+  const query = params.toString();
+  
+  if (isPreview) {
+    return `<img src="${baseUrl}/api/svg/premium-hero?theme=${theme}&${query}" alt="${data.name || 'Developer'} GitHub Profile Hero" width="100%">`;
+  }
+  
+  return `<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="${baseUrl}/api/svg/premium-hero?theme=dark&${query}">
+  <img src="${baseUrl}/api/svg/premium-hero?theme=light&${query}" alt="${data.name || 'Developer'} GitHub Profile Hero" width="100%">
+</picture>`;
+}
+
 function generateHero(block: HeroBlock, isPreview: boolean): string {
-  const { name, title, shortIntro, avatarUrl, localAvatarBase64 } = block.data;
+  const { name, title, shortIntro, avatarUrl, localAvatarBase64, nameColor, titleColor } = block.data;
   let md = `<div align="center">\n`;
   if (localAvatarBase64) {
     const src = isPreview ? localAvatarBase64 : `./avatar.png`;
@@ -174,8 +244,21 @@ function generateHero(block: HeroBlock, isPreview: boolean): string {
   } else if (avatarUrl) {
     md += `  <img src="${avatarUrl}" alt="${name}" width="150" height="150" style="border-radius: 50%; object-fit: cover;" />\n\n`;
   }
-  md += `  <h1>Hi there, I'm ${name} 👋</h1>\n`;
-  md += `  <h3>${title}</h3>\n`;
+  
+  if (nameColor && nameColor.trim() !== '') {
+    const cleanColor = nameColor.replace('#', '');
+    md += `  <h1><img src="https://readme-typing-svg.demolab.com?font=Inter&weight=800&size=32&duration=1&pause=1000&color=${cleanColor}&center=true&vCenter=true&width=500&lines=Hi+there,+I'm+${encodeURIComponent(name)}+%F0%9F%91%8B" alt="Hi there, I'm ${name} 👋" /></h1>\n`;
+  } else {
+    md += `  <h1>Hi there, I'm ${name} 👋</h1>\n`;
+  }
+
+  if (titleColor && titleColor.trim() !== '') {
+    const cleanColor = titleColor.replace('#', '');
+    md += `  <h3><img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=20&duration=1&pause=1000&color=${cleanColor}&center=true&vCenter=true&width=500&lines=${encodeURIComponent(title)}" alt="${title}" /></h3>\n`;
+  } else {
+    md += `  <h3>${title}</h3>\n`;
+  }
+  
   md += `  <p>${shortIntro}</p>\n`;
   md += `</div>\n`;
   return md;

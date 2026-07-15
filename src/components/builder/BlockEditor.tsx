@@ -2,6 +2,7 @@
 
 
 import { HeroEditor } from '../blocks/HeroEditor';
+import { PremiumHeroEditor } from '../blocks/PremiumHeroEditor';
 import { AboutEditor } from '../blocks/AboutEditor';
 import { SkillsEditor } from '../blocks/SkillsEditor';
 import { GitHubStatsEditor } from '../blocks/GitHubStatsEditor';
@@ -15,7 +16,7 @@ import { SnakeEditor } from '../blocks/SnakeEditor';
 import { TerminalEditor } from '../blocks/TerminalEditor';
 import { AccordionEditor } from '../blocks/AccordionEditor';
 import { BentoEditor } from '../blocks/BentoEditor';
-import { Block, HeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
+import { Block, HeroBlock, PremiumHeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
 import { PacmanEditor } from '../blocks/PacmanEditor';
 import { BlogPostsEditor } from '../blocks/BlogPostsEditor';
 import { TrophiesEditor } from '../blocks/TrophiesEditor';
@@ -32,6 +33,8 @@ export function BlockEditor({ block }: BlockEditorProps) {
   switch (block.type) {
     case 'hero':
       return <HeroEditor block={block as HeroBlock} />;
+    case 'premium-hero':
+      return <PremiumHeroEditor block={block as PremiumHeroBlock} />;
     case 'about':
       return <AboutEditor block={block as AboutBlock} />;
     case 'skills':

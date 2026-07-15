@@ -3,6 +3,52 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const TEMPLATES: Template[] = [
   {
+    id: 'premium-dev',
+    name: 'Premium Engineer',
+    desc: 'Stand out with the highly animated, cyber-style premium hero and glassmorphism stats.',
+    themeId: 'cyberpunk',
+    category: 'Professional',
+    blocks: [
+      {
+        id: uuidv4(),
+        type: 'premium-hero',
+        data: {
+          name: 'Jane Doe',
+          titles: ['Senior Frontend Engineer', 'UI/UX Enthusiast', 'Open Source Maintainer'],
+          location: 'San Francisco, CA',
+          education: 'Computer Science, B.S.',
+          currentFocus: 'Building Next.js 15 apps',
+          portfolioUrl: 'https://janedoe.com',
+          email: 'hello@janedoe.com',
+          skills: ['React', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
+          sectionTitleColor: '#7C3AED',
+          iconColor: '#22D3EE',
+          accent3: '#10B981',
+          style: 'gradient',
+          socials: { github: 'janedoe', linkedin: 'in/janedoe', twitter: 'janedoe' }
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'github-stats',
+        data: {
+          username: 'torvalds',
+          showStats: true,
+          showTopLanguages: true,
+          showStreak: false,
+          showActivityGraph: false,
+          showSnake: false,
+          showPacman: false,
+          show3dContrib: false,
+          showProfileViews: true,
+          useCustomColors: true,
+          theme: 'github_dark',
+          customColors: { bg: '0f172a', title: '60a5fa', text: 'e2e8f0', icon: '2dd4bf', border: '334155' }
+        }
+      }
+    ]
+  },
+  {
     id: 'devops',
     name: 'DevOps Engineer',
     desc: 'Focus on tools, CI/CD pipelines, and GitHub stats. (PorKeat configuration)',

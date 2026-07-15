@@ -1,4 +1,4 @@
-export type BlockType = 'hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote' | 'terminal' | 'accordion' | 'bento';
+export type BlockType = 'hero' | 'premium-hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote' | 'terminal' | 'accordion' | 'bento';
 
 export interface BaseBlock {
   id: string;
@@ -15,6 +15,33 @@ export interface HeroBlock extends BaseBlock {
     avatarUrl?: string;
     localAvatarBase64?: string;
     bannerStyle: 'solid' | 'gradient' | 'image' | 'none';
+    nameColor?: string;
+    titleColor?: string;
+  };
+}
+
+export interface PremiumHeroBlock extends BaseBlock {
+  type: 'premium-hero';
+  data: {
+    name: string;
+    titles: string[];
+    sectionTitleColor?: string;
+    iconColor?: string;
+    accent3?: string;
+    style?: 'solid' | 'gradient';
+    avatarUrl?: string;
+    localAvatarBase64?: string;
+    location: string;
+    education: string;
+    currentFocus: string;
+    portfolioUrl: string;
+    email: string;
+    skills: string[];
+    socials: {
+      github?: string;
+      linkedin?: string;
+      twitter?: string;
+    };
   };
 }
 
@@ -310,6 +337,7 @@ export interface BentoBlock extends BaseBlock {
 
 export type Block =
   | HeroBlock
+  | PremiumHeroBlock
   | BannerBlock
   | TypingBlock
   | ActivityGraphBlock
