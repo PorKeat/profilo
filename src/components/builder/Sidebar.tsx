@@ -353,7 +353,7 @@ export function createDefaultBlock(type: BlockType): Block {
         data: { 
           name: 'Your Name', 
           titles: ['Frontend Engineer', 'Full Stack Developer'], 
-          location: 'San Francisco, CA', 
+          location: 'Cambodia', 
           education: 'Computer Science, B.S.', 
           currentFocus: 'Building cool things', 
           portfolioUrl: 'https://yourwebsite.com', 

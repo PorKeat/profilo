@@ -15,7 +15,7 @@ export const TEMPLATES: Template[] = [
         data: {
           name: 'Jane Doe',
           titles: ['Senior Frontend Engineer', 'UI/UX Enthusiast', 'Open Source Maintainer'],
-          location: 'San Francisco, CA',
+          location: 'Cambodia',
           education: 'Computer Science, B.S.',
           currentFocus: 'Building Next.js 15 apps',
           portfolioUrl: 'https://janedoe.com',

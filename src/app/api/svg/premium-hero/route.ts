@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     if (skillsParam) skills = skillsParam.split(',').map(s => s.trim());
   } catch (e) {}
 
-  const location = searchParams.get('location') || 'San Francisco, CA';
+  const location = searchParams.get('location') || 'Cambodia';
   const education = searchParams.get('education') || 'Computer Science, B.S.';
   const focus = searchParams.get('focus') || 'Building cool things';
   const portfolio = searchParams.get('portfolio') || 'https://yourwebsite.com';

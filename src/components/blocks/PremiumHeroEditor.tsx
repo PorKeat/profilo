@@ -191,7 +191,7 @@ export function PremiumHeroEditor({ block }: { block: PremiumHeroBlock }) {
         <Input 
           value={data.location} 
           onChange={(e) => handleChange('location', e.target.value)} 
-          placeholder="San Francisco, CA" 
+          placeholder="Cambodia" 
         />
       </div>
 
