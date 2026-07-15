@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { TypewriterText } from '@/components/ui/TypewriterText';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Shield, Layers, Code2, GitBranch, Sparkles, ChevronDown, Terminal } from 'lucide-react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
@@ -11,12 +12,13 @@ import { useRef } from 'react';
 
 // ─── Reusable animation variants ─────────────────────────────────────────────
 const fadeUp = {
-  hidden: { opacity: 0, y: 48 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
 };
+
 const fadeUpStagger = {
   hidden: {},
-  show:   { transition: { staggerChildren: 0.12 } },
+  show:   { transition: { staggerChildren: 0.15 } },
 };
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -70,11 +72,9 @@ export default function Home() {
             </motion.div>
 
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.07] text-foreground">
-              Best GitHub<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary/60">
-                Profile Builder
-              </span><br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/70">for your future.</span>
+              <TypewriterText text="Best GitHub" delay={0.1} /><br className="hidden sm:block" />
+              <TypewriterText text="Profile Builder" className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary/60" delay={0.3} /><br className="hidden sm:block" />
+              <TypewriterText text="for your future." className="text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/70" delay={0.5} />
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-foreground/80 dark:text-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl text-center">

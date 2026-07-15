@@ -7,14 +7,15 @@ import { Mail, Send, ArrowRight, Loader2, User, MessageSquare } from 'lucide-rea
 import { toast } from 'sonner';
 import { Github } from '@/components/icons/Github';
 import { MarketingPageShell } from '@/components/layout/MarketingPageShell';
+import { TypewriterText } from '@/components/ui/TypewriterText';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' as const } },
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
 };
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.15 } },
 };
 
 const channels = [
@@ -99,7 +100,7 @@ export default function ContactPage() {
           
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
             <span className="text-foreground">Get in </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">touch.</span>
+            <TypewriterText text="touch." className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400" delay={0.2} />
           </h1>
           
           <p className="text-lg text-foreground/80 max-w-lg mx-auto leading-relaxed">

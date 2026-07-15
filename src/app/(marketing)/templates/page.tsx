@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { MarketingPageShell } from "@/components/layout/MarketingPageShell";
+import { TypewriterText } from "@/components/ui/TypewriterText";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import type { TemplateCategory } from "@/types/templates";
@@ -36,7 +37,9 @@ export default function TemplatesPage() {
     <MarketingPageShell className="max-w-6xl">
       <motion.div variants={stagger} initial="hidden" animate="show" className="mx-auto mb-16 max-w-3xl space-y-5 text-center">
         <motion.span variants={fadeUp} className="block text-xs font-bold uppercase tracking-widest text-primary">Template gallery</motion.span>
-        <motion.h1 variants={fadeUp} className="text-4xl font-extrabold tracking-tight text-foreground md:text-6xl">Start with a premium template.</motion.h1>
+        <motion.h1 variants={fadeUp} className="text-4xl font-extrabold tracking-tight text-foreground md:text-6xl">
+          <TypewriterText text="Start with a premium template." delay={0.1} />
+        </motion.h1>
         <motion.p variants={fadeUp} className="mx-auto max-w-2xl text-lg leading-relaxed text-foreground/80 dark:text-foreground/80">
           Skip the blank page. Choose a starting point tailored to your role. You can customize every detail in the builder.
         </motion.p>

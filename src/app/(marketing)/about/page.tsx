@@ -24,6 +24,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { MagicCard } from '@/components/ui/MagicCard';
 import Link from 'next/link';
 import { MarketingPageShell } from '@/components/layout/MarketingPageShell';
+import { TypewriterText } from '@/components/ui/TypewriterText';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -33,35 +34,6 @@ const fadeUp = {
 const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.15 } },
-};
-
-const TypewriterText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
-  const words = text.split(" ");
-  return (
-    <motion.span
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: 0.15, delayChildren: delay } }
-      }}
-      className={`inline-flex flex-wrap ${className || ""}`}
-    >
-      {words.map((word, index) => (
-        <motion.span
-          key={index}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-          }}
-          className="inline-block mr-[0.25em]"
-        >
-          {word}
-        </motion.span>
-      ))}
-    </motion.span>
-  );
 };
 
 type TechLogo = {
@@ -170,7 +142,7 @@ export default function AboutPage() {
             variants={stagger}
             className="w-full relative py-8"
           >
-            <div className="flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-24 max-w-5xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-16 max-w-5xl mx-auto px-4">
               
               {/* Unique Image Shape */}
               <motion.div variants={fadeUp} className="relative shrink-0 group z-10 order-1 md:order-2">
@@ -200,12 +172,12 @@ export default function AboutPage() {
                 <div className="w-12 h-1 bg-gradient-to-r from-primary to-blue-500 rounded-full mb-6" />
                 
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tighter mb-6 text-foreground leading-[1.1]">
-                  Built by <br className="hidden md:block" />
+                  Built by{' '}
                   <TypewriterText text="Seng Porkeat." className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500" delay={0.4} />
                 </h2>
                 
                 <p className="text-foreground/70 leading-relaxed text-base md:text-lg mb-8">
-                  I'm a DevOps Engineer who got tired of manually writing Markdown to make my GitHub look good. <strong className="text-foreground font-semibold">Profilo</strong> is my solution to frictionless developer branding — no backends, no logins, just pure creative utility.
+                  I&apos;m a DevOps Engineer who got tired of manually writing Markdown to make my GitHub look good. <strong className="text-foreground font-semibold">Profilo</strong> is my solution to frictionless developer branding — no backends, no logins, just pure creative utility.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3">
@@ -276,7 +248,7 @@ export default function AboutPage() {
                     <h3 className="text-2xl font-bold text-foreground tracking-tight">No Auth / Database</h3>
                   </div>
                   <p className="text-foreground/70 leading-relaxed text-lg">
-                    Everything runs locally in your browser. Your data stays with you. We don't track your profiles or require you to sign in to export your code.
+                    Everything runs locally in your browser. Your data stays with you. We don&apos;t track your profiles or require you to sign in to export your code.
                   </p>
                 </div>
               </motion.div>
