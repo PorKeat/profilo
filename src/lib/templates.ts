@@ -168,25 +168,23 @@ export const TEMPLATES: Template[] = [
     blocks: [
       {
         id: uuidv4(),
-        type: 'banner',
-        data: {
-          bannerType: 'soft',
-          height: 120,
-          text: '',
-          desc: '',
-          color: '0:f8f9fa,100:e9ecef',
-          fontColor: '000000',
-          section: 'header',
-        }
-      },
-      {
-        id: uuidv4(),
         type: 'hero',
         data: {
           name: 'Alex Developer',
           title: 'Frontend Engineer',
           shortIntro: 'Less is more. Focusing on performance and beautiful typography.',
           bannerStyle: 'none'
+        }
+      },
+      {
+        id: uuidv4(),
+        type: 'typing',
+        data: {
+          lines: ['Simplicity is the ultimate sophistication.', 'Building performant web applications.', 'Design engineer at heart.'],
+          color: '6b7280',
+          size: 16,
+          center: true,
+          vCenter: true
         }
       },
       {
