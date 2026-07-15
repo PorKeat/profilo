@@ -185,7 +185,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="mt-auto w-full h-14 rounded-2xl bg-primary text-black font-extrabold text-base flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(75,134,247,0.3)] hover:shadow-[0_0_40px_rgba(75,134,247,0.5)] disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-100 overflow-hidden relative group/btn"
+                  className="mt-auto w-full h-14 rounded-2xl bg-primary text-white font-extrabold text-base flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_0_20px_rgba(75,134,247,0.3)] hover:shadow-[0_0_40px_rgba(75,134,247,0.5)] disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-100 overflow-hidden relative group/btn"
                 >
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
                   <span className="relative z-10 flex items-center gap-2">

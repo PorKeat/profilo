@@ -202,7 +202,7 @@ export function Navbar() {
               <Link href="/builder">
                 <Button
                   size="sm"
-                  className="bg-primary text-black hover:bg-primary/90 font-bold rounded-xl px-4 h-8 text-xs shadow-[0_0_16px_rgba(75,134,247,0.35)] hover:shadow-[0_0_24px_rgba(75,134,247,0.5)] transition-all duration-200"
+                  className="bg-primary text-white hover:bg-primary/90 font-bold rounded-xl px-4 h-8 text-xs shadow-[0_0_16px_rgba(75,134,247,0.35)] hover:shadow-[0_0_24px_rgba(75,134,247,0.5)] transition-all duration-200"
                 >
                   Start Building
                 </Button>
@@ -280,7 +280,7 @@ export function Navbar() {
                   <Github className="w-4 h-4" /> GitHub
                 </a>
                 <Link href="/builder" className="flex-1">
-                  <Button size="sm" className="w-full bg-primary text-black hover:bg-primary/90 font-bold rounded-xl h-9 text-xs">
+                  <Button size="sm" className="w-full bg-primary text-white hover:bg-primary/90 font-bold rounded-xl h-9 text-xs">
                     Start Building
                   </Button>
                 </Link>

@@ -58,7 +58,7 @@ export default function FaqAccordion() {
                 </AnimatePresence>
               </div>
 
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 ${isOpen ? 'bg-primary text-black shadow-[0_0_15px_rgba(75,134,247,0.5)] rotate-90' : 'bg-black/5 dark:bg-white/5 text-foreground group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-110'}`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 ${isOpen ? 'bg-primary text-white shadow-[0_0_15px_rgba(75,134,247,0.5)] rotate-90' : 'bg-black/5 dark:bg-white/5 text-foreground group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-110'}`}>
                 {isOpen ? <X className="w-5 h-5 text-black" /> : <Plus className="w-5 h-5" />}
               </div>
             </div>

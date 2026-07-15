@@ -83,7 +83,7 @@ export default function Home() {
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
               <Link href="/builder">
-                <Button className="bg-primary text-black hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.35)] transition-all duration-300 hover:shadow-[0_0_50px_rgba(75,134,247,0.55)] hover:scale-105">
+                <Button className="bg-primary text-white hover:bg-primary/90 font-bold px-8 h-12 rounded-full shadow-[0_0_30px_rgba(75,134,247,0.35)] transition-all duration-300 hover:shadow-[0_0_50px_rgba(75,134,247,0.55)] hover:scale-105">
                   Start Building <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -416,7 +416,7 @@ export default function Home() {
               </motion.p>
               <motion.div variants={fadeUp}>
                 <Link href="/builder">
-                  <Button className="bg-primary text-black hover:bg-primary/80 transition-all duration-300 font-bold px-12 h-14 text-base rounded-full shadow-[0_0_40px_rgba(75,134,247,0.35)] hover:shadow-[0_0_60px_rgba(75,134,247,0.55)] hover:scale-105">
+                  <Button className="bg-primary text-white hover:bg-primary/80 transition-all duration-300 font-bold px-12 h-14 text-base rounded-full shadow-[0_0_40px_rgba(75,134,247,0.35)] hover:shadow-[0_0_60px_rgba(75,134,247,0.55)] hover:scale-105">
                     Start Building Now <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>

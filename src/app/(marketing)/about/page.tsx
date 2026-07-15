@@ -337,7 +337,7 @@ export default function AboutPage() {
                   Ready To Build Your Perfect GitHub Profile?
                 </h2>
                 <Link href="/builder">
-                  <Button className="bg-primary text-black hover:bg-primary/80 transition-all duration-300 font-bold px-12 h-14 text-base rounded-full shadow-[0_0_40px_rgba(75,134,247,0.35)] hover:shadow-[0_0_60px_rgba(75,134,247,0.55)] hover:scale-105">
+                  <Button className="bg-primary text-white hover:bg-primary/80 transition-all duration-300 font-bold px-12 h-14 text-base rounded-full shadow-[0_0_40px_rgba(75,134,247,0.35)] hover:shadow-[0_0_60px_rgba(75,134,247,0.55)] hover:scale-105">
                     Get Started <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
