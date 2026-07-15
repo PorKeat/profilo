@@ -90,10 +90,12 @@ export default function TemplatesPage() {
             >
               <MagicCard className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-black/5 bg-white/40 p-4 shadow-xl backdrop-blur-2xl transition-all hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_30px_60px_rgba(75,134,247,0.15)] dark:border-white/10 dark:bg-black/40 dark:hover:shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
                 {/* Clean Floating Preview Window */}
-                <div className="relative z-10 flex h-60 justify-center overflow-hidden rounded-3xl border border-black/5 bg-black/5 p-0 shadow-inner dark:border-white/10 dark:bg-white/5">
-                  <div className="absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_top,rgba(75,134,247,0.1),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
-                  <div className="absolute top-0 w-[1000px] origin-top scale-[0.4] transform flex-col items-center opacity-80 transition-all duration-700 group-hover:scale-[0.42] group-hover:opacity-100 pointer-events-none">
-                    <div className="prose prose-sm dark:prose-invert w-full max-w-none pt-4">
+                <div className="relative z-10 h-60 overflow-hidden rounded-3xl border border-black/5 p-0 shadow-inner dark:border-white/10">
+                  <div className="absolute inset-0 z-20 bg-[radial-gradient(ellipse_at_top,rgba(75,134,247,0.15),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
+                  
+                  {/* Scaled Real Template Background */}
+                  <div className="absolute left-0 top-0 h-[250%] w-[250%] origin-top-left scale-[0.4] bg-white p-12 transition-all duration-700 group-hover:scale-[0.42] dark:bg-[#0d1117]">
+                    <div className="prose prose-sm dark:prose-invert pointer-events-none w-full max-w-none opacity-80 transition-opacity duration-500 group-hover:opacity-100">
                       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                         {markdownPreview}
                       </ReactMarkdown>
