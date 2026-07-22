@@ -43,6 +43,7 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
   const lineHeight = fs * 1.5;
   let textElements = '';
   let styles = '';
+  const fontStack = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace";
 
   lines.forEach((line, i) => {
     const y = 60 + i * lineHeight;
@@ -75,7 +76,7 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
     formattedLine = formattedLine.replace(/(['"].*?['"])/g, '<tspan fill="#a5d6ff">$1</tspan>');
 
     textElements += `
-      <text x="20" y="${y}" class="line-${i}" font-family="monospace" font-size="${fs}" fill="${color}">
+      <text x="20" y="${y}" class="line-${i}" font-family="${fontStack}" font-size="${fs}" fill="${color}">
         ${formattedLine}
       </text>
     `;
@@ -163,9 +164,10 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
   
   let styles = '';
   let textElements = '';
+  const fontStack = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace";
   
   lines.forEach((line, i) => {
-    const y = 40 + i * lineHeight;
+    const y = 55 + i * lineHeight;
     const begin = i * 0.5;
 
     styles += `
@@ -180,14 +182,14 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
     `;
 
     textElements += `
-      <text x="20" y="${y}" class="term-line-${i}" font-family="monospace" font-size="${fs}" fill="${color}">
-        > ${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+      <text x="20" y="${y}" class="term-line-${i}" font-family="${fontStack}" font-size="${fs}" fill="${color}">
+        <tspan fill="#ff7b72">~</tspan> <tspan fill="#79c0ff">❯</tspan> ${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
       </text>
     `;
   });
 
   const scrollDur = Math.max((lines.length * 0.5), 10);
-  const maxTranslate = Math.max(0, totalHeight - h + 60);
+  const maxTranslate = Math.max(0, totalHeight - h + 70);
 
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
@@ -201,9 +203,17 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
           80%, 100% { transform: translateY(-${maxTranslate}px); }
         }
       </style>
-      <rect width="100%" height="100%" fill="${bg}" rx="8" />
-      <rect width="100%" height="24" fill="#30363d" rx="8" />
-      <text x="10" y="16" font-family="monospace" font-size="12" fill="#8b949e">bash</text>
+      <rect width="100%" height="100%" fill="${bg}" rx="12" stroke="#30363d" stroke-width="1" />
+      
+      <!-- Terminal Header -->
+      <rect width="100%" height="32" fill="#161b22" rx="12" />
+      <!-- Square bottom corners for header so it merges into terminal body smoothly -->
+      <rect width="100%" height="12" y="20" fill="#161b22" /> 
+      
+      <circle cx="20" cy="16" r="6" fill="#ff5f56" />
+      <circle cx="40" cy="16" r="6" fill="#ffbd2e" />
+      <circle cx="60" cy="16" r="6" fill="#27c93f" />
+      <text x="50%" y="20" text-anchor="middle" font-family="${fontStack}" font-size="12" fill="#8b949e">user@macbook:~</text>
       
       <g class="${maxTranslate > 0 ? 'terminal-scroll' : ''}">
         ${textElements}
