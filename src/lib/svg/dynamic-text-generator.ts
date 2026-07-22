@@ -1,7 +1,7 @@
 import { getFontStack } from '../constants/fonts';
 
 export interface DynamicTextSvgProps {
-  style: 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch';
+  style: 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch' | 'neon' | 'arcade' | 'matrix';
   text: string;
   color: string;
   background?: string;
@@ -40,6 +40,12 @@ export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
       return generateVerticalScroll(lines, cleanColor, cleanBg, width, height, fontSize, direction, fontFamily);
     case 'glitch':
       return generateGlitch(lines.join(' • '), cleanColor, cleanBg, width, 120, fontSize + 8, fontFamily);
+    case 'neon':
+      return generateNeon(lines.join(' '), cleanColor, cleanBg, width, 120, fontSize + 8, fontFamily);
+    case 'arcade':
+      return generateArcade(lines.join(' '), cleanColor, cleanBg, width, 120, fontSize + 4, fontFamily);
+    case 'matrix':
+      return generateMatrix(lines, cleanColor, cleanBg, width, height, fontSize, fontFamily);
     default:
       return generateMarquee('Invalid Style', '#ff0000', cleanBg, width, 60, fontSize, 'normal', fontFamily);
   }
@@ -275,4 +281,135 @@ function generateGlitch(text: string, color: string, bg: string, w: number, h: n
       <text x="50%" y="${h / 2 + fs / 3}" class="glitch layer3">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</text>
     </svg>
   `.trim();
+}
+
+export function generateNeon(text: string, color: string, bg: string, w: number, h: number, fs: number, fontId?: string): string {
+  const fontStack = getFontStack(fontId, "system-ui, -apple-system, sans-serif");
+  
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <defs>
+        <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur1" />
+          <feGaussianBlur stdDeviation="8" result="blur2" />
+          <feGaussianBlur stdDeviation="15" result="blur3" />
+          <feMerge>
+            <feMergeNode in="blur3" />
+            <feMergeNode in="blur2" />
+            <feMergeNode in="blur1" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <style>
+        .neon-text {
+          font-family: ${fontStack};
+          font-size: ${fs}px;
+          font-weight: 800;
+          fill: #ffffff;
+          filter: url(#neonGlow);
+          text-anchor: middle;
+          dominant-baseline: middle;
+          animation: flicker 4s infinite alternate;
+        }
+        @keyframes flicker {
+          0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+          20%, 24%, 55% { opacity: 0.5; }
+        }
+      </style>
+      <rect width="100%" height="100%" fill="${bg}" rx="12" />
+      <text x="50%" y="50%" class="neon-text" style="color: ${color}; text-shadow: 0 0 10px ${color}, 0 0 20px ${color}, 0 0 40px ${color};">${text}</text>
+    </svg>
+  `;
+}
+
+export function generateArcade(text: string, color: string, bg: string, w: number, h: number, fs: number, fontId?: string): string {
+  const fontStack = getFontStack(fontId, "'Courier New', Courier, monospace");
+  
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <style>
+        .arcade-text {
+          font-family: ${fontStack};
+          font-size: ${fs}px;
+          font-weight: 900;
+          fill: ${color};
+          text-anchor: middle;
+          dominant-baseline: middle;
+          letter-spacing: 2px;
+          animation: blink 1s step-end infinite;
+          text-transform: uppercase;
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+      </style>
+      <rect width="100%" height="100%" fill="${bg}" rx="12" />
+      <text x="50%" y="50%" class="arcade-text">${text}</text>
+      <!-- Subtle pixel grid overlay -->
+      <path d="M0,0 L${w},0 L${w},${h} L0,${h} Z" fill="url(#grid)" opacity="0.05" />
+      <defs>
+        <pattern id="grid" width="4" height="4" patternUnits="userSpaceOnUse">
+          <rect width="4" height="4" fill="none" stroke="#ffffff" stroke-width="0.5" />
+        </pattern>
+      </defs>
+    </svg>
+  `;
+}
+
+export function generateMatrix(lines: string[], color: string, bg: string, w: number, h: number, fs: number, fontId?: string): string {
+  const fontStack = getFontStack(fontId, "monospace");
+  let styles = '';
+  let columns = '';
+  const colCount = Math.floor(w / (fs * 0.8));
+  
+  for(let i = 0; i < colCount; i++) {
+    const x = i * (fs * 0.8);
+    const delay = Math.random() * 5;
+    const dur = 3 + Math.random() * 5;
+    
+    // Pick a random snippet from lines, or random chars
+    const lineSrc = lines[i % lines.length] || '010101';
+    let colText = '';
+    for(let j=0; j<Math.floor(h/fs); j++) {
+      colText += `<tspan x="${x}" dy="${fs}">${lineSrc[Math.floor(Math.random() * lineSrc.length)] || String.fromCharCode(33 + Math.floor(Math.random() * 90))}</tspan>`;
+    }
+    
+    styles += `
+      .matrix-col-${i} {
+        animation: fall-${i} ${dur}s linear ${delay}s infinite;
+        opacity: 0;
+      }
+      @keyframes fall-${i} {
+        0% { transform: translateY(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(100%); opacity: 0; }
+      }
+    `;
+    
+    columns += `<text class="matrix-col-${i}" font-family="${fontStack}" font-size="${fs}" fill="${color}" style="white-space: pre;">${colText}</text>`;
+  }
+
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <style>
+        ${styles}
+        .matrix-overlay { mix-blend-mode: multiply; }
+      </style>
+      <rect width="100%" height="100%" fill="${bg}" rx="12" />
+      <g opacity="0.8">
+        ${columns}
+      </g>
+      <rect width="100%" height="100%" fill="url(#fade)" class="matrix-overlay" rx="12" />
+      <defs>
+        <linearGradient id="fade" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="${bg}" stop-opacity="1" />
+          <stop offset="50%" stop-color="${bg}" stop-opacity="0" />
+          <stop offset="100%" stop-color="${bg}" stop-opacity="0.8" />
+        </linearGradient>
+      </defs>
+    </svg>
+  `;
 }

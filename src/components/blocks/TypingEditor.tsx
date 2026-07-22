@@ -9,17 +9,20 @@ import { ColorPicker } from '@/components/ui/color-picker';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap, Type } from 'lucide-react';
+import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap, Type, Lightbulb, Gamepad2, Binary, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FONT_OPTIONS } from '@/lib/constants/fonts';
 
 const ANIMATION_STYLES = [
-  { id: 'typewriter', name: 'Typewriter', icon: AlignLeft, desc: 'Classic typing' },
-  { id: 'code-editor', name: 'Code Editor', icon: Code, desc: 'Mac IDE window' },
-  { id: 'terminal-scroll', name: 'Terminal', icon: Terminal, desc: 'Hacker scroller' },
-  { id: 'marquee', name: 'Marquee', icon: MoveRight, desc: 'Infinite ticker' },
-  { id: 'vertical-scroll', name: 'Vertical', icon: ArrowDownToLine, desc: 'Smooth scroll' },
-  { id: 'glitch', name: 'Glitch', icon: Zap, desc: 'Cyberpunk effect' },
+  { id: 'typewriter', name: 'Classic Typewriter', icon: AlignLeft, desc: 'Simple typing animation' },
+  { id: 'code-editor', name: 'Mac IDE Window', icon: Code, desc: 'Faux code editor window' },
+  { id: 'terminal-scroll', name: 'Hacker Scroller', icon: Terminal, desc: 'Fast scrolling terminal output' },
+  { id: 'marquee', name: 'Marquee', icon: MoveRight, desc: 'Smooth horizontal scrolling banner' },
+  { id: 'vertical-scroll', name: 'Vertical', icon: ArrowDownToLine, desc: 'Scrolling up column text' },
+  { id: 'glitch', name: 'Glitch', icon: Zap, desc: 'Cyberpunk style glitching text' },
+  { id: 'neon', name: 'Neon Glow', icon: Lightbulb, desc: 'Bright glowing neon sign' },
+  { id: 'arcade', name: '8-Bit Arcade', icon: Gamepad2, desc: 'Retro pixel text style' },
+  { id: 'matrix', name: 'Matrix Rain', icon: Binary, desc: 'Digital rain code cascade' }
 ] as const;
 
 export function TypingEditor({ block }: { block: TypingBlock }) {
@@ -122,10 +125,12 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
             <SelectValue placeholder="Select a beautiful font..." />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">
+            {/* @ts-ignore */}
             <SelectItem value="default" label="Default System Font" textValue="Default System Font" className="py-3">
               <span className="font-semibold text-foreground/80">Default System Font</span>
             </SelectItem>
             {FONT_OPTIONS.map((font) => (
+              /* @ts-ignore */
               <SelectItem key={font.id} value={font.id} label={font.label} textValue={font.label} className="py-3 cursor-pointer">
                 <div className="flex flex-col gap-1">
                   <span className="font-medium text-xs text-muted-foreground uppercase tracking-wider">{font.label}</span>

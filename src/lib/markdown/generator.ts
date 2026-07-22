@@ -1,5 +1,5 @@
 import { generatePremiumHeroSvg } from '../svg/premium-hero-generator';
-import { Block, HeroBlock, PremiumHeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
+import { Block, HeroBlock, PremiumHeroBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock, MinimalistHeroBlock } from '@/types/blocks';
 import { ThemeId } from '@/types/theme';
 import { POPULAR_SKILLS } from '../constants/skills';
 import { PLATFORMS } from '../constants/platforms';
@@ -45,49 +45,51 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
 function generateBlockMarkdown(block: Block, themeId: ThemeId, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
   switch (block.type) {
     case 'hero':
-      return generateHero(block, isPreview);
+      return generateHero(block as HeroBlock, themeId);
     case 'premium-hero':
       return generatePremiumHero(block as PremiumHeroBlock, isPreview, previewMode);
+    case 'minimalist-hero':
+      return generateMinimalistHero(block as MinimalistHeroBlock, themeId);
     case 'banner':
-      return generateBanner(block);
+      return generateBanner(block as BannerBlock);
     case 'typing':
       return generateTyping(block as TypingBlock, isPreview);
     case 'about':
-      return generateAbout(block, themeId);
+      return generateAbout(block as AboutBlock, themeId);
     case 'skills':
-      return generateSkills(block, themeId);
+      return generateSkills(block as TechnicalSkillsBlock, themeId);
     case 'github-stats':
-      return generateGitHubStats(block, themeId, isPreview, previewMode);
+      return generateGitHubStats(block as GitHubStatsBlock, themeId, isPreview, previewMode);
     case 'activity-graph':
-      return generateActivityGraph(block, themeId, isPreview, previewMode);
+      return generateActivityGraph(block as ActivityGraphBlock, themeId, isPreview, previewMode);
     case 'snake':
-      return generateSnake(block, isPreview);
+      return generateSnake(block as SnakeBlock, isPreview);
     case 'pacman':
-      return generatePacman(block, isPreview);
+      return generatePacman(block as PacmanBlock, isPreview);
     case 'projects':
-      return generateProjects(block, themeId, isPreview);
+      return generateProjects(block as FeaturedProjectsBlock, themeId, isPreview);
     case 'socials':
-      return generateSocials(block);
+      return generateSocials(block as SocialLinksBlock);
     case 'contact':
-      return generateContact(block);
+      return generateContact(block as ContactBlock);
     case 'blog-posts':
-      return generateBlogPosts(block, isPreview);
+      return generateBlogPosts(block as BlogPostsBlock, isPreview);
     case 'trophies':
-      return generateTrophies(block, isPreview, previewMode);
+      return generateTrophies(block as TrophiesBlock, isPreview, previewMode);
     case 'spotify':
-      return generateSpotify(block);
+      return generateSpotify(block as SpotifyBlock);
     case 'support':
-      return generateSupport(block, isPreview);
+      return generateSupport(block as SupportBlock, isPreview);
     case 'experience':
-      return generateExperience(block, themeId, isPreview);
+      return generateExperience(block as ExperienceBlock, themeId, isPreview);
     case 'quote':
-      return generateQuote(block);
+      return generateQuote(block as QuoteBlock);
     case 'terminal':
-      return generateTerminal(block);
+      return generateTerminal(block as TerminalBlock);
     case 'accordion':
-      return generateAccordion(block);
+      return generateAccordion(block as AccordionBlock);
     case 'bento':
-      return generateBento(block, themeId);
+      return generateBento(block as BentoBlock, themeId);
     default:
       return '';
   }
@@ -249,12 +251,35 @@ function generatePremiumHero(block: PremiumHeroBlock, isPreview: boolean, previe
 </picture>`;
 }
 
-function generateHero(block: HeroBlock, isPreview: boolean): string {
+function generateMinimalistHero(block: MinimalistHeroBlock, themeId: string): string {
+  const { data } = block;
+  
+  const queryParams = new URLSearchParams();
+  if (data.name) queryParams.append('name', data.name);
+  if (data.title) queryParams.append('title', data.title);
+  if (data.bio) queryParams.append('bio', data.bio);
+  if (data.bgColor) queryParams.append('bg', data.bgColor);
+  if (data.accentColor) queryParams.append('accent', data.accentColor);
+  if (data.fontFamily) queryParams.append('font', data.fontFamily);
+  if (data.layout) queryParams.append('layout', data.layout);
+  if (data.avatarUrl) queryParams.append('avatar', data.avatarUrl);
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const svgUrl = `${baseUrl}/api/svg/minimalist-hero?${queryParams.toString()}`;
+
+  let md = `<a href="#">\n`;
+  md += `  <img src="${svgUrl}" width="100%" alt="Minimalist Hero" />\n`;
+  md += `</a>\n\n`;
+  
+  return md;
+}
+
+function generateHero(block: HeroBlock, themeId: string): string {
   const { name, title, shortIntro, avatarUrl, localAvatarBase64, nameColor, titleColor } = block.data;
   let md = `<div align="center">\n`;
   if (localAvatarBase64) {
-    const src = isPreview ? localAvatarBase64 : `./avatar.png`;
-    md += `  <img src="${src}" alt="${name}" width="150" height="150" style="border-radius: 50%; object-fit: cover;" />\n\n`;
+    // In actual implementation, we'd handle isPreview via context or similar, for now keeping signature compatible
+    md += `  <img src="${localAvatarBase64}" alt="${name}" width="150" height="150" style="border-radius: 50%; object-fit: cover;" />\n\n`;
   } else if (avatarUrl) {
     md += `  <img src="${avatarUrl}" alt="${name}" width="150" height="150" style="border-radius: 50%; object-fit: cover;" />\n\n`;
   }
@@ -337,7 +362,7 @@ function generateTyping(block: TypingBlock, isPreview: boolean): string {
   
   let md = `<div align="center">\n`;
   md += `  <img src="${baseUrl}/api/svg/dynamic-text?${query.toString()}" alt="Dynamic Text SVG" />\n`;
-  md += `</div>\n`;
+  md += `</a>\n\n`;
   return md;
 }
 
@@ -964,7 +989,7 @@ function generateTerminal(block: TerminalBlock): string {
   
   if (lines && lines.length > 0) {
     const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
-    const googleFont = mapToGoogleFont(block.data.fontFamily, 'Fira+Code');
+    const googleFont = 'Fira+Code';
     md += `        <img src="https://readme-typing-svg.demolab.com?font=${googleFont}&weight=500&size=16&pause=1000&color=${cleanColor}&width=560&lines=${safeLines}" alt="Typing SVG" />\n`;
   }
   

@@ -5,7 +5,7 @@ import { addBlock, removeBlock, reorderBlocks } from '@/store/builderSlice';
 import { BlockType, Block } from '@/types/blocks';
 import { v4 as uuidv4 } from 'uuid';
 import { buttonVariants } from '@/components/ui/button';
-import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, Image, Type, Activity, PlaySquare, Gamepad2, ChevronLeft, Sun, Moon, FileText, Trash2, Rss, Trophy, Music, Coffee, Briefcase, Quote, GripVertical } from 'lucide-react';
+import { User, Info, Code2, FolderGit2, Share2, Mail, LayoutTemplate, Image, Type, Activity, PlaySquare, Gamepad2, ChevronLeft, Sun, Moon, FileText, Trash2, Rss, Trophy, Music, Coffee, Briefcase, Quote, GripVertical, Sparkles } from 'lucide-react';
 import { Github } from "@/components/icons/Github";
 import { useAppSelector } from '@/store/hooks';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
@@ -138,11 +138,19 @@ export function Sidebar() {
 
   const blockCategories = [
     {
+      id: 'headers',
+      label: 'Headers',
+      blocks: [
+        { type: 'hero', label: 'Classic Hero', icon: User },
+        { type: 'premium-hero', label: 'Premium Hero', icon: Sparkles },
+        { type: 'minimalist-hero', label: 'Minimalist Hero', icon: LayoutTemplate },
+        { type: 'banner', label: '3D Banner', icon: Image },
+      ]
+    },
+    {
       id: 'general',
       label: 'Profile',
       blocks: [
-        { type: 'hero', label: 'Hero', icon: User },
-        { type: 'premium-hero', label: 'Premium SVG Hero', icon: User },
         { type: 'about', label: 'About Me', icon: Info },
         { type: 'contact', label: 'Contact', icon: Mail },
       ]
@@ -362,6 +370,19 @@ export function createDefaultBlock(type: BlockType): Block {
           socials: { github: 'yourusername', linkedin: 'in/yourusername', twitter: 'yourusername' } 
         } 
       };
+    case 'minimalist-hero':
+      return {
+        id,
+        type,
+        data: {
+          name: 'Your Name',
+          title: 'Developer',
+          bio: 'Simplicity is the ultimate sophistication.',
+          bgColor: '#000000',
+          accentColor: '#ffffff',
+          layout: 'left'
+        }
+      } as Block;
     case 'banner':
       return { id, type, data: { bannerType: 'waving', height: 250, text: 'Hello World', desc: 'Welcome to my profile', color: '0:0f172a,50:1e3a8a,100:4b86f7', fontColor: 'ffffff', section: 'header' } };
     case 'typing':

@@ -16,7 +16,8 @@ import { SnakeEditor } from '../blocks/SnakeEditor';
 import { TerminalEditor } from '../blocks/TerminalEditor';
 import { AccordionEditor } from '../blocks/AccordionEditor';
 import { BentoEditor } from '../blocks/BentoEditor';
-import { Block, HeroBlock, PremiumHeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock } from '@/types/blocks';
+import { MinimalistHeroEditor } from '../blocks/MinimalistHeroEditor';
+import { Block, HeroBlock, PremiumHeroBlock, AboutBlock, TechnicalSkillsBlock, GitHubStatsBlock, FeaturedProjectsBlock, SocialLinksBlock, ContactBlock, BannerBlock, TypingBlock, ActivityGraphBlock, SnakeBlock, PacmanBlock, BlogPostsBlock, TrophiesBlock, SpotifyBlock, SupportBlock, ExperienceBlock, QuoteBlock, TerminalBlock, AccordionBlock, BentoBlock, MinimalistHeroBlock } from '@/types/blocks';
 import { PacmanEditor } from '../blocks/PacmanEditor';
 import { BlogPostsEditor } from '../blocks/BlogPostsEditor';
 import { TrophiesEditor } from '../blocks/TrophiesEditor';
@@ -35,6 +36,8 @@ export function BlockEditor({ block }: BlockEditorProps) {
       return <HeroEditor block={block as HeroBlock} />;
     case 'premium-hero':
       return <PremiumHeroEditor block={block as PremiumHeroBlock} />;
+    case 'minimalist-hero':
+      return <MinimalistHeroEditor block={block as MinimalistHeroBlock} />;
     case 'about':
       return <AboutEditor block={block as AboutBlock} />;
     case 'skills':

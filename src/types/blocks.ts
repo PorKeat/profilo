@@ -1,4 +1,4 @@
-export type BlockType = 'hero' | 'premium-hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote' | 'terminal' | 'accordion' | 'bento';
+export type BlockType = 'hero' | 'premium-hero' | 'minimalist-hero' | 'about' | 'skills' | 'github-stats' | 'projects' | 'socials' | 'contact' | 'banner' | 'typing' | 'activity-graph' | 'snake' | 'pacman' | 'blog-posts' | 'trophies' | 'spotify' | 'support' | 'experience' | 'quote' | 'terminal' | 'accordion' | 'bento';
 
 export interface BaseBlock {
   id: string;
@@ -47,6 +47,21 @@ export interface PremiumHeroBlock extends BaseBlock {
   };
 }
 
+export interface MinimalistHeroBlock extends BaseBlock {
+  type: 'minimalist-hero';
+  data: {
+    fontFamily?: string;
+    name: string;
+    title: string;
+    bio: string;
+    avatarUrl?: string;
+    localAvatarBase64?: string;
+    accentColor?: string;
+    bgColor?: string;
+    layout: 'left' | 'right';
+  };
+}
+
 export interface BannerBlock extends BaseBlock {
   type: 'banner';
   data: {
@@ -63,7 +78,7 @@ export interface BannerBlock extends BaseBlock {
 export interface TypingBlock extends BaseBlock {
   type: 'typing';
   data: {
-    style?: 'typewriter' | 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch';
+    style?: 'typewriter' | 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch' | 'neon' | 'arcade' | 'matrix';
     direction?: 'normal' | 'reverse';
     fontFamily?: string;
     text?: string;
@@ -287,6 +302,9 @@ export interface ExperienceBlock extends BaseBlock {
     sectionTitleColor?: string;
     iconColor?: string;
     jobs: Experience[];
+  };
+}
+
 export interface QuoteBlock extends BaseBlock {
   type: 'quote';
   data: {
@@ -342,6 +360,7 @@ export interface BentoBlock extends BaseBlock {
 export type Block =
   | HeroBlock
   | PremiumHeroBlock
+  | MinimalistHeroBlock
   | BannerBlock
   | TypingBlock
   | ActivityGraphBlock
