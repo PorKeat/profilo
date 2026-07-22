@@ -46,7 +46,7 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
   const fontStack = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace";
 
   lines.forEach((line, i) => {
-    const y = 60 + i * lineHeight;
+    const y = 70 + i * lineHeight;
     const begin = i * 1.5;
     const dur = 1.5;
     
@@ -167,7 +167,7 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
   const fontStack = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace";
   
   lines.forEach((line, i) => {
-    const y = 55 + i * lineHeight;
+    const y = 70 + i * lineHeight;
     const begin = i * 0.5;
 
     styles += `
