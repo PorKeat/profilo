@@ -8,13 +8,17 @@ import { Label } from '@/components/ui/label';
 import { ColorPicker } from '@/components/ui/color-picker';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+const ANIMATION_STYLES = [
+  { id: 'typewriter', name: 'Typewriter', icon: AlignLeft, desc: 'Classic typing' },
+  { id: 'code-editor', name: 'Code Editor', icon: Code, desc: 'Mac IDE window' },
+  { id: 'terminal-scroll', name: 'Terminal', icon: Terminal, desc: 'Hacker scroller' },
+  { id: 'marquee', name: 'Marquee', icon: MoveRight, desc: 'Infinite ticker' },
+  { id: 'vertical-scroll', name: 'Vertical', icon: ArrowDownToLine, desc: 'Smooth scroll' },
+  { id: 'glitch', name: 'Glitch', icon: Zap, desc: 'Cyberpunk effect' },
+] as const;
 
 export function TypingEditor({ block }: { block: TypingBlock }) {
   const dispatch = useAppDispatch();
@@ -36,22 +40,28 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
     <div className="space-y-4 text-left">
       <div className="space-y-2">
         <Label>Animation Style</Label>
-        <Select 
-          value={data.style || 'typewriter'} 
-          onValueChange={(val) => handleChange('style', val)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select an animation style" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="typewriter">Classic Typewriter (Single lines)</SelectItem>
-            <SelectItem value="code-editor">Mac IDE Code Editor</SelectItem>
-            <SelectItem value="terminal-scroll">Hacker Terminal Scroller</SelectItem>
-            <SelectItem value="marquee">Infinite Marquee Ticker</SelectItem>
-            <SelectItem value="vertical-scroll">Vertical Scroller</SelectItem>
-            <SelectItem value="glitch">Cyberpunk Glitch Loop</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+          {ANIMATION_STYLES.map((s) => {
+            const Icon = s.icon;
+            const isSelected = (data.style || 'typewriter') === s.id;
+            return (
+              <div 
+                key={s.id}
+                onClick={() => handleChange('style', s.id)}
+                className={cn(
+                  "cursor-pointer flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all",
+                  isSelected 
+                    ? "border-primary bg-primary/5 shadow-sm" 
+                    : "border-border/40 bg-muted/30 hover:bg-muted/80"
+                )}
+              >
+                <Icon className={cn("h-6 w-6 mb-2 transition-colors", isSelected ? "text-primary" : "text-muted-foreground/70")} />
+                <span className={cn("text-xs font-semibold transition-colors", isSelected ? "text-foreground" : "text-muted-foreground")}>{s.name}</span>
+                <span className="text-[10px] text-muted-foreground/70 text-center mt-1">{s.desc}</span>
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       <div className="space-y-2">
