@@ -65,7 +65,10 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
       </div>
 
       <div className="space-y-2">
-        <Label>{(!data.style || data.style === 'typewriter') ? 'Typing Lines (One per line)' : 'Content to Animate'}</Label>
+        <Label className="flex items-center gap-2">
+          {(!data.style || data.style === 'typewriter') ? 'Typing Lines' : 'Content to Animate'}
+          <span className="text-[10px] font-normal text-muted-foreground">(Press Enter for new lines)</span>
+        </Label>
         <Textarea 
           value={currentText} 
           onChange={(e) => handleLinesChange(e.target.value)} 
