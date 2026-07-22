@@ -52,11 +52,11 @@ export function HeroEditor({ block }: { block: HeroBlock }) {
             <SelectValue placeholder="Select a beautiful font..." />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">
-            <SelectItem value="default" className="py-3">
+            <SelectItem value="default" label="Default System Font" textValue="Default System Font" className="py-3">
               <span className="font-semibold text-foreground/80">Default System Font</span>
             </SelectItem>
             {FONT_OPTIONS.map((font) => (
-              <SelectItem key={font.id} value={font.id} className="py-3 cursor-pointer">
+              <SelectItem key={font.id} value={font.id} label={font.label} textValue={font.label} className="py-3 cursor-pointer">
                 <div className="flex flex-col gap-1">
                   <span className="font-medium text-xs text-muted-foreground uppercase tracking-wider">{font.label}</span>
                   <span className="text-lg text-foreground" style={{ fontFamily: font.stack }}>
