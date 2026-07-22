@@ -72,7 +72,7 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
         <Textarea 
           value={currentText} 
           onChange={(e) => handleLinesChange(e.target.value)} 
-          placeholder="import React from 'react';\\n\\nfunction HelloWorld() {\\n  return <div>Hello</div>;\\n}" 
+          placeholder={data.style === 'code-editor' ? "import React from 'react';\\n\\nfunction HelloWorld() {\\n  return <div>Hello</div>;\\n}" : "Automating the Future\\nBuilding Scalable Infrastructure\\nTurning Coffee into Code"} 
           rows={6}
           className="font-mono text-xs"
         />
