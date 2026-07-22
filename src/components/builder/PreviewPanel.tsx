@@ -260,7 +260,8 @@ To set them up:
         finalSrc = srcStr.includes('?') ? `${srcStr}&_t=${themeId}` : `${srcStr}?_t=${themeId}`;
       }
       
-      // eslint-disable-next-line @next/next/no-img-element
+       
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       return <img src={finalSrc} alt={alt ?? ''} style={{ maxWidth: '100%', display: 'inline-block' }} />;
     },
     h1: ({ children }) => (

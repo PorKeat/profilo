@@ -16,7 +16,7 @@ export function PremiumHeroEditor({ block }: { block: PremiumHeroBlock }) {
   const dispatch = useAppDispatch();
   const { data } = block;
 
-  const handleChange = (field: string, value: string | string[]) => {
+  const handleChange = (field: string, value: string | string[] | undefined) => {
     dispatch(updateBlock({ id: block.id, data: { [field]: value } }));
   };
 
@@ -124,18 +124,18 @@ export function PremiumHeroEditor({ block }: { block: PremiumHeroBlock }) {
         </Label>
         <Select
           value={data.fontFamily || 'default'}
-          onValueChange={(val) => handleChange('fontFamily', (val === 'default' ? undefined : val) as any)}
+          onValueChange={(val) => handleChange('fontFamily', val === 'default' ? undefined : (val as string | undefined))}
         >
           <SelectTrigger className="h-12 bg-muted/30 border-primary/20 hover:border-primary/40 transition-colors">
             <SelectValue placeholder="Select a beautiful font..." />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">
-            {/* @ts-ignore */}
+            {/* @ts-expect-error - BaseUI needs this */}
             <SelectItem value="default" label="Default System Font" textValue="Default System Font" className="py-3">
               <span className="font-semibold text-foreground/80">Default System Font</span>
             </SelectItem>
             {FONT_OPTIONS.map((font) => (
-              /* @ts-ignore */
+              /* @ts-expect-error - BaseUI needs this */
               <SelectItem key={font.id} value={font.id} label={font.label} textValue={font.label} className="py-3 cursor-pointer">
                 <div className="flex flex-col gap-1">
                   <span className="font-medium text-xs text-muted-foreground uppercase tracking-wider">{font.label}</span>

@@ -92,6 +92,7 @@ export function SupportEditor({ block }: { block: SupportBlock }) {
             
             {data.qrCodeBase64 ? (
               <div className="relative inline-block border rounded-lg p-2 bg-muted/30">
+                { }
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={data.qrCodeBase64} alt="QR Code Preview" className="h-32 object-contain rounded border" />
                 <Button 

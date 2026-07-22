@@ -45,11 +45,11 @@ export function generateMarkdown(blocks: Block[], themeId: ThemeId, isPreview: b
 function generateBlockMarkdown(block: Block, themeId: ThemeId, isPreview: boolean, previewMode?: 'dark' | 'light'): string {
   switch (block.type) {
     case 'hero':
-      return generateHero(block as HeroBlock, themeId);
+      return generateHero(block as HeroBlock);
     case 'premium-hero':
       return generatePremiumHero(block as PremiumHeroBlock, isPreview, previewMode);
     case 'minimalist-hero':
-      return generateMinimalistHero(block as MinimalistHeroBlock, themeId);
+      return generateMinimalistHero(block as MinimalistHeroBlock);
     case 'banner':
       return generateBanner(block as BannerBlock);
     case 'typing':
@@ -251,7 +251,7 @@ function generatePremiumHero(block: PremiumHeroBlock, isPreview: boolean, previe
 </picture>`;
 }
 
-function generateMinimalistHero(block: MinimalistHeroBlock, themeId: string): string {
+function generateMinimalistHero(block: MinimalistHeroBlock): string {
   const { data } = block;
   
   const queryParams = new URLSearchParams();
@@ -274,7 +274,7 @@ function generateMinimalistHero(block: MinimalistHeroBlock, themeId: string): st
   return md;
 }
 
-function generateHero(block: HeroBlock, themeId: string): string {
+function generateHero(block: HeroBlock): string {
   const { name, title, shortIntro, avatarUrl, localAvatarBase64, nameColor, titleColor } = block.data;
   let md = `<div align="center">\n`;
   if (localAvatarBase64) {

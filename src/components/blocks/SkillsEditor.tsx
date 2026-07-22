@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 'use client';
 
 import { TechnicalSkillsBlock } from '@/types/blocks';
@@ -139,6 +139,7 @@ export function SkillsEditor({ block }: { block: TechnicalSkillsBlock }) {
                                 isSelected ? "opacity-100" : "opacity-0"
                               )}
                             />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img 
                               src={`https://cdn.simpleicons.org/${skill.icon}`} 
                               alt={skill.name} 
@@ -165,11 +166,14 @@ export function SkillsEditor({ block }: { block: TechnicalSkillsBlock }) {
                   return (
                     <div key={skillName} className="flex items-center gap-2 bg-secondary text-secondary-foreground px-3 py-1.5 rounded-md text-sm border">
                       {skillDef && (
-                        <img 
-                          src={`https://cdn.simpleicons.org/${skillDef.icon}`} 
-                          alt={skillName} 
-                          className="w-3.5 h-3.5 dark:invert"
-                        />
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img 
+                            src={`https://cdn.simpleicons.org/${skillDef.icon}`} 
+                            alt={skillName} 
+                            className="w-3.5 h-3.5 dark:invert"
+                          />
+                        </>
                       )}
                       <span>{skillName}</span>
                       <button 

@@ -101,6 +101,7 @@ export function ExperienceEditor({ block }: { block: ExperienceBlock }) {
                 <Label>Company Logo / Icon</Label>
                 {job.companyLogoBase64 ? (
                   <div className="relative inline-block border rounded-lg p-2 bg-background">
+                    { }
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={job.companyLogoBase64} alt="Logo Preview" className="h-16 object-contain rounded" />
                     <Button 

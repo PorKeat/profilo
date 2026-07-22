@@ -218,6 +218,7 @@ export function Sidebar() {
       <div className="p-4 border-b flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-1 group">
+            { }
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Profilo Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform" />
             <span className="font-extrabold text-sm tracking-tight text-foreground group-hover:text-primary transition-colors duration-200">

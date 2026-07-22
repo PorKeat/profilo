@@ -46,18 +46,18 @@ export function HeroEditor({ block }: { block: HeroBlock }) {
         </Label>
         <Select
           value={data.fontFamily || 'default'}
-          onValueChange={(val) => handleChange('fontFamily', (val === 'default' ? undefined : val) as any)}
+          onValueChange={(val) => handleChange('fontFamily', val === 'default' ? undefined : (val as string | undefined))}
         >
           <SelectTrigger className="h-12 bg-muted/30 border-primary/20 hover:border-primary/40 transition-colors">
             <SelectValue placeholder="Select a beautiful font..." />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">
-            {/* @ts-ignore */}
+            {/* @ts-expect-error - BaseUI needs this */}
             <SelectItem value="default" label="Default System Font" textValue="Default System Font" className="py-3">
               <span className="font-semibold text-foreground/80">Default System Font</span>
             </SelectItem>
             {FONT_OPTIONS.map((font) => (
-              /* @ts-ignore */
+              /* @ts-expect-error - BaseUI needs this */
               <SelectItem key={font.id} value={font.id} label={font.label} textValue={font.label} className="py-3 cursor-pointer">
                 <div className="flex flex-col gap-1">
                   <span className="font-medium text-xs text-muted-foreground uppercase tracking-wider">{font.label}</span>
@@ -96,6 +96,7 @@ export function HeroEditor({ block }: { block: HeroBlock }) {
         
         {data.localAvatarBase64 ? (
           <div className="relative inline-block border rounded-lg p-2 bg-background">
+            { }
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={data.localAvatarBase64} alt="Avatar Preview" className="h-16 w-16 object-cover rounded-full" />
             <Button 

@@ -188,6 +188,7 @@ export function ProjectsEditor({ block }: { block: FeaturedProjectsBlock }) {
             <Label>Project Image / GIF preview</Label>
             {project.localImageBase64 ? (
               <div className="relative inline-block border rounded-lg p-2 bg-background">
+                { }
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={project.localImageBase64} alt="Project Preview" className="h-20 object-cover rounded" />
                 <Button 

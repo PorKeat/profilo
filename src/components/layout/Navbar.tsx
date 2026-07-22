@@ -92,6 +92,7 @@ export function Navbar() {
               transition={{ duration: 0.5 }}
               className="flex items-center justify-center -mr-1"
             >
+              { }
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.png" alt="Profilo" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
             </motion.div>

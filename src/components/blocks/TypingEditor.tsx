@@ -9,7 +9,7 @@ import { ColorPicker } from '@/components/ui/color-picker';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap, Type, Lightbulb, Gamepad2, Binary, Sparkles } from 'lucide-react';
+import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap, Type, Lightbulb, Gamepad2, Binary } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FONT_OPTIONS } from '@/lib/constants/fonts';
 
@@ -125,12 +125,12 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
             <SelectValue placeholder="Select a beautiful font..." />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">
-            {/* @ts-ignore */}
+            {/* @ts-expect-error - BaseUI needs this */}
             <SelectItem value="default" label="Default System Font" textValue="Default System Font" className="py-3">
               <span className="font-semibold text-foreground/80">Default System Font</span>
             </SelectItem>
             {FONT_OPTIONS.map((font) => (
-              /* @ts-ignore */
+              /* @ts-expect-error - BaseUI needs this */
               <SelectItem key={font.id} value={font.id} label={font.label} textValue={font.label} className="py-3 cursor-pointer">
                 <div className="flex flex-col gap-1">
                   <span className="font-medium text-xs text-muted-foreground uppercase tracking-wider">{font.label}</span>

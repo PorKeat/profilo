@@ -1,6 +1,6 @@
 'use client';
 
-/* eslint-disable @next/next/no-img-element */
+ 
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -367,6 +367,7 @@ function TechIcon({ name }: { name: string }) {
       >
         {showLogo ? (
           <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={lightLogo}
               alt=""
@@ -378,16 +379,19 @@ function TechIcon({ name }: { name: string }) {
               }}
             />
             {darkLogo && darkLogo !== lightLogo ? (
-              <img
-                src={darkLogo}
-                alt=""
-                loading="lazy"
-                className="hidden h-6 w-6 object-contain dark:block"
-                onError={(event) => {
-                  event.currentTarget.style.display = 'none';
-                  setLogoFailed(true);
-                }}
-              />
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={darkLogo}
+                  alt=""
+                  loading="lazy"
+                  className="hidden h-6 w-6 object-contain dark:block"
+                  onError={(event) => {
+                    event.currentTarget.style.display = 'none';
+                    setLogoFailed(true);
+                  }}
+                />
+              </>
             ) : null}
           </>
         ) : FallbackIcon ? (
