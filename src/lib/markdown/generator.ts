@@ -135,6 +135,18 @@ function getActivityGraphColorParams(themeId: ThemeId): string {
   }
 }
 
+function mapToGoogleFont(id?: string, defaultFont: string = 'Inter'): string {
+  switch(id) {
+    case 'modern-sans': return 'Inter';
+    case 'developer-mono': return 'Fira+Code';
+    case 'elegant-serif': return 'Playfair+Display';
+    case 'bold-impact': return 'Oswald';
+    case 'playful': return 'Fredoka+One';
+    case 'classic-sans': return 'Open+Sans';
+    default: return defaultFont;
+  }
+}
+
 function generateSectionTitle(defaultTitle: string, title?: string, color?: string): string {
   const finalTitle = title || defaultTitle;
   if (color && color.trim() !== '') {
@@ -249,14 +261,16 @@ function generateHero(block: HeroBlock, isPreview: boolean): string {
   
   if (nameColor && nameColor.trim() !== '') {
     const cleanColor = nameColor.replace('#', '');
-    md += `  <h1><img src="https://readme-typing-svg.demolab.com?font=Inter&weight=800&size=32&duration=1&pause=1000&color=${cleanColor}&center=true&vCenter=true&width=500&lines=Hi+there,+I'm+${encodeURIComponent(name)}+%F0%9F%91%8B" alt="Hi there, I'm ${name} 👋" /></h1>\n`;
+    const googleFont = mapToGoogleFont(block.data.fontFamily, 'Inter');
+    md += `  <h1><img src="https://readme-typing-svg.demolab.com?font=${googleFont}&weight=800&size=32&duration=1&pause=1000&color=${cleanColor}&center=true&vCenter=true&width=500&lines=Hi+there,+I'm+${encodeURIComponent(name)}+%F0%9F%91%8B" alt="Hi there, I'm ${name} 👋" /></h1>\n`;
   } else {
     md += `  <h1>Hi there, I'm ${name} 👋</h1>\n`;
   }
 
   if (titleColor && titleColor.trim() !== '') {
     const cleanColor = titleColor.replace('#', '');
-    md += `  <h3><img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=20&duration=1&pause=1000&color=${cleanColor}&center=true&vCenter=true&width=500&lines=${encodeURIComponent(title)}" alt="${title}" /></h3>\n`;
+    const googleFont = mapToGoogleFont(block.data.fontFamily, 'Inter');
+    md += `  <h3><img src="https://readme-typing-svg.demolab.com?font=${googleFont}&weight=600&size=20&duration=1&pause=1000&color=${cleanColor}&center=true&vCenter=true&width=500&lines=${encodeURIComponent(title)}" alt="${title}" /></h3>\n`;
   } else {
     md += `  <h3>${title}</h3>\n`;
   }
@@ -286,9 +300,10 @@ function generateTyping(block: TypingBlock, isPreview: boolean): string {
   
   if (!style || style === 'typewriter') {
     const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
+    const googleFont = mapToGoogleFont(block.data.fontFamily, 'Fira+Code');
     let md = `<div align="center">\n`;
     md += `  <a href="https://git.io/typing-svg">\n`;
-    md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${cleanColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
+    md += `    <img src="https://readme-typing-svg.demolab.com?font=${googleFont}&weight=500&size=${size}&pause=1000&color=${cleanColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
     md += `  </a>\n`;
     md += `</div>\n`;
     return md;
@@ -949,7 +964,8 @@ function generateTerminal(block: TerminalBlock): string {
   
   if (lines && lines.length > 0) {
     const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
-    md += `        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&pause=1000&color=${cleanColor}&width=560&lines=${safeLines}" alt="Typing SVG" />\n`;
+    const googleFont = mapToGoogleFont(block.data.fontFamily, 'Fira+Code');
+    md += `        <img src="https://readme-typing-svg.demolab.com?font=${googleFont}&weight=500&size=16&pause=1000&color=${cleanColor}&width=560&lines=${safeLines}" alt="Typing SVG" />\n`;
   }
   
   md += `      </td>\n`;
