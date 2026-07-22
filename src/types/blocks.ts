@@ -61,8 +61,11 @@ export interface BannerBlock extends BaseBlock {
 export interface TypingBlock extends BaseBlock {
   type: 'typing';
   data: {
+    style?: 'typewriter' | 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch';
+    text?: string;
     lines: string[];
     color: string;
+    background?: string;
     size: number;
     center: boolean;
     vCenter: boolean;

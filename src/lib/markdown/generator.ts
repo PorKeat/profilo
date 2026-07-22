@@ -51,7 +51,7 @@ function generateBlockMarkdown(block: Block, themeId: ThemeId, isPreview: boolea
     case 'banner':
       return generateBanner(block);
     case 'typing':
-      return generateTyping(block);
+      return generateTyping(block as TypingBlock, isPreview);
     case 'about':
       return generateAbout(block, themeId);
     case 'skills':
@@ -278,14 +278,36 @@ function generateBanner(block: BannerBlock): string {
   return md;
 }
 
-function generateTyping(block: TypingBlock): string {
-  const { lines, size, center, vCenter, color } = block.data;
-  const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
+function generateTyping(block: TypingBlock, isPreview: boolean): string {
+  const { lines, size, center, vCenter, color, style, text, background } = block.data;
   const cleanColor = (color || 'ff0000').replace('#', '');
+  
+  if (!style || style === 'typewriter') {
+    const safeLines = lines.map(l => encodeURIComponent(l)).join(';');
+    let md = `<div align="center">\n`;
+    md += `  <a href="https://git.io/typing-svg">\n`;
+    md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${cleanColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
+    md += `  </a>\n`;
+    md += `</div>\n`;
+    return md;
+  }
+
+  // Handle dynamic text SVGs
+  const currentText = text || (lines ? lines.join('\\n') : '');
+  const cleanBg = (background || '0d1117').replace('#', '');
+  const query = new URLSearchParams({
+    style,
+    text: currentText,
+    color: cleanColor,
+    bg: cleanBg,
+    fs: String(size || 16)
+  });
+  
+  // Use relative URL for preview to avoid CORS/production sync issues
+  const baseUrl = isPreview ? '' : 'https://profilo.app';
+  
   let md = `<div align="center">\n`;
-  md += `  <a href="https://git.io/typing-svg">\n`;
-  md += `    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=${size}&pause=1000&color=${cleanColor}&center=${center}&vCenter=${vCenter}&width=600&lines=${safeLines}" alt="Typing SVG" />\n`;
-  md += `  </a>\n`;
+  md += `  <img src="${baseUrl}/api/svg/dynamic-text?${query.toString()}" alt="Dynamic Text SVG" />\n`;
   md += `</div>\n`;
   return md;
 }

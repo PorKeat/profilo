@@ -63,7 +63,7 @@ export function BuilderCommandPalette() {
         </CommandGroup>
 
         <CommandGroup heading="Widgets & Animations">
-          <CommandItem onSelect={() => handleSelect('typing')}><Type className="mr-2 h-4 w-4" /> Typing Animation</CommandItem>
+          <CommandItem onSelect={() => handleSelect('typing')}><Type className="mr-2 h-4 w-4" /> Dynamic Text (Code, Terminal, Marquee)</CommandItem>
           <CommandItem onSelect={() => handleSelect('banner')}><ImageIcon className="mr-2 h-4 w-4" /> Waving Banner</CommandItem>
           <CommandItem onSelect={() => handleSelect('snake')}><PlaySquare className="mr-2 h-4 w-4" /> Snake Animation</CommandItem>
           <CommandItem onSelect={() => handleSelect('pacman')}><Gamepad2 className="mr-2 h-4 w-4" /> Pacman Animation</CommandItem>
