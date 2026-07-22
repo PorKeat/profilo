@@ -303,6 +303,10 @@ function generateTyping(block: TypingBlock, isPreview: boolean): string {
     fs: String(size || 16)
   });
   
+  if (isPreview) {
+    query.append('v', String(Date.now()));
+  }
+  
   // Use relative URL for preview to avoid CORS/production sync issues
   const baseUrl = isPreview ? '' : 'https://profilo.app';
   
