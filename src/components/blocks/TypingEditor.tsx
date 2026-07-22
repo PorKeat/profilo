@@ -8,8 +8,10 @@ import { Label } from '@/components/ui/label';
 import { ColorPicker } from '@/components/ui/color-picker';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { FONT_OPTIONS } from '@/lib/constants/fonts';
 
 const ANIMATION_STYLES = [
   { id: 'typewriter', name: 'Typewriter', icon: AlignLeft, desc: 'Classic typing' },
@@ -105,6 +107,26 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
             onChange={(e) => handleChange('size', parseInt(e.target.value) || 24)} 
           />
         </div>
+      </div>
+
+      <div className="space-y-2 pt-2">
+        <Label>Font Family</Label>
+        <Select
+          value={data.fontFamily || 'default'}
+          onValueChange={(val) => handleChange('fontFamily', val === 'default' ? undefined : val)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select a font family" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="default">Default Font</SelectItem>
+            {FONT_OPTIONS.map((font) => (
+              <SelectItem key={font.id} value={font.id}>
+                {font.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       {(!data.style || data.style === 'typewriter') && (

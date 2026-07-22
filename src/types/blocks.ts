@@ -9,6 +9,7 @@ export interface BaseBlock {
 export interface HeroBlock extends BaseBlock {
   type: 'hero';
   data: {
+    fontFamily?: string;
     name: string;
     title: string;
     shortIntro: string;
@@ -23,6 +24,7 @@ export interface HeroBlock extends BaseBlock {
 export interface PremiumHeroBlock extends BaseBlock {
   type: 'premium-hero';
   data: {
+    fontFamily?: string;
     name: string;
     titles: string[];
     sectionTitleColor?: string;
@@ -63,6 +65,7 @@ export interface TypingBlock extends BaseBlock {
   data: {
     style?: 'typewriter' | 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch';
     direction?: 'normal' | 'reverse';
+    fontFamily?: string;
     text?: string;
     lines: string[];
     color: string;
@@ -284,9 +287,6 @@ export interface ExperienceBlock extends BaseBlock {
     sectionTitleColor?: string;
     iconColor?: string;
     jobs: Experience[];
-  };
-}
-
 export interface QuoteBlock extends BaseBlock {
   type: 'quote';
   data: {

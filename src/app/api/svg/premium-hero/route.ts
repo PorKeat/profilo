@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
   const focus = searchParams.get('focus') || 'Building cool things';
   const portfolio = searchParams.get('portfolio') || 'https://yourwebsite.com';
   const email = searchParams.get('email') || 'hello@yourwebsite.com';
+  const font = searchParams.get('font') || undefined;
   
   // Socials
   const github = searchParams.get('github') || '';
@@ -70,7 +71,7 @@ export async function GET(req: NextRequest) {
     name, titles, location, education, focus, portfolio, email, skills,
     github, linkedin, twitter, theme,
     accent1: customAccent1, accent2: customAccent2, accent3: customAccent3, style,
-    avatarBase64
+    avatarBase64, fontFamily: font
   });
 
   return new NextResponse(svg, {

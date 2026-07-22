@@ -191,7 +191,8 @@ function generatePremiumHero(block: PremiumHeroBlock, isPreview: boolean, previe
       accent2: data.iconColor,
       accent3: data.accent3,
       style: data.style || 'gradient',
-      avatarBase64: data.localAvatarBase64
+      avatarBase64: data.localAvatarBase64,
+      fontFamily: data.fontFamily
     });
     
     // We can embed the raw SVG straight into markdown, and rehype-raw will render it!
@@ -222,6 +223,7 @@ function generatePremiumHero(block: PremiumHeroBlock, isPreview: boolean, previe
   if (data.accent3) params.append('accent3', data.accent3.replace('#', ''));
   if (data.style) params.append('style', data.style);
   if (data.avatarUrl) params.append('avatarUrl', data.avatarUrl);
+  if (data.fontFamily) params.append('font', data.fontFamily);
 
   const query = params.toString();
   
@@ -305,6 +307,10 @@ function generateTyping(block: TypingBlock, isPreview: boolean): string {
   
   if (direction && direction !== 'normal') {
     query.append('dir', direction);
+  }
+  
+  if (block.data.fontFamily) {
+    query.append('font', block.data.fontFamily);
   }
   
   if (isPreview) {

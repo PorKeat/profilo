@@ -1,3 +1,5 @@
+import { getFontStack } from '../constants/fonts';
+
 export interface PremiumHeroSvgProps {
   name: string;
   titles: string[];
@@ -16,17 +18,19 @@ export interface PremiumHeroSvgProps {
   accent3?: string;
   style?: 'solid' | 'gradient';
   avatarBase64?: string;
+  fontFamily?: string;
 }
 
 export function generatePremiumHeroSvg(props: PremiumHeroSvgProps): string {
   const {
     name, titles, location, education, focus, portfolio, email, skills,
     theme, accent1: customAccent1, accent2: customAccent2, accent3: customAccent3, style, 
-    avatarBase64
+    avatarBase64, fontFamily
   } = props;
 
   const isDark = theme === 'dark';
   const isSolid = style === 'solid';
+  const fontStack = getFontStack(fontFamily, 'system-ui, -apple-system, sans-serif');
 
   // Theme colors
   const bg = isDark ? '#030712' : '#FFFFFF';
@@ -138,7 +142,7 @@ export function generatePremiumHeroSvg(props: PremiumHeroSvgProps): string {
 
   <style>
     .font-mono { font-family: 'SF Mono', Consolas, Menlo, monospace; }
-    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    .font-sans { font-family: ${fontStack}; }
     
     .typing-text {
       font-family: 'SF Mono', Consolas, Menlo, monospace;

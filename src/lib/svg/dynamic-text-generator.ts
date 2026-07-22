@@ -1,3 +1,5 @@
+import { getFontStack } from '../constants/fonts';
+
 export interface DynamicTextSvgProps {
   style: 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch';
   text: string;
@@ -7,6 +9,7 @@ export interface DynamicTextSvgProps {
   height?: number;
   fontSize?: number;
   direction?: 'normal' | 'reverse';
+  fontFamily?: string;
 }
 
 export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
@@ -18,34 +21,35 @@ export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
     width = 800,
     height = 400,
     fontSize = 16,
-    direction = 'normal'
+    direction = 'normal',
+    fontFamily
   } = props;
 
-  const lines = text.split('\\n').filter(l => l.trim().length > 0 || l === '');
+  const lines = text.split('\n').filter(l => l.trim().length > 0 || l === '');
   const cleanColor = color.startsWith('#') ? color : `#${color}`;
   const cleanBg = background.startsWith('#') ? background : `#${background}`;
 
   switch (style) {
     case 'code-editor':
-      return generateCodeEditor(lines, cleanColor, cleanBg, width, Math.max(height, lines.length * (fontSize * 1.5) + 60), fontSize);
+      return generateCodeEditor(lines, cleanColor, cleanBg, width, Math.max(height, lines.length * (fontSize * 1.5) + 60), fontSize, fontFamily);
     case 'terminal-scroll':
-      return generateTerminalScroll(lines, cleanColor, cleanBg, width, height, fontSize);
+      return generateTerminalScroll(lines, cleanColor, cleanBg, width, height, fontSize, fontFamily);
     case 'marquee':
-      return generateMarquee(lines.join(' • '), cleanColor, cleanBg, width, 60, fontSize + 4, direction);
+      return generateMarquee(lines.join(' • '), cleanColor, cleanBg, width, 60, fontSize + 4, direction, fontFamily);
     case 'vertical-scroll':
-      return generateVerticalScroll(lines, cleanColor, cleanBg, width, height, fontSize, direction);
+      return generateVerticalScroll(lines, cleanColor, cleanBg, width, height, fontSize, direction, fontFamily);
     case 'glitch':
-      return generateGlitch(lines.join(' '), cleanColor, cleanBg, width, 120, fontSize + 8);
+      return generateGlitch(lines.join(' '), cleanColor, cleanBg, width, 120, fontSize + 8, fontFamily);
     default:
-      return generateMarquee('Invalid Style', '#ff0000', cleanBg, width, 60, fontSize, 'normal');
+      return generateMarquee('Invalid Style', '#ff0000', cleanBg, width, 60, fontSize, 'normal', fontFamily);
   }
 }
 
-function generateCodeEditor(lines: string[], color: string, bg: string, w: number, h: number, fs: number): string {
+function generateCodeEditor(lines: string[], color: string, bg: string, w: number, h: number, fs: number, fontId?: string): string {
   const lineHeight = fs * 1.5;
   let textElements = '';
   let styles = '';
-  const fontStack = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace";
+  const fontStack = getFontStack(fontId, "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace");
 
   lines.forEach((line, i) => {
     const y = 70 + i * lineHeight;
@@ -100,16 +104,17 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
   `.trim();
 }
 
-function generateMarquee(text: string, color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse'): string {
+function generateMarquee(text: string, color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse', fontId?: string): string {
   const from = dir === 'normal' ? `${w}px` : '-100%';
   const to = dir === 'normal' ? '-100%' : `${w}px`;
+  const fontStack = getFontStack(fontId, 'system-ui, -apple-system, sans-serif');
   
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
       <style>
         .marquee {
           animation: scroll 15s linear infinite;
-          font-family: system-ui, -apple-system, sans-serif;
+          font-family: ${fontStack};
           font-weight: 700;
           font-size: ${fs}px;
           fill: ${color};
@@ -125,15 +130,16 @@ function generateMarquee(text: string, color: string, bg: string, w: number, h: 
   `.trim();
 }
 
-function generateVerticalScroll(lines: string[], color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse'): string {
+function generateVerticalScroll(lines: string[], color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse', fontId?: string): string {
   const lineHeight = fs * 1.6;
   const totalHeight = lines.length * lineHeight;
+  const fontStack = getFontStack(fontId, 'system-ui, -apple-system, sans-serif');
   
   const from = dir === 'normal' ? h : -totalHeight;
   const to = dir === 'normal' ? -totalHeight : h;
   
   const textElements = lines.map((line, i) => {
-    return `<text x="50%" y="${i * lineHeight}" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="${fs}" fill="${color}">${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</text>`;
+    return `<text x="50%" y="${i * lineHeight}" text-anchor="middle" font-family="${fontStack}" font-size="${fs}" fill="${color}">${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</text>`;
   }).join('');
 
   return `
@@ -166,13 +172,13 @@ function generateVerticalScroll(lines: string[], color: string, bg: string, w: n
   `.trim();
 }
 
-function generateTerminalScroll(lines: string[], color: string, bg: string, w: number, h: number, fs: number): string {
+function generateTerminalScroll(lines: string[], color: string, bg: string, w: number, h: number, fs: number, fontId?: string): string {
   const lineHeight = fs * 1.5;
   const totalHeight = lines.length * lineHeight;
   
   let styles = '';
   let textElements = '';
-  const fontStack = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace";
+  const fontStack = getFontStack(fontId, "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace");
   
   lines.forEach((line, i) => {
     const y = 70 + i * lineHeight;
@@ -230,12 +236,13 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
   `.trim();
 }
 
-function generateGlitch(text: string, color: string, bg: string, w: number, h: number, fs: number): string {
+function generateGlitch(text: string, color: string, bg: string, w: number, h: number, fs: number, fontId?: string): string {
+  const fontStack = getFontStack(fontId, 'system-ui, -apple-system, sans-serif');
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
       <style>
         .glitch {
-          font-family: system-ui, -apple-system, sans-serif;
+          font-family: ${fontStack};
           font-weight: 900;
           font-size: ${fs}px;
           text-anchor: middle;

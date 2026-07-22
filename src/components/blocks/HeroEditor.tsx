@@ -8,7 +8,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { ColorPicker } from '@/components/ui/color-picker';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { X } from 'lucide-react';
+import { FONT_OPTIONS } from '@/lib/constants/fonts';
 
 export function HeroEditor({ block }: { block: HeroBlock }) {
   const dispatch = useAppDispatch();
@@ -37,6 +39,26 @@ export function HeroEditor({ block }: { block: HeroBlock }) {
 
   return (
     <div className="space-y-6 text-left">
+      <div className="space-y-2">
+        <Label>Font Family</Label>
+        <Select
+          value={data.fontFamily || 'default'}
+          onValueChange={(val) => handleChange('fontFamily', val === 'default' ? undefined : val)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select a font family" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="default">Default Font</SelectItem>
+            {FONT_OPTIONS.map((font) => (
+              <SelectItem key={font.id} value={font.id}>
+                {font.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
       <div className="space-y-2">
         <Label>Name</Label>
         <MarkdownInput value={data.name} onChange={(val) => handleChange('name', val)} placeholder="John Doe" />
