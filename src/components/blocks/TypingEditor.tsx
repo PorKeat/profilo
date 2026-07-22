@@ -127,6 +127,19 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
           </div>
         </div>
       )}
+
+      {(data.style === 'marquee' || data.style === 'vertical-scroll') && (
+        <div className="space-y-4 pt-2">
+          <div className="flex items-center justify-between space-x-2 border p-3 rounded-lg">
+            <Label htmlFor="reverse" className="flex-1 cursor-pointer">Reverse Scroll Direction</Label>
+            <Switch 
+              id="reverse" 
+              checked={data.direction === 'reverse'} 
+              onCheckedChange={(checked) => handleChange('direction', checked ? 'reverse' : 'normal')} 
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

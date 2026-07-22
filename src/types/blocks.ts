@@ -62,6 +62,7 @@ export interface TypingBlock extends BaseBlock {
   type: 'typing';
   data: {
     style?: 'typewriter' | 'code-editor' | 'terminal-scroll' | 'marquee' | 'vertical-scroll' | 'glitch';
+    direction?: 'normal' | 'reverse';
     text?: string;
     lines: string[];
     color: string;

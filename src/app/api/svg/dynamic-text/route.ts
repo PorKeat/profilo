@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   const width = parseInt(searchParams.get('w') || '800', 10);
   const height = parseInt(searchParams.get('h') || '400', 10);
   const fontSize = parseInt(searchParams.get('fs') || '16', 10);
+  const direction = (searchParams.get('dir') || 'normal') as 'normal' | 'reverse';
 
   const svg = generateDynamicTextSvg({
     style,
@@ -19,7 +20,8 @@ export async function GET(req: NextRequest) {
     background,
     width,
     height,
-    fontSize
+    fontSize,
+    direction
   });
 
   return new NextResponse(svg, {

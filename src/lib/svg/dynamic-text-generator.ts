@@ -6,6 +6,7 @@ export interface DynamicTextSvgProps {
   width?: number;
   height?: number;
   fontSize?: number;
+  direction?: 'normal' | 'reverse';
 }
 
 export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
@@ -17,6 +18,7 @@ export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
     width = 800,
     height = 400,
     fontSize = 16,
+    direction = 'normal'
   } = props;
 
   const lines = text.split('\\n').filter(l => l.trim().length > 0 || l === '');
@@ -29,13 +31,13 @@ export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
     case 'terminal-scroll':
       return generateTerminalScroll(lines, cleanColor, cleanBg, width, height, fontSize);
     case 'marquee':
-      return generateMarquee(lines.join(' • '), cleanColor, cleanBg, width, 60, fontSize + 4);
+      return generateMarquee(lines.join(' • '), cleanColor, cleanBg, width, 60, fontSize + 4, direction);
     case 'vertical-scroll':
-      return generateVerticalScroll(lines, cleanColor, cleanBg, width, height, fontSize);
+      return generateVerticalScroll(lines, cleanColor, cleanBg, width, height, fontSize, direction);
     case 'glitch':
       return generateGlitch(lines.join(' '), cleanColor, cleanBg, width, 120, fontSize + 8);
     default:
-      return generateMarquee('Invalid Style', '#ff0000', cleanBg, width, 60, fontSize);
+      return generateMarquee('Invalid Style', '#ff0000', cleanBg, width, 60, fontSize, 'normal');
   }
 }
 
@@ -98,7 +100,10 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
   `.trim();
 }
 
-function generateMarquee(text: string, color: string, bg: string, w: number, h: number, fs: number): string {
+function generateMarquee(text: string, color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse'): string {
+  const from = dir === 'normal' ? w : -100;
+  const to = dir === 'normal' ? -100 : w;
+  
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
       <style>
@@ -110,8 +115,8 @@ function generateMarquee(text: string, color: string, bg: string, w: number, h: 
           fill: ${color};
         }
         @keyframes scroll {
-          0% { transform: translateX(${w}px); }
-          100% { transform: translateX(-100%); }
+          0% { transform: translateX(${from}px); }
+          100% { transform: translateX(${to}%); }
         }
       </style>
       <rect width="100%" height="100%" fill="${bg}" rx="8" />
@@ -120,9 +125,12 @@ function generateMarquee(text: string, color: string, bg: string, w: number, h: 
   `.trim();
 }
 
-function generateVerticalScroll(lines: string[], color: string, bg: string, w: number, h: number, fs: number): string {
+function generateVerticalScroll(lines: string[], color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse'): string {
   const lineHeight = fs * 1.6;
   const totalHeight = lines.length * lineHeight;
+  
+  const from = dir === 'normal' ? h : -totalHeight;
+  const to = dir === 'normal' ? -totalHeight : h;
   
   const textElements = lines.map((line, i) => {
     return `<text x="50%" y="${i * lineHeight}" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="${fs}" fill="${color}">${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</text>`;
@@ -135,8 +143,8 @@ function generateVerticalScroll(lines: string[], color: string, bg: string, w: n
           animation: vscroll 20s linear infinite;
         }
         @keyframes vscroll {
-          0% { transform: translateY(${h}px); }
-          100% { transform: translateY(-${totalHeight}px); }
+          0% { transform: translateY(${from}px); }
+          100% { transform: translateY(${to}px); }
         }
       </style>
       <rect width="100%" height="100%" fill="${bg}" rx="12" />

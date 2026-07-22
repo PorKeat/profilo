@@ -279,7 +279,7 @@ function generateBanner(block: BannerBlock): string {
 }
 
 function generateTyping(block: TypingBlock, isPreview: boolean): string {
-  const { lines, size, center, vCenter, color, style, text, background } = block.data;
+  const { lines, size, center, vCenter, color, style, text, background, direction } = block.data;
   const cleanColor = (color || 'ff0000').replace('#', '');
   
   if (!style || style === 'typewriter') {
@@ -302,6 +302,10 @@ function generateTyping(block: TypingBlock, isPreview: boolean): string {
     bg: cleanBg,
     fs: String(size || 16)
   });
+  
+  if (direction && direction !== 'normal') {
+    query.append('dir', direction);
+  }
   
   if (isPreview) {
     query.append('v', String(Date.now()));
