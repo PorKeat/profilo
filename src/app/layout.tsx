@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-// @ts-expect-error - BaseUI needs this: side-effect import for global CSS (handled by Next.js)
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { StoreProvider } from "@/store/Provider";
