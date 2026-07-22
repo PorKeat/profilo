@@ -9,7 +9,7 @@ import { ColorPicker } from '@/components/ui/color-picker';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap } from 'lucide-react';
+import { Terminal, Code, AlignLeft, MoveRight, ArrowDownToLine, Zap, Type } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FONT_OPTIONS } from '@/lib/constants/fonts';
 
@@ -110,19 +110,29 @@ export function TypingEditor({ block }: { block: TypingBlock }) {
       </div>
 
       <div className="space-y-2 pt-2">
-        <Label>Font Family</Label>
+        <Label className="flex items-center gap-2">
+          <Type className="w-4 h-4 text-primary" />
+          Typography
+        </Label>
         <Select
           value={data.fontFamily || 'default'}
           onValueChange={(val) => handleChange('fontFamily', val === 'default' ? undefined : val)}
         >
-          <SelectTrigger>
-            <SelectValue placeholder="Select a font family" />
+          <SelectTrigger className="h-12 bg-muted/30 border-primary/20 hover:border-primary/40 transition-colors">
+            <SelectValue placeholder="Select a beautiful font..." />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="default">Default Font</SelectItem>
+          <SelectContent className="max-h-[300px]">
+            <SelectItem value="default" className="py-3">
+              <span className="font-semibold text-foreground/80">Default System Font</span>
+            </SelectItem>
             {FONT_OPTIONS.map((font) => (
-              <SelectItem key={font.id} value={font.id}>
-                {font.label}
+              <SelectItem key={font.id} value={font.id} className="py-3 cursor-pointer">
+                <div className="flex flex-col gap-1">
+                  <span className="font-medium text-xs text-muted-foreground uppercase tracking-wider">{font.label}</span>
+                  <span className="text-lg text-foreground" style={{ fontFamily: font.stack }}>
+                    The quick brown fox jumps
+                  </span>
+                </div>
               </SelectItem>
             ))}
           </SelectContent>

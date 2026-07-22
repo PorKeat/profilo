@@ -39,7 +39,7 @@ export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
     case 'vertical-scroll':
       return generateVerticalScroll(lines, cleanColor, cleanBg, width, height, fontSize, direction, fontFamily);
     case 'glitch':
-      return generateGlitch(lines.join(' '), cleanColor, cleanBg, width, 120, fontSize + 8, fontFamily);
+      return generateGlitch(lines.join(' • '), cleanColor, cleanBg, width, 120, fontSize + 8, fontFamily);
     default:
       return generateMarquee('Invalid Style', '#ff0000', cleanBg, width, 60, fontSize, 'normal', fontFamily);
   }
