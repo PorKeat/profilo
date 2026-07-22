@@ -42,23 +42,24 @@ export function generateDynamicTextSvg(props: DynamicTextSvgProps): string {
 function generateCodeEditor(lines: string[], color: string, bg: string, w: number, h: number, fs: number): string {
   const lineHeight = fs * 1.5;
   let textElements = '';
-  let clipPaths = '';
+  let styles = '';
 
   lines.forEach((line, i) => {
     const y = 60 + i * lineHeight;
-    // Each line takes 2s to type, starts after the previous line finishes
     const begin = i * 1.5;
     const dur = 1.5;
     
-    // We estimate line width by character count (~0.6 * fontSize per char)
-    const estimatedWidth = Math.max(line.length * fs * 0.7, 50);
-
-    clipPaths += `
-      <clipPath id="clip-line-${i}">
-        <rect x="20" y="${y - fs}" width="0" height="${fs * 1.5}">
-          <animate attributeName="width" from="0" to="${estimatedWidth + 20}" dur="${dur}s" begin="${begin}s" fill="freeze" />
-        </rect>
-      </clipPath>
+    // CSS-based typing effect using clip-path inset (top right bottom left)
+    // 0 100% 0 0 completely hides it by clipping 100% from the right
+    styles += `
+      .line-${i} {
+        clip-path: inset(0 100% 0 0);
+        animation: type-${i} ${dur}s steps(40, end) ${begin}s forwards;
+      }
+      @keyframes type-${i} {
+        from { clip-path: inset(0 100% 0 0); }
+        to { clip-path: inset(0 0 0 0); }
+      }
     `;
 
     // Simple syntax highlighting heuristic for Javascript/Typescript-like code
@@ -74,7 +75,7 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
     formattedLine = formattedLine.replace(/(['"].*?['"])/g, '<tspan fill="#a5d6ff">$1</tspan>');
 
     textElements += `
-      <text x="20" y="${y}" font-family="monospace" font-size="${fs}" fill="${color}" clip-path="url(#clip-line-${i})">
+      <text x="20" y="${y}" class="line-${i}" font-family="monospace" font-size="${fs}" fill="${color}">
         ${formattedLine}
       </text>
     `;
@@ -82,15 +83,12 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
 
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <style>${styles}</style>
       <rect width="100%" height="100%" rx="12" fill="${bg}" stroke="#30363d" stroke-width="1"/>
       <!-- Mac Window Controls -->
       <circle cx="20" cy="20" r="6" fill="#ff5f56" />
       <circle cx="40" cy="20" r="6" fill="#ffbd2e" />
       <circle cx="60" cy="20" r="6" fill="#27c93f" />
-      
-      <defs>
-        ${clipPaths}
-      </defs>
       
       <g>
         ${textElements}
@@ -163,24 +161,26 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
   const lineHeight = fs * 1.5;
   const totalHeight = lines.length * lineHeight;
   
-  let clipPaths = '';
+  let styles = '';
   let textElements = '';
   
   lines.forEach((line, i) => {
     const y = 40 + i * lineHeight;
     const begin = i * 0.5;
-    const estimatedWidth = Math.max(line.length * fs * 0.7, 50);
 
-    clipPaths += `
-      <clipPath id="term-clip-${i}">
-        <rect x="20" y="${y - fs}" width="0" height="${fs * 1.5}">
-          <animate attributeName="width" from="0" to="${estimatedWidth + 20}" dur="0.5s" begin="${begin}s" fill="freeze" />
-        </rect>
-      </clipPath>
+    styles += `
+      .term-line-${i} {
+        clip-path: inset(0 100% 0 0);
+        animation: term-type-${i} 0.5s steps(40, end) ${begin}s forwards;
+      }
+      @keyframes term-type-${i} {
+        from { clip-path: inset(0 100% 0 0); }
+        to { clip-path: inset(0 0 0 0); }
+      }
     `;
 
     textElements += `
-      <text x="20" y="${y}" font-family="monospace" font-size="${fs}" fill="${color}" clip-path="url(#term-clip-${i})">
+      <text x="20" y="${y}" class="term-line-${i}" font-family="monospace" font-size="${fs}" fill="${color}">
         > ${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
       </text>
     `;
@@ -192,6 +192,7 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
       <style>
+        ${styles}
         .terminal-scroll {
           animation: panup ${scrollDur}s linear infinite;
         }
@@ -203,9 +204,6 @@ function generateTerminalScroll(lines: string[], color: string, bg: string, w: n
       <rect width="100%" height="100%" fill="${bg}" rx="8" />
       <rect width="100%" height="24" fill="#30363d" rx="8" />
       <text x="10" y="16" font-family="monospace" font-size="12" fill="#8b949e">bash</text>
-      <defs>
-        ${clipPaths}
-      </defs>
       
       <g class="${maxTranslate > 0 ? 'terminal-scroll' : ''}">
         ${textElements}
