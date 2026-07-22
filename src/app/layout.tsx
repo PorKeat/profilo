@@ -16,6 +16,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
   title: "Profilo — GitHub Profile README Builder",
   description: "Drag-and-drop beautiful blocks, see live previews, and export pure Markdown. Build your GitHub README in minutes, not hours. Free, open-source, no login required.",
   keywords: ['github profile', 'readme builder', 'github readme', 'developer profile', 'markdown generator', 'github stats', 'open source'],
