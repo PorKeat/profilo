@@ -101,8 +101,8 @@ function generateCodeEditor(lines: string[], color: string, bg: string, w: numbe
 }
 
 function generateMarquee(text: string, color: string, bg: string, w: number, h: number, fs: number, dir: 'normal'|'reverse'): string {
-  const from = dir === 'normal' ? w : -100;
-  const to = dir === 'normal' ? -100 : w;
+  const from = dir === 'normal' ? `${w}px` : '-100%';
+  const to = dir === 'normal' ? '-100%' : `${w}px`;
   
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
@@ -115,8 +115,8 @@ function generateMarquee(text: string, color: string, bg: string, w: number, h: 
           fill: ${color};
         }
         @keyframes scroll {
-          0% { transform: translateX(${from}px); }
-          100% { transform: translateX(${to}%); }
+          0% { transform: translateX(${from}); }
+          100% { transform: translateX(${to}); }
         }
       </style>
       <rect width="100%" height="100%" fill="${bg}" rx="8" />
